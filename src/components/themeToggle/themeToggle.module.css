@@ -1,7 +1,6 @@
 .container {
   width: 40px;
   height: 20px;
-  border: 1px solid black;
   border-radius: 50px;
   cursor: pointer;
   display: flex;
@@ -10,7 +9,7 @@
   position: relative;
 }
 
-.ball {
+.ball{
   width: 15px;
   height: 15px;
   border-radius: 50%;

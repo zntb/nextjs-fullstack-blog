@@ -5,12 +5,10 @@
 .burger {
   width: 20px;
   height: 16px;
-  display: none;
   flex-direction: column;
   justify-content: space-between;
-  border: none;
-  background-color: transparent;
   cursor: pointer;
+  display: none;
 }
 
 .line {
@@ -19,7 +17,7 @@
   background-color: var(--textColor);
 }
 
-.responsiveMenu {
+.responsiveMenu{
   position: absolute;
   top: 100px;
   left: 0;
@@ -32,13 +30,15 @@
   justify-content: center;
   gap: 50px;
   font-size: 36px;
+  z-index: 999;
 }
 
 @media screen and (max-width: 640px) {
   .burger {
     display: flex;
   }
-  .links {
+
+  .link{
     display: none;
   }
 }

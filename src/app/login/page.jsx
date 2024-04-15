@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import styles from './loginPage.module.css';
 
 const LoginPage = () => {
-  const { status } = useSession();
+  const { data: session, status } = useSession();
   const router = useRouter();
 
   useEffect(() => {
