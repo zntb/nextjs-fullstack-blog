@@ -5,6 +5,8 @@ import styles from './categoryList.module.css';
 import Image from 'next/image';
 import React from 'react';
 
+const domain = process.env.NEXT_PUBLIC_DOMAIN;
+
 export interface Category {
   _id: string;
   title: string;
@@ -13,7 +15,7 @@ export interface Category {
 }
 
 const getData = async (): Promise<Category[]> => {
-  const res = await fetch('http://localhost:3000/api/categories', {
+  const res = await fetch(`${domain}/api/categories`, {
     cache: 'no-store',
   });
 

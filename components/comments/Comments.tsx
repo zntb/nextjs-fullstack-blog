@@ -7,6 +7,8 @@ import useSWR from 'swr';
 import { useSession } from 'next-auth/react';
 import { useState } from 'react';
 
+const domain = process.env.NEXT_PUBLIC_DOMAIN;
+
 interface Comment {
   user: {
     image: string;
@@ -32,7 +34,7 @@ const fetcher = async (url: string) => {
 const Comments: React.FC<{ postSlug: string }> = ({ postSlug }) => {
   const { data: session, status } = useSession();
   const { data, mutate, isLoading } = useSWR<Comment[]>(
-    `http://localhost:3000/api/comments?postSlug=${postSlug}`,
+    `${domain}/api/comments?postSlug=${postSlug}`,
     fetcher
   );
 

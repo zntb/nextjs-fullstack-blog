@@ -3,6 +3,8 @@ import Image from 'next/image';
 import Comments from '@/components/comments/Comments';
 import Menu from '@/components/menu/Menu';
 
+const domain = process.env.NEXT_PUBLIC_DOMAIN;
+
 interface UserData {
   name: string;
   image: string;
@@ -17,7 +19,7 @@ interface PostData {
 }
 
 const getData = async (slug: string): Promise<PostData> => {
-  const res = await fetch(`http://localhost:3000/api/posts/${slug}`, {
+  const res = await fetch(`${domain}/api/posts/${slug}`, {
     cache: 'no-store',
   });
 

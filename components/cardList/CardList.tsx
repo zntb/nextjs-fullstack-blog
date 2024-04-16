@@ -4,6 +4,8 @@ import { Category } from '../categoryList/CategoryList';
 
 import styles from './cardList.module.css';
 
+const domain = process.env.NEXT_PUBLIC_DOMAIN;
+
 interface Post {
   id: string;
   createdAt: string;
@@ -27,12 +29,9 @@ const getData = async (
   page: number,
   cat?: string
 ): Promise<{ posts: Post[]; count: number }> => {
-  const res = await fetch(
-    `http://localhost:3000/api/posts?page=${page}&cat=${cat || ''}`,
-    {
-      cache: 'no-store',
-    }
-  );
+  const res = await fetch(`${domain}/api/posts?page=${page}&cat=${cat || ''}`, {
+    cache: 'no-store',
+  });
 
   if (!res.ok) {
     throw new Error('Failed');
