@@ -1,12 +1,13 @@
 {
-  "name": "nextjs-fullstack-blog",
+  "name": "nextjs-fullstack-blog-ts",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^1.6.0",
@@ -17,13 +18,17 @@
     "react": "^18",
     "react-dom": "^18",
     "react-quill": "^2.0.0",
+    "sharp": "^0.33.3",
     "swr": "^2.2.5"
   },
   "devDependencies": {
-    "@types/node": "20.12.7",
-    "@types/react": "18.2.78",
+    "@types/node": "^20.12.7",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
     "eslint": "^8",
     "eslint-config-next": "14.2.1",
-    "prisma": "^5.12.1"
+    "prisma": "^5.12.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
   }
 }
