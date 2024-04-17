@@ -90,7 +90,8 @@ model Comment {
   userEmail String
   user      User     @relation(fields: [userEmail], references: [email])
   postSlug  String
-  post      Post     @relation(fields: [postSlug], references: [slug])
+  post      Post     @relation(fields: [postSlug], references: [slug], onDelete: Cascade)
 }
+
 
 

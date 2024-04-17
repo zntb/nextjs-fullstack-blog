@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Comments from '@/components/comments/Comments';
 import Menu from '@/components/menu/Menu';
 import { notFound } from 'next/navigation';
-
+import DeletePost from '@/components/deletePost/DeletePost';
 import styles from './singlePage.module.css';
 
 const domain = process.env.NEXT_PUBLIC_DOMAIN;
@@ -57,7 +57,7 @@ export async function generateMetadata({ params }: SinglePageProps) {
   };
 }
 
-const SinglePage: React.FC<SinglePageProps> = async ({ params }) => {
+const SinglePage = async ({ params }: SinglePageProps) => {
   const { slug } = params;
 
   const data: PostData | null = await getData(slug);
@@ -90,7 +90,9 @@ const SinglePage: React.FC<SinglePageProps> = async ({ params }) => {
               </span>
             </div>
           </div>
+          <DeletePost slug={slug} />
         </div>
+
         {data?.img && (
           <div className={styles.imageContainer}>
             <Image

@@ -1,0 +1,19 @@
+.deleteBtnContainer {
+  display: block;
+  margin-top: 50px;
+}
+
+.btnDelete {
+  padding: 10px 20px;
+  border: none;
+  color: white;
+  font-weight: bold;
+  background-color: rgb(223, 107, 107);
+  cursor: pointer;
+  border-radius: 5px;
+  transition: 0.3s;
+}
+
+.btnDelete:hover {
+  background-color: rgb(214, 88, 88);
+}
