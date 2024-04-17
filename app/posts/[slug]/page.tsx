@@ -1,7 +1,9 @@
-import styles from './singlePage.module.css';
 import Image from 'next/image';
 import Comments from '@/components/comments/Comments';
 import Menu from '@/components/menu/Menu';
+import { notFound } from 'next/navigation';
+
+import styles from './singlePage.module.css';
 
 const domain = process.env.NEXT_PUBLIC_DOMAIN;
 
@@ -18,28 +20,51 @@ interface PostData {
   desc: string;
 }
 
-const getData = async (slug: string): Promise<PostData> => {
-  const res = await fetch(`${domain}/api/posts/${slug}`, {
-    cache: 'no-store',
-  });
+const getData = async (slug: string): Promise<PostData | null> => {
+  try {
+    const response = await fetch(`${domain}/api/posts/${slug}`, {
+      cache: 'no-store',
+    });
 
-  if (!res.ok) {
-    throw new Error('Failed');
+    if (!response.ok) {
+      throw new Error('Failed to fetch data');
+    }
+
+    return response.json();
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    return null;
   }
-
-  return res.json();
 };
 
-interface SinglePageProps {
+type SinglePageProps = {
   params: {
     slug: string;
+  };
+};
+
+export async function generateMetadata({ params }: SinglePageProps) {
+  const { slug } = params;
+  const data: PostData | null = await getData(slug);
+
+  if (!data) {
+    notFound();
+  }
+
+  return {
+    title: data.title,
+    description: `Blog post from ${data.user.name}`,
   };
 }
 
 const SinglePage: React.FC<SinglePageProps> = async ({ params }) => {
   const { slug } = params;
 
-  const data: PostData = await getData(slug);
+  const data: PostData | null = await getData(slug);
+
+  if (!data) {
+    notFound();
+  }
 
   return (
     <div className={styles.container}>

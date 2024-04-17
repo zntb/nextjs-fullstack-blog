@@ -49,6 +49,48 @@ a {
   padding-right: 80px;
 }
 
+.not-found-container,
+.error-container {
+  max-height: 1080px;
+  height: calc(100vh - 22.5rem);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.not-found-title {
+  font-size: 4rem;
+  font-weight: bold;
+}
+
+.not-found-link,
+.error-link {
+  font-size: 2rem;
+  font-weight: bold;
+  color: teal;
+  cursor: pointer;
+}
+
+.not-found-text {
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.error-title {
+  font-size: 3rem;
+  color: red;
+  text-align: center;
+  font-weight: bold;
+}
+
+.error-text {
+  font-size: 1.3rem;
+  text-align: center;
+}
+
 @media screen and (max-width: 1536px) {
   .wrapper {
     max-width: 1366px;

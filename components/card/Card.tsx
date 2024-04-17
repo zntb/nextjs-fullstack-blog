@@ -4,7 +4,14 @@ import Link from 'next/link';
 
 type CardProps = {
   key: number | undefined;
-  item: any;
+  item: {
+    title: string;
+    desc: string;
+    img: string;
+    catSlug: string;
+    slug: string;
+    createdAt: string;
+  };
 };
 
 const Card = ({ key, item }: CardProps) => {
