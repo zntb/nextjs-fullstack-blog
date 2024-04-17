@@ -3,7 +3,6 @@ import styles from './card.module.css';
 import Link from 'next/link';
 
 type CardProps = {
-  key: number | undefined;
   item: {
     title: string;
     desc: string;
@@ -14,9 +13,9 @@ type CardProps = {
   };
 };
 
-const Card = ({ key, item }: CardProps) => {
+const Card = ({ item }: CardProps) => {
   return (
-    <div className={styles.container} key={key}>
+    <div className={styles.container}>
       {item.img && (
         <div className={styles.imageContainer}>
           <Image
