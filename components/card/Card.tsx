@@ -7,7 +7,7 @@ type CardProps = {
   item: {
     title: string;
     desc: string;
-    img: string;
+    img?: string | null;
     catSlug: string;
     slug: string;
     createdAt: string;

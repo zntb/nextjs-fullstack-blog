@@ -7,18 +7,18 @@ import styles from './singlePage.module.css';
 
 const domain = process.env.NEXT_PUBLIC_DOMAIN;
 
-interface UserData {
+type UserData = {
   name: string;
   image: string;
-}
+};
 
-interface PostData {
+type PostData = {
   title: string;
   user: UserData;
   createdAt: string;
-  img: string;
+  img?: string | null;
   desc: string;
-}
+};
 
 const getData = async (slug: string): Promise<PostData | null> => {
   try {

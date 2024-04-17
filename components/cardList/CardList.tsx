@@ -6,7 +6,7 @@ import styles from './cardList.module.css';
 
 const domain = process.env.NEXT_PUBLIC_DOMAIN;
 
-interface Post {
+type Post = {
   id: string;
   createdAt: string;
   slug: string;
@@ -18,7 +18,7 @@ interface Post {
   cat: Category;
   userEmail: string;
   comments: Comment[];
-}
+};
 
 type CardListProps = {
   page: number;

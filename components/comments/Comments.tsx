@@ -18,6 +18,16 @@ interface Comment {
   desc: string;
 }
 
+const formattedDate = (date: string) => {
+  return new Date(date).toLocaleDateString('en-US', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+  });
+};
+
 const fetcher = async (url: string) => {
   const res = await fetch(url);
 
@@ -82,7 +92,9 @@ const Comments: React.FC<{ postSlug: string }> = ({ postSlug }) => {
                   )}
                   <div className={styles.userInfo}>
                     <span className={styles.username}>{item.user.name}</span>
-                    <span className={styles.date}>{item.createdAt}</span>
+                    <span className={styles.date}>
+                      {formattedDate(item.createdAt)}
+                    </span>
                   </div>
                 </div>
                 <p className={styles.desc}>{item.desc}</p>
