@@ -34,3 +34,12 @@ const Pagination = ({ page, hasPrev, hasNext }: PaginationProps) => {
 };
 
 export default Pagination;
+
+export const PaginationSkeleton = () => {
+  return (
+    <div className={styles.skeletonContainer}>
+      <button className={styles.skeletonButton}>Previous</button>
+      <button className={styles.skeletonButton}>Next</button>
+    </div>
+  );
+};

@@ -1,9 +1,9 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import styles from './categoryList.module.css';
 import Image from 'next/image';
-import React from 'react';
 
 const domain = process.env.NEXT_PUBLIC_DOMAIN;
 
@@ -15,6 +15,7 @@ export interface Category {
 }
 
 const getData = async (): Promise<Category[]> => {
+  // await new Promise((resolve) => setTimeout(resolve, 5000));
   const res = await fetch(`${domain}/api/categories`, {
     cache: 'no-store',
   });
@@ -26,23 +27,28 @@ const getData = async (): Promise<Category[]> => {
   return res.json();
 };
 
-const CategoryList: React.FC = () => {
-  const [data, setData] = React.useState<Category[]>([]);
+const CategoryList = () => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [data, setData] = useState<Category[]>([]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const fetchData = async () => {
       try {
         const categories = await getData();
         setData(categories);
+        setIsLoading(false);
       } catch (error) {
         console.error('Error fetching categories:', error);
+        setIsLoading(false);
       }
     };
 
     fetchData();
   }, []);
 
-  return (
+  return isLoading ? (
+    <CategoryListSkeleton />
+  ) : (
     <div className={styles.container}>
       <h1 className={styles.title}>Popular Categories</h1>
       <div className={styles.categories}>
@@ -70,3 +76,19 @@ const CategoryList: React.FC = () => {
 };
 
 export default CategoryList;
+
+export const CategoryListSkeleton = () => {
+  const categoryItems = Array.from({ length: 6 }, (_, index) => (
+    <div key={index} className={styles.skeletonCategory}>
+      <div className={styles.skeletonImage} />
+      <div className={styles.skeletonText}>Category {index + 1}</div>
+    </div>
+  ));
+
+  return (
+    <div className={styles.skeletonContainer}>
+      <h1 className={styles.title}>Popular Categories</h1>
+      <div className={styles.skeletonCategories}>{categoryItems}</div>
+    </div>
+  );
+};

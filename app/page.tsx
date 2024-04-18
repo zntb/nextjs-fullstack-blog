@@ -1,8 +1,11 @@
+import { Suspense } from 'react';
 import Featured from '@/components/featured/featured';
-import styles from './homepage.module.css';
-import CardList from '@/components/cardList/CardList';
+import { CardList } from '@/components/cardList/CardList';
 import Menu from '@/components/menu/Menu';
 import CategoryList from '@/components/categoryList/CategoryList';
+import { CardListSkeleton } from '@/components/cardList/CardList';
+
+import styles from './homepage.module.css';
 
 type SearchParamsProps = {
   searchParams: {
@@ -18,7 +21,9 @@ export default function Home({ searchParams }: SearchParamsProps) {
       <Featured />
       <CategoryList />
       <div className={styles.content}>
-        <CardList page={page} />
+        <Suspense fallback={<CardListSkeleton />}>
+          <CardList page={page} />
+        </Suspense>
         <Menu />
       </div>
     </div>

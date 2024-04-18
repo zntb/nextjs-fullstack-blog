@@ -1,7 +1,6 @@
-import Pagination from '../pagination/Pagination';
-import Card from '../card/Card';
+import Pagination, { PaginationSkeleton } from '../pagination/Pagination';
+import Card, { CardSkeleton } from '../card/Card';
 import { Category } from '../categoryList/CategoryList';
-
 import styles from './cardList.module.css';
 
 const domain = process.env.NEXT_PUBLIC_DOMAIN;
@@ -13,11 +12,8 @@ type Post = {
   title: string;
   desc: string;
   img?: string | null;
-  views: number;
   catSlug: string;
   cat: Category;
-  userEmail: string;
-  comments: Comment[];
 };
 
 type CardListProps = {
@@ -29,18 +25,26 @@ const getData = async (
   page: number,
   cat?: string
 ): Promise<{ posts: Post[]; count: number }> => {
-  const res = await fetch(`${domain}/api/posts?page=${page}&cat=${cat || ''}`, {
-    cache: 'no-store',
-  });
+  // await new Promise((resolve) => setTimeout(resolve, 1000));
+  try {
+    const res = await fetch(
+      `${domain}/api/posts?page=${page}&cat=${cat || ''}`,
+      {
+        cache: 'no-store',
+      }
+    );
 
-  if (!res.ok) {
-    throw new Error('Failed');
+    if (!res.ok) {
+      throw new Error('Failed');
+    }
+    return res.json();
+  } catch (error) {
+    console.log(error);
+    return { posts: [], count: 0 };
   }
-
-  return res.json();
 };
 
-const CardList = async ({ page, cat }: CardListProps) => {
+export const CardList = async ({ page, cat }: CardListProps) => {
   const { posts, count } = await getData(page, cat);
 
   const POST_PER_PAGE = 2;
@@ -61,4 +65,15 @@ const CardList = async ({ page, cat }: CardListProps) => {
   );
 };
 
-export default CardList;
+export const CardListSkeleton = () => {
+  return (
+    <div className={styles.container}>
+      <h1 className={styles.title}>Loading Posts...</h1>
+      <div className={styles.posts}>
+        <CardSkeleton />
+        <CardSkeleton />
+      </div>
+      <PaginationSkeleton />
+    </div>
+  );
+};

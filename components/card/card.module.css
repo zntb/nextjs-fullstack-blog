@@ -3,6 +3,8 @@
   display: flex;
   align-items: center;
   gap: 50px;
+  /* opacity: 1;
+  transition: opacity 0.5s ease-in-out; */
 }
 
 .imageContainer {
@@ -43,8 +45,104 @@
   padding: 2px 0px;
 }
 
+.skeletonContainer {
+  margin-bottom: 50px;
+  min-width: 820px;
+  max-height: 700px;
+  position: relative;
+  background-color: transparent;
+  display: flex;
+  flex: 1;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;
+}
+
+.skeletonImageContainer {
+  flex: 1;
+  width: 100%;
+  height: 350px;
+  position: relative;
+  background-color: rgba(211, 211, 211, 0.034);
+  animation: skeleton-loading 1s linear infinite alternate;
+}
+
+.skeletonImage {
+  width: 100%;
+  height: 100%;
+}
+
+.skeletonTextContainer {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.skeletonDetail {
+  height: 20px;
+  width: 100%;
+  background-color: rgba(211, 211, 211, 0.034);
+  animation: skeleton-loading 1s linear infinite alternate;
+}
+
+.skeletonDate {
+  height: 20px;
+  width: 100%;
+  background-color: rgba(211, 211, 211, 0.034);
+  animation: skeleton-loading 1s linear infinite alternate;
+}
+
+.skeletonCategory {
+  height: 20px;
+}
+
+.skeletonText {
+  height: 20px;
+  width: 100%;
+  background-color: rgba(211, 211, 211, 0.034);
+  animation: skeleton-loading 1s linear infinite alternate;
+}
+
+.skeletonTitle {
+  height: 40px;
+  width: 100%;
+  background-color: rgba(211, 211, 211, 0.034);
+
+  animation: skeleton-loading 1s linear infinite alternate;
+}
+
+.skeletonDesc {
+  height: 40px;
+  width: 100%;
+  background-color: rgba(211, 211, 211, 0.034);
+  animation: skeleton-loading 1s linear infinite alternate;
+}
+
+.skeletonLink {
+  height: 20px;
+  width: 100%;
+  background-color: rgba(211, 211, 211, 0.034);
+
+  animation: skeleton-loading 1s linear infinite alternate;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-color: rgba(211, 211, 211, 0.014);
+  }
+  100% {
+    background-color: rgba(211, 211, 211, 0.034);
+  }
+}
+
 @media screen and (max-width: 1280px) {
   .imageContainer {
     display: none;
+  }
+
+  .skeletonContainer {
+    min-width: 100%;
   }
 }

@@ -1,6 +1,7 @@
 import Image from 'next/image';
-import styles from './card.module.css';
 import Link from 'next/link';
+
+import styles from './card.module.css';
 
 type CardProps = {
   item: {
@@ -52,3 +53,22 @@ const Card = ({ item }: CardProps) => {
 };
 
 export default Card;
+
+export const CardSkeleton = () => {
+  return (
+    <div className={styles.skeletonContainer}>
+      <div className={styles.skeletonImageContainer}>
+        <div className={styles.skeletonImage} />
+      </div>
+      <div className={styles.skeletonTextContainer}>
+        <div className={styles.skeletonDetail}>
+          <div className={styles.skeletonDate} />
+          <div className={styles.skeletonCategory} />
+        </div>
+        <div className={styles.skeletonTitle} />
+        <div className={styles.skeletonDesc} />
+        <div className={styles.skeletonLink} />
+      </div>
+    </div>
+  );
+};
