@@ -29,11 +29,11 @@
   cursor: pointer;
 }
 
-.comments{
+.comments {
   margin-top: 50px;
 }
 
-.comment{
+.comment {
   margin-bottom: 50px;
 }
 
@@ -60,11 +60,36 @@
   font-weight: 500;
 }
 
-.date{
+.date {
   font-size: 14px;
 }
 
-.desc{
-  font-size: 18px;
-  font-weight: 300;
+.desc {
+  overflow-wrap: break-word;
+}
+
+.desc p {
+  width: 100%;
+  max-width: 50rem;
+}
+
+.deleteBtnContainer {
+  display: block;
+  text-align: end;
+  margin-top: 10px;
+}
+
+.btnDelete {
+  padding: 5px 8px;
+  border: none;
+  color: white;
+  font-weight: bold;
+  background-color: rgb(223, 107, 107);
+  cursor: pointer;
+  border-radius: 3px;
+  transition: 0.3s ease-in-out;
+}
+
+.btnDelete:hover {
+  background-color: rgb(214, 88, 88);
 }

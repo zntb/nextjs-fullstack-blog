@@ -23,8 +23,8 @@ const Navbar = () => {
         <Link href="/" className={styles.link}>
           Contact
         </Link>
-        <Link href="/" className={styles.link}>
-          About
+        <Link href="/blog" className={styles.link}>
+          Posts
         </Link>
         <AuthLinks />
       </div>

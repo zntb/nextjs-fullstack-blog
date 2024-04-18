@@ -1,22 +1,24 @@
 'use client';
 
+import { useState } from 'react';
 import Link from 'next/link';
-import styles from './comments.module.css';
 import Image from 'next/image';
 import useSWR from 'swr';
 import { useSession } from 'next-auth/react';
-import { useState } from 'react';
+import styles from './comments.module.css';
 
 const domain = process.env.NEXT_PUBLIC_DOMAIN;
 
-interface Comment {
+type Comment = {
+  id: string;
+  postSlug: string;
   user: {
     image: string;
     name: string;
   };
   createdAt: string;
   desc: string;
-}
+};
 
 const formattedDate = (date: string) => {
   return new Date(date).toLocaleDateString('en-US', {
@@ -56,6 +58,29 @@ const Comments: React.FC<{ postSlug: string }> = ({ postSlug }) => {
       body: JSON.stringify({ desc, postSlug }),
     });
     mutate();
+    setDesc('');
+  };
+
+  const handleDelete = async (id: string) => {
+    try {
+      const response = await fetch(
+        `/api/comments?postSlug=${postSlug}&id=${id}`,
+        {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ id }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error('Failed to delete comment');
+      }
+      mutate();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -67,6 +92,7 @@ const Comments: React.FC<{ postSlug: string }> = ({ postSlug }) => {
             placeholder="write a comment..."
             className={styles.input}
             onChange={(e) => setDesc(e.target.value)}
+            value={desc}
           />
           <button className={styles.button} onClick={handleSubmit}>
             Send
@@ -97,7 +123,17 @@ const Comments: React.FC<{ postSlug: string }> = ({ postSlug }) => {
                     </span>
                   </div>
                 </div>
-                <p className={styles.desc}>{item.desc}</p>
+                <div className={styles.desc}>
+                  <p>{item.desc}</p>
+                </div>
+                <div className={styles.deleteBtnContainer}>
+                  <button
+                    onClick={() => handleDelete(item.id)}
+                    className={styles.btnDelete}
+                  >
+                    Delete
+                  </button>
+                </div>
               </div>
             ))}
       </div>
