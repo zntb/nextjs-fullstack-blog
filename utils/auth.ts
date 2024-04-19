@@ -4,6 +4,7 @@ import GoogleProvider from 'next-auth/providers/google';
 import prisma from './connect';
 import { NextAuthOptions, getServerSession } from 'next-auth';
 import { Adapter } from 'next-auth/adapters';
+import { getUserById } from '@/data/user';
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma) as Adapter,
@@ -17,6 +18,25 @@ export const authOptions: NextAuthOptions = {
       clientSecret: process.env.GITHUB_SECRET as string,
     }),
   ],
+  callbacks: {
+    async session({ session, user }) {
+      const userData = await getUserById(user.id);
+      session.user = {
+        ...session.user,
+        ...userData,
+      };
+      return session;
+    },
+    async jwt({ token }) {
+      if (!token.sub) return token;
+      const existingUser = await getUserById(token.sub);
+      if (!existingUser) return token;
+      token.name = existingUser.name;
+      token.email = existingUser.email;
+
+      return token;
+    },
+  },
 };
 
 export const getAuthSession = () => getServerSession(authOptions);
