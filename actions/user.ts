@@ -1,4 +1,4 @@
-'use server';
+// 'use server';
 
 import { authOptions } from '@/utils/auth';
 import { getServerSession } from 'next-auth';

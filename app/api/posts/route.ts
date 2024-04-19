@@ -1,4 +1,5 @@
-import { getAuthSession } from '@/utils/auth';
+// import { getAuthSession } from '@/utils/auth';
+import { getSessionUser } from '@/actions/user';
 import prisma from '@/utils/connect';
 import { NextRequest, NextResponse } from 'next/server';
 
@@ -37,7 +38,7 @@ export const GET = async (req: NextRequest) => {
 
 // CREATE A POST
 export const POST = async (req: NextRequest, res: NextResponse) => {
-  const session = await getAuthSession();
+  const session = await getSessionUser();
 
   if (!session || !session.user) {
     return new NextResponse(JSON.stringify({ message: 'Not Authenticated!' }), {

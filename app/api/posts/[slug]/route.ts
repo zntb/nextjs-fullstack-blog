@@ -1,4 +1,4 @@
-import { getAuthSession } from '@/utils/auth';
+import { getSessionUser } from '@/actions/user';
 import prisma from '@/utils/connect';
 import { NextRequest, NextResponse } from 'next/server';
 
@@ -32,18 +32,45 @@ export const GET = async (req: NextRequest, { params }: Params) => {
 // DELETE A POST
 export const DELETE = async (req: NextRequest, { params }: Params) => {
   const { slug } = params;
-  const session = await getAuthSession();
 
-  if (!session || !session.user) {
+  const sessionUser = await getSessionUser();
+
+  if (!sessionUser || !sessionUser.user) {
+    return new NextResponse(JSON.stringify({ message: 'Not Authenticated!' }), {
+      status: 401,
+    });
+  }
+
+  const { user } = sessionUser;
+
+  if (user.email !== sessionUser.user.email) {
     return new NextResponse(JSON.stringify({ message: 'Not Authenticated!' }), {
       status: 401,
     });
   }
 
   try {
-    const post = await prisma.post.delete({
+    const post = await prisma.post.findUnique({
       where: { slug },
     });
+
+    if (!post) {
+      return new NextResponse(
+        JSON.stringify({ message: 'Post does not exist!' }),
+        { status: 404 }
+      );
+    }
+
+    if (post.userEmail !== user.email) {
+      return new NextResponse(
+        JSON.stringify({ message: 'Not Authenticated!' }),
+        {
+          status: 401,
+        }
+      );
+    }
+
+    await prisma.post.delete({ where: { slug } });
 
     return new NextResponse(JSON.stringify(post), { status: 200 });
   } catch (err) {

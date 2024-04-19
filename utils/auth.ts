@@ -37,16 +37,17 @@ export const authOptions: NextAuthOptions = {
       if (!sessionUser) {
         return session;
       }
+      return session;
 
-      return {
-        ...session,
-        user: {
-          ...session.user,
-          id: sessionUser.id,
-        },
-      };
+      // return {
+      //   ...session,
+      //   user: {
+      //     ...session.user,
+      //     id: sessionUser.id,
+      //   },
+      // };
     },
   },
 };
 
-export const getAuthSession = () => getServerSession(authOptions);
+// export const getAuthSession = () => getServerSession(authOptions);

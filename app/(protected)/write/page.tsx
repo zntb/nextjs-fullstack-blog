@@ -30,7 +30,7 @@ const WritePage = () => {
   const [catSlug, setCatSlug] = useState('');
 
   if (status !== 'authenticated' || !session || !session.user) {
-    router.push('/');
+    router.push('/login');
   }
 
   useEffect(() => {

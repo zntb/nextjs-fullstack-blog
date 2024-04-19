@@ -1,4 +1,5 @@
-import { getAuthSession } from '@/utils/auth';
+import { getSessionUser } from '@/actions/user';
+// import { getAuthSession } from '@/utils/auth';
 import prisma from '@/utils/connect';
 import { NextRequest, NextResponse } from 'next/server';
 
@@ -28,7 +29,7 @@ export const GET = async (req: NextRequest): Promise<NextResponse> => {
 
 // CREATE A COMMENT
 export const POST = async (req: NextRequest): Promise<NextResponse> => {
-  const session = await getAuthSession();
+  const session = await getSessionUser();
 
   if (!session || !session.user) {
     return new NextResponse(JSON.stringify({ message: 'Not Authenticated!' }), {
@@ -54,10 +55,26 @@ export const POST = async (req: NextRequest): Promise<NextResponse> => {
 
 // DELETE A COMMENT
 export const DELETE = async (req: NextRequest): Promise<NextResponse> => {
-  const session = await getAuthSession();
+  const session = await getSessionUser();
   const body = await req.json();
 
   if (!session || !session.user) {
+    return new NextResponse(JSON.stringify({ message: 'Not Authenticated!' }), {
+      status: 401,
+    });
+  }
+
+  const sessionUser = await getSessionUser();
+
+  if (!sessionUser || !sessionUser.user) {
+    return new NextResponse(JSON.stringify({ message: 'Not Authenticated!' }), {
+      status: 401,
+    });
+  }
+
+  const { user } = sessionUser;
+
+  if (user.email !== sessionUser.user.email) {
     return new NextResponse(JSON.stringify({ message: 'Not Authenticated!' }), {
       status: 401,
     });
@@ -72,7 +89,25 @@ export const DELETE = async (req: NextRequest): Promise<NextResponse> => {
   }
 
   try {
-    const comment = await prisma.comment.delete({
+    const comment = await prisma.comment.findUnique({
+      where: { id },
+    });
+
+    if (!comment) {
+      return new NextResponse(
+        JSON.stringify({ message: 'Comment does not exist!' }),
+        { status: 404 }
+      );
+    }
+
+    if (user.email !== comment.userEmail) {
+      return new NextResponse(
+        JSON.stringify({ message: 'Not Authenticated!' }),
+        { status: 401 }
+      );
+    }
+
+    await prisma.comment.delete({
       where: { id },
     });
 
