@@ -1,5 +1,5 @@
 .container {
-  margin-top: 30px;
+  margin-top: 60px;
 }
 
 .title {
@@ -71,6 +71,9 @@
 }
 
 @media screen and (max-width: 640px) {
+  .container {
+    padding-top: 0.5rem;
+  }
   .title {
     font-size: 36px;
   }

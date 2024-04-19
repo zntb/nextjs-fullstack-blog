@@ -20,9 +20,6 @@ const Navbar = () => {
         <Link href="/" className={styles.link}>
           Homepage
         </Link>
-        <Link href="/" className={styles.link}>
-          Contact
-        </Link>
         <Link href="/blog" className={styles.link}>
           Posts
         </Link>

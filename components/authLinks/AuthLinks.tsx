@@ -20,6 +20,9 @@ const AuthLinks = () => {
           <Link href="/write" className={styles.link}>
             Write
           </Link>
+          <Link href="/profile" className={styles.link}>
+            Profile
+          </Link>
           <span className={styles.link} onClick={signOut as () => void}>
             Logout
           </span>
@@ -33,14 +36,15 @@ const AuthLinks = () => {
       {open && (
         <div className={styles.responsiveMenu}>
           <Link href="/">Homepage</Link>
-          <Link href="/">About</Link>
-          <Link href="/">Contact</Link>
-          {!session && status !== 'loading' ? (
+          <Link href="/">Posts</Link>
+
+          {!session ? (
             <Link href="/login">Login</Link>
           ) : (
             <>
-              <Link href="/write">Write</Link>
-              <span className={styles.link}>Logout</span>
+              <Link href="/">Write</Link>
+              <Link href="/">Profile</Link>
+              <span onClick={signOut as () => void}>Logout</span>
             </>
           )}
         </div>
