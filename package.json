@@ -13,6 +13,7 @@
     "@auth/prisma-adapter": "^1.6.0",
     "@prisma/client": "^5.12.1",
     "firebase": "^10.11.0",
+    "jwt-decode": "^4.0.0",
     "next": "14.2.1",
     "next-auth": "^4.24.7",
     "react": "^18",

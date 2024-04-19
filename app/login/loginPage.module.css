@@ -1,41 +1,54 @@
 .container {
+  top: 5.7rem;
   display: flex;
+  position: relative;
+  text-align: center;
   align-items: center;
   justify-content: center;
-  margin-top: 60px;
+  padding-bottom: 10rem;
 }
 
 .wrapper {
   background-color: var(--softBg);
-  padding: 150px 200px;
+  padding: 5rem 6rem;
   display: flex;
   flex-direction: column;
-  gap: 50px;
+  align-items: center;
+  justify-content: center;
+  gap: 3.3rem;
   border-radius: 10px;
+  border: none;
+  text-shadow: 0 0 2px var(--borderColor);
+  box-shadow: 0 0 5px 0px var(--borderColor);
 }
 
 .socialButton {
-  padding: 20px;
-  border-radius: 5px;
-  border: none;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
+  float: right;
   display: flex;
+  padding: 0.5rem 1.4rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 700;
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  vertical-align: middle;
   align-items: center;
   justify-content: center;
+  border-radius: 0.5rem;
+  border: 1px solid var(--borderColor);
+  gap: 0.75rem;
+  color: var(--softTextColor);
+  background-color: var(--bg);
+  cursor: pointer;
+  transition: all 0.5s cubic-bezier(0, 0.87, 0.12, 1);
 }
 
-.socialButton:first-child {
-  background-color: #ff5555;
+.socialButton:hover {
+  transform: scale(1.025);
 }
 
-.socialButton:nth-child(2) {
-  background-color: #111;
-}
-
-.socialButton:nth-child(3) {
-  background-color: #087bea;
+.socialButton:active {
+  transform: scale(0.975);
 }
 
 @media screen and (max-width: 768px) {
@@ -44,12 +57,20 @@
   }
 }
 @media screen and (max-width: 640px) {
+  .container {
+    padding-bottom: 0;
+  }
   .wrapper {
+    margin-bottom: 5rem;
     padding: 30px;
   }
 
-  .socialButton{
+  .socialButton {
     font-weight: 400;
     font-size: 14px;
+  }
+
+  .socialButton:last-of-type {
+    margin-bottom: 1.2rem;
   }
 }

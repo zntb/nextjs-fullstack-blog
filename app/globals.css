@@ -26,6 +26,7 @@ a {
   --textColor: #ddd;
   --softBg: #1f273a;
   --softTextColor: #a6a6a6;
+  --borderColor: #a6a6a6;
 }
 
 .light {
@@ -33,6 +34,7 @@ a {
   --textColor: black;
   --softBg: #f0f0f0;
   --softTextColor: #626262;
+  --borderColor: #1f273a;
 }
 
 .container {

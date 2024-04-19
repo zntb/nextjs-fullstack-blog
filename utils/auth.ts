@@ -4,7 +4,6 @@ import GoogleProvider from 'next-auth/providers/google';
 import prisma from './connect';
 import { NextAuthOptions, getServerSession } from 'next-auth';
 import { Adapter } from 'next-auth/adapters';
-import { getUserById } from '@/data/user';
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma) as Adapter,
@@ -12,29 +11,40 @@ export const authOptions: NextAuthOptions = {
     GoogleProvider({
       clientId: process.env.GOOGLE_ID as string,
       clientSecret: process.env.GOOGLE_SECRET as string,
+      authorization: {
+        params: {
+          prompt: 'consent',
+          access_type: 'offline',
+          response_type: 'code',
+        },
+      },
     }),
     GithubProvider({
       clientId: process.env.GITHUB_ID as string,
       clientSecret: process.env.GITHUB_SECRET as string,
     }),
   ],
-  callbacks: {
-    async session({ session, user }) {
-      const userData = await getUserById(user.id);
-      session.user = {
-        ...session.user,
-        ...userData,
-      };
-      return session;
-    },
-    async jwt({ token }) {
-      if (!token.sub) return token;
-      const existingUser = await getUserById(token.sub);
-      if (!existingUser) return token;
-      token.name = existingUser.name;
-      token.email = existingUser.email;
 
-      return token;
+  callbacks: {
+    async session({ session }) {
+      if (!session.user?.email) {
+        return session;
+      }
+      const sessionUser = await prisma.user.findUnique({
+        where: { email: session.user.email },
+      });
+
+      if (!sessionUser) {
+        return session;
+      }
+
+      return {
+        ...session,
+        user: {
+          ...session.user,
+          id: sessionUser.id,
+        },
+      };
     },
   },
 };
