@@ -29,6 +29,10 @@ const WritePage = () => {
   const [title, setTitle] = useState('');
   const [catSlug, setCatSlug] = useState('');
 
+  if (status !== 'authenticated' || !session || !session.user) {
+    router.push('/');
+  }
+
   useEffect(() => {
     if (!file) return;
     const storage = getStorage(app);
@@ -67,10 +71,6 @@ const WritePage = () => {
 
   if (status === 'loading') {
     return <div className={styles.loading}>Loading...</div>;
-  }
-
-  if (status === 'unauthenticated') {
-    router.push('/');
   }
 
   const slugify = (str: string) =>

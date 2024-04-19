@@ -1,10 +1,12 @@
-.container{
+.container {
+  margin-top: 60px;
+  padding-top: 1.5rem;
   position: relative;
   display: flex;
   flex-direction: column;
 }
 
-.select{
+.select {
   margin-bottom: 50px;
   padding: 10px 20px;
   margin-left: 50px;
@@ -14,7 +16,7 @@
 .editor {
   display: flex;
   gap: 20px;
-  height: 700px;
+  height: calc(100vh - 38rem);
   position: relative;
 }
 
@@ -45,7 +47,7 @@
   left: 50px;
 }
 
-.input{
+.input {
   padding: 50px;
   font-size: 64px;
   border: none;
@@ -54,7 +56,7 @@
   color: var(--textColor);
 }
 
-.input::placeholder{
+.input::placeholder {
   color: #b3b3b1;
 }
 
@@ -62,8 +64,9 @@
   width: 100%;
 }
 
-.publish{
+.publish {
   position: absolute;
+  margin-top: 1.5rem;
   top: 0px;
   right: 0px;
   padding: 10px 20px;
@@ -72,4 +75,10 @@
   color: white;
   cursor: pointer;
   border-radius: 20px;
+}
+
+@media screen and (max-width: 640px) {
+  .editor {
+    flex-direction: column;
+  }
 }
