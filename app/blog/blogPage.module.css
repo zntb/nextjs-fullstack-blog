@@ -1,4 +1,8 @@
-.title{
+.container {
+  margin-top: 60px;
+}
+
+.title {
   background-color: coral;
   color: white;
   padding: 5px 10px;
@@ -6,8 +10,7 @@
   text-transform: capitalize;
 }
 
-.content{
+.content {
   display: flex;
   gap: 50px;
 }
-

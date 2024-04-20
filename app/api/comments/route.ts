@@ -74,12 +74,6 @@ export const DELETE = async (req: NextRequest): Promise<NextResponse> => {
 
   const { user } = sessionUser;
 
-  if (user.email !== sessionUser.user.email) {
-    return new NextResponse(JSON.stringify({ message: 'Not Authenticated!' }), {
-      status: 401,
-    });
-  }
-
   const { id } = body;
 
   if (!id) {
@@ -91,6 +85,7 @@ export const DELETE = async (req: NextRequest): Promise<NextResponse> => {
   try {
     const comment = await prisma.comment.findUnique({
       where: { id },
+      include: { post: true }, // Include the post information for checking post author later
     });
 
     if (!comment) {
@@ -100,11 +95,14 @@ export const DELETE = async (req: NextRequest): Promise<NextResponse> => {
       );
     }
 
-    if (user.email !== comment.userEmail) {
-      return new NextResponse(
-        JSON.stringify({ message: 'Not Authenticated!' }),
-        { status: 401 }
-      );
+    // Check if the logged-in user is the author of the comment or the post
+    if (
+      user.email !== comment.userEmail &&
+      user.email !== comment.post.userEmail
+    ) {
+      return new NextResponse(JSON.stringify({ message: 'Not Authorized!' }), {
+        status: 401,
+      });
     }
 
     await prisma.comment.delete({

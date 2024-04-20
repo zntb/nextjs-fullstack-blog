@@ -9,6 +9,7 @@
 }
 
 .title {
+  margin-top: 60px;
   font-size: 64px;
   margin-bottom: 50px;
 }
@@ -43,6 +44,7 @@
 }
 
 .imageContainer {
+  margin-top: 80px;
   flex: 1;
   height: 350px;
   position: relative;
