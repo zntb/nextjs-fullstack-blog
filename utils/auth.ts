@@ -1,5 +1,5 @@
 import { PrismaAdapter } from '@auth/prisma-adapter';
-import GithubProvider from 'next-auth/providers/github';
+// import GithubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google';
 import prisma from './connect';
 import { NextAuthOptions, getServerSession } from 'next-auth';
@@ -19,10 +19,10 @@ export const authOptions: NextAuthOptions = {
         },
       },
     }),
-    GithubProvider({
-      clientId: process.env.GITHUB_ID as string,
-      clientSecret: process.env.GITHUB_SECRET as string,
-    }),
+    // GithubProvider({
+    //   clientId: process.env.GITHUB_ID as string,
+    //   clientSecret: process.env.GITHUB_SECRET as string,
+    // }),
   ],
 
   callbacks: {
@@ -38,16 +38,6 @@ export const authOptions: NextAuthOptions = {
         return session;
       }
       return session;
-
-      // return {
-      //   ...session,
-      //   user: {
-      //     ...session.user,
-      //     id: sessionUser.id,
-      //   },
-      // };
     },
   },
 };
-
-// export const getAuthSession = () => getServerSession(authOptions);

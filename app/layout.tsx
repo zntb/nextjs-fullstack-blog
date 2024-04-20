@@ -19,9 +19,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
-        <AuthProvider>
+    <AuthProvider>
+      <html lang="en" suppressHydrationWarning>
+        <body className={inter.className}>
           <ThemeContextProvider>
             <ThemeProvider>
               <div className="container">
@@ -33,8 +33,8 @@ export default function RootLayout({
               </div>
             </ThemeProvider>
           </ThemeContextProvider>
-        </AuthProvider>
-      </body>
-    </html>
+        </body>
+      </html>
+    </AuthProvider>
   );
 }
