@@ -1,4 +1,3 @@
-// import { getAuthSession } from '@/utils/auth';
 import { getSessionUser } from '@/actions/user';
 import prisma from '@/utils/connect';
 import { NextRequest, NextResponse } from 'next/server';

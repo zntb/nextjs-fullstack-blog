@@ -25,18 +25,29 @@ const ProfilePage = () => {
   }
   return (
     <div className={styles.container}>
-      <div className={styles.imageContainer}>
-        <Image
-          width={50}
-          height={50}
-          src={profileImage || profileDefault}
-          alt="Profile image"
-          className={styles.image}
-        />
-      </div>
-      <div className={styles.textContainer}>
-        <h1 className={styles.title}>{profileName}</h1>
-        <p className={styles.email}>{profileEmail}</p>
+      <div className={styles.wrapper}>
+        <h1 className={styles.title}>Your Profile</h1>
+        <div className={styles.content}>
+          <div className={styles.profileInfo}>
+            <div className={styles.imageContainer}>
+              <Image
+                width={200}
+                height={200}
+                src={profileImage || profileDefault}
+                alt="Profile image"
+                className={styles.image}
+              />
+            </div>
+            <p>
+              <span>Name:</span>
+              {profileName}
+            </p>
+            <p>
+              <span>Email:</span>
+              {profileEmail}
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );
