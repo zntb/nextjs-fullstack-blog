@@ -8,6 +8,7 @@ export const GET = async (req: NextRequest) => {
 
   const page = searchParams.get('page');
   const cat = searchParams.get('cat');
+  const userEmail = searchParams.get('user');
 
   const POST_PER_PAGE = 2;
 
@@ -16,6 +17,7 @@ export const GET = async (req: NextRequest) => {
     skip: POST_PER_PAGE * (Number(page) - 1),
     where: {
       ...(cat && { catSlug: cat }),
+      ...(userEmail && { userEmail }),
     },
   };
 

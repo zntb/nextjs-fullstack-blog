@@ -51,6 +51,27 @@
   font-weight: bold;
 }
 
+.hr {
+  margin: 2.3rem 0 0 0;
+}
+
+.posts {
+  width: 100%;
+  margin-top: 0;
+  padding-left: 1rem;
+  font-weight: 600;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+
+.posts h2 {
+  margin: 0 0 2rem 3rem;
+}
+
+.post {
+  margin: 0 0 2rem 2rem;
+}
+
 @media screen and (max-width: 640px) {
   .wrapper {
     max-width: 475px;
@@ -80,5 +101,20 @@
   .image {
     width: 10rem;
     margin-left: 2.9rem;
+  }
+
+  .posts {
+    margin: 3rem 0 0 0;
+    padding-left: 0;
+  }
+
+  .posts h2 {
+    font-size: 2.3rem;
+    margin: 0;
+  }
+
+  .post {
+    font-size: 1rem;
+    margin: 0;
   }
 }
