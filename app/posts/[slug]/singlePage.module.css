@@ -1,3 +1,7 @@
+.container {
+  margin-top: 60px;
+}
+
 .infoContainer {
   display: flex;
   align-items: center;
@@ -9,9 +13,11 @@
 }
 
 .title {
+  max-width: calc(100vw - 40rem);
   margin-top: 60px;
   font-size: 64px;
   margin-bottom: 50px;
+  overflow-wrap: break-word;
 }
 
 .user {
@@ -87,7 +93,12 @@
 }
 @media screen and (max-width: 640px) {
   .title {
-    font-size: 36px;
+    max-width: 100%;
+    width: 15rem;
+    font-size: 2rem;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
   }
 
   .description p {

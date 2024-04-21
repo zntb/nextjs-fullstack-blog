@@ -106,6 +106,9 @@ const WritePage = () => {
         placeholder="Title"
         className={styles.input}
         onChange={(e) => setTitle(e.target.value)}
+        maxLength={100}
+        minLength={3}
+        required
       />
       <select
         className={styles.select}
