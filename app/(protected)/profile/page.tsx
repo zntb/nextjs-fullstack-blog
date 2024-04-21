@@ -1,4 +1,5 @@
 'use client';
+
 import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
@@ -9,9 +10,16 @@ import UserPostCard, {
   UserPostCardSkeleton,
 } from '@/components/userPostCard/UserPostCard';
 import { Post } from '@/components/cardList/CardList';
+import Pagination from '@/components/pagination/Pagination';
 
 const domain = process.env.NEXT_PUBLIC_DOMAIN;
-const POSTS_PER_PAGE = 6;
+const POST_PER_PAGE = 6;
+
+// type PageProps = {
+//   page: number;
+// };
+
+//TODO: Resolve pagination problem
 
 const ProfilePage = () => {
   const router = useRouter();
@@ -28,37 +36,57 @@ const ProfilePage = () => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [page, setPage] = useState<number>(1);
+  const [totalPages, setTotalPages] = useState<number>(0);
 
   useEffect(() => {
-    if (!session || !session.user || !session.user.email) {
-      return;
-    }
+    const fetchPosts = async (currentPage: number) => {
+      setLoading(true);
 
-    const fetchUserPosts = async () => {
-      await new Promise((resolve) => setTimeout(resolve, 5000));
       try {
         const response = await fetch(
-          `${domain}/api/posts?page=${page}&limit=${POSTS_PER_PAGE}&user=${session?.user?.email}`
+          `${domain}/api/posts?page=${currentPage}&user=${profileEmail}&fetchAll=true`,
+          {
+            cache: 'no-store',
+          }
         );
+
         if (response.ok) {
           const data = await response.json();
-          if (page === 1) {
-            setPosts(data.posts);
-          } else {
-            setPosts((prevPosts) => [...prevPosts, ...data.posts]);
-          }
+          setPosts(data.posts);
+          setTotalPages(Math.ceil(data.count / POST_PER_PAGE)); // Update totalPages
+          setLoading(false);
         } else {
           throw new Error('Failed to fetch posts');
         }
       } catch (error) {
         console.error('Error fetching posts:', error);
-      } finally {
         setLoading(false);
       }
     };
 
-    fetchUserPosts();
-  }, [page, session]);
+    if (session && session.user && session.user.email) {
+      fetchPosts(page).catch(() => setLoading(false));
+    }
+  }, [session, page, profileEmail]);
+
+  // const handlePrevPage = () => {
+  //   if (page > 1) {
+  //     setPage(page - 1);
+  //   }
+  // };
+
+  // const handleNextPage = () => {
+  //   if (page < totalPages) {
+  //     setPage(page + 1);
+  //   }
+  // };
+
+  // const hasPrev = page > 1;
+  // const hasNext = page < totalPages;
+  const count = posts.length;
+
+  const hasPrev = POST_PER_PAGE * (page - 1) > 0;
+  const hasNext = POST_PER_PAGE * (page - 1) + POST_PER_PAGE < count;
 
   return (
     <div className={styles.container}>
@@ -102,6 +130,13 @@ const ProfilePage = () => {
                 ))}
               </div>
             )}
+            <Pagination
+              page={page}
+              hasPrev={hasPrev}
+              hasNext={hasNext}
+              // handlePrev={handlePrevPage}
+              // handleNext={handleNextPage}
+            />
           </div>
         </div>
       </div>

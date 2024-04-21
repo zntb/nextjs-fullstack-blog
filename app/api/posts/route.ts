@@ -9,10 +9,12 @@ export const GET = async (req: NextRequest) => {
   const page = searchParams.get('page');
   const cat = searchParams.get('cat');
   const userEmail = searchParams.get('user');
+  const fetchAll = searchParams.get('fetchAll'); // New parameter to fetch all posts
 
   let POST_PER_PAGE = 2;
 
-  if (userEmail) {
+  if (userEmail && !fetchAll) {
+    // If userEmail is provided and fetchAll is not true, use custom pagination
     POST_PER_PAGE = 6;
   }
 
@@ -25,11 +27,28 @@ export const GET = async (req: NextRequest) => {
     },
   };
 
+  if (fetchAll === 'true') {
+    query.take = 0;
+    query.skip = 0; // Adjust skip when fetchAll is true
+  }
+
   try {
-    const [posts, count] = await prisma.$transaction([
-      prisma.post.findMany(query),
-      prisma.post.count({ where: query.where }),
-    ]);
+    let posts;
+    let count;
+
+    if (fetchAll === 'true') {
+      // If fetchAll is true, fetch all posts without pagination
+      posts = await prisma.post.findMany({
+        where: query.where,
+      });
+      count = await prisma.post.count({ where: query.where }); // Retrieve total count without pagination
+    } else {
+      // Otherwise, paginate the results
+      [posts, count] = await prisma.$transaction([
+        prisma.post.findMany(query),
+        prisma.post.count({ where: query.where }),
+      ]);
+    }
 
     return new NextResponse(JSON.stringify({ posts, count }), { status: 200 });
   } catch (err) {
