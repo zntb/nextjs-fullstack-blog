@@ -5,7 +5,9 @@ import Image from 'next/image';
 import profileDefault from '@/public/profile.png';
 import styles from './profile.module.css';
 import { useRouter } from 'next/navigation';
-import Card from '@/components/card/Card';
+import UserPostCard, {
+  UserPostCardSkeleton,
+} from '@/components/userPostCard/UserPostCard';
 
 const domain = process.env.NEXT_PUBLIC_DOMAIN;
 
@@ -30,6 +32,7 @@ const ProfilePage = () => {
     }
 
     const fetchUserPosts = async () => {
+      await new Promise((resolve) => setTimeout(resolve, 5000));
       try {
         const response = await fetch(
           `${domain}/api/posts?page=1&user=${session?.user?.email}`
@@ -82,12 +85,12 @@ const ProfilePage = () => {
               <p className="text-gray-600">You have no posts listed.</p>
             )}
             {loading ? (
-              <p>Loading...</p>
+              <UserPostCardSkeleton />
             ) : (
               <div className={styles.posts}>
                 {posts?.map((item, index) => (
                   <div key={index} className={styles.post}>
-                    <Card item={item} key={index} />
+                    <UserPostCard item={item} key={index} />
                   </div>
                 ))}
               </div>
