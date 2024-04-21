@@ -10,7 +10,11 @@ export const GET = async (req: NextRequest) => {
   const cat = searchParams.get('cat');
   const userEmail = searchParams.get('user');
 
-  const POST_PER_PAGE = 2;
+  let POST_PER_PAGE = 2;
+
+  if (userEmail) {
+    POST_PER_PAGE = 6;
+  }
 
   const query = {
     take: POST_PER_PAGE,

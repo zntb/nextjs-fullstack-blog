@@ -5,7 +5,7 @@ import styles from './cardList.module.css';
 
 const domain = process.env.NEXT_PUBLIC_DOMAIN;
 
-type Post = {
+export type Post = {
   id: string;
   createdAt: string;
   slug: string;

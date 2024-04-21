@@ -8,8 +8,10 @@ import { useRouter } from 'next/navigation';
 import UserPostCard, {
   UserPostCardSkeleton,
 } from '@/components/userPostCard/UserPostCard';
+import { Post } from '@/components/cardList/CardList';
 
 const domain = process.env.NEXT_PUBLIC_DOMAIN;
+const POSTS_PER_PAGE = 6;
 
 const ProfilePage = () => {
   const router = useRouter();
@@ -23,8 +25,9 @@ const ProfilePage = () => {
   const profileName = session?.user?.name;
   const profileEmail = session?.user?.email;
 
-  const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [posts, setPosts] = useState<Post[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [page, setPage] = useState<number>(1);
 
   useEffect(() => {
     if (!session || !session.user || !session.user.email) {
@@ -35,11 +38,15 @@ const ProfilePage = () => {
       await new Promise((resolve) => setTimeout(resolve, 5000));
       try {
         const response = await fetch(
-          `${domain}/api/posts?page=1&user=${session?.user?.email}`
+          `${domain}/api/posts?page=${page}&limit=${POSTS_PER_PAGE}&user=${session?.user?.email}`
         );
         if (response.ok) {
           const data = await response.json();
-          setPosts(data.posts);
+          if (page === 1) {
+            setPosts(data.posts);
+          } else {
+            setPosts((prevPosts) => [...prevPosts, ...data.posts]);
+          }
         } else {
           throw new Error('Failed to fetch posts');
         }
@@ -51,7 +58,7 @@ const ProfilePage = () => {
     };
 
     fetchUserPosts();
-  }, [session]);
+  }, [page, session]);
 
   return (
     <div className={styles.container}>
