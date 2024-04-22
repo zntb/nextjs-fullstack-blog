@@ -58,36 +58,42 @@ export const LoginForm = () => {
   };
 
   return (
+    // <div className={styles.container}>
+    //   <div className={styles.wrapper}>
     <div className={styles.container}>
-      <div className={styles.wrapper}>
-        <div className={styles.title}>Login</div>
-        {error && <FormError message={error} />}
-        {urlError && <FormError message={urlError} />}
-        {success && <FormSuccess message={success} />}
-        <form className={styles.form} onSubmit={form.handleSubmit(onSubmit)}>
-          <input
-            type="email"
-            placeholder="Email"
-            className={styles.input}
-            {...form.register('email')}
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            className={styles.input}
-            {...form.register('password')}
-          />
-          <button className={styles.button} type="submit" disabled={isPending}>
-            Login
-          </button>
-        </form>
-        <div className={styles.text}>
-          Don&apos;t have an account?{' '}
-          <Link href="/auth/register" className={styles.link}>
-            Signup
-          </Link>
-        </div>
+      <div className={styles.title}>Login with Email</div>
+
+      <form className={styles.form} onSubmit={form.handleSubmit(onSubmit)}>
+        <input
+          type="email"
+          placeholder="Email"
+          className={styles.input}
+          {...form.register('email')}
+          required
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          className={styles.input}
+          {...form.register('password')}
+          required
+        />
+        <button className={styles.button} type="submit" disabled={isPending}>
+          Login
+        </button>
+      </form>
+      <div className={styles.text}>
+        Don&apos;t have an account?{' '}
+        <Link href="/auth/register" className={styles.link}>
+          Signup
+        </Link>
       </div>
+      {error && <FormError message={error} />}
+      {urlError && <FormError message={urlError} />}
+      {success && <FormSuccess message={success} />}
     </div>
+
+    //   </div>
+    // </div>
   );
 };
