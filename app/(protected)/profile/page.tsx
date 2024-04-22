@@ -29,6 +29,7 @@ const ProfilePage = () => {
       router.push('/login');
     },
   });
+
   const profileImage = session?.user?.image;
   const profileName = session?.user?.name;
   const profileEmail = session?.user?.email;
@@ -36,10 +37,10 @@ const ProfilePage = () => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [page, setPage] = useState<number>(1);
-  const [totalPages, setTotalPages] = useState<number>(0);
+  const [totalPages, setTotalPages] = useState<number>(2);
 
   useEffect(() => {
-    const fetchPosts = async (currentPage: number) => {
+    const fetchPosts = async (currentPage: number, limit: number) => {
       setLoading(true);
 
       try {
@@ -53,19 +54,19 @@ const ProfilePage = () => {
         if (response.ok) {
           const data = await response.json();
           setPosts(data.posts);
-          setTotalPages(Math.ceil(data.count / POST_PER_PAGE)); // Update totalPages
-          setLoading(false);
+          setTotalPages(Math.ceil(data.count)); // Update totalPages
         } else {
           throw new Error('Failed to fetch posts');
         }
       } catch (error) {
         console.error('Error fetching posts:', error);
+      } finally {
         setLoading(false);
       }
     };
 
     if (session && session.user && session.user.email) {
-      fetchPosts(page).catch(() => setLoading(false));
+      fetchPosts(page || 1, POST_PER_PAGE).catch(() => setLoading(false));
     }
   }, [session, page, profileEmail]);
 
