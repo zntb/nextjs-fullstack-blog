@@ -20,6 +20,8 @@
 }
 
 .socialButton:hover {
+  background-color: var(--softBg);
+  color: var(--textColor);
   transform: scale(1.025);
 }
 

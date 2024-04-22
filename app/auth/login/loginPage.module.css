@@ -22,6 +22,10 @@
   box-shadow: 0 0 5px 0px var(--borderColor);
 }
 
+.wrapper h1 {
+  text-shadow: 0 0 2px var(--borderColor);
+}
+
 .hr {
   width: 75%;
   height: 1px;

@@ -21,9 +21,17 @@
   border: 1px solid var(--borderColor);
   gap: 0.75rem;
   color: var(--softTextColor);
-  background-color: var(--bg);
+  background-color: var(--inputSoftBg);
   cursor: pointer;
-  transition: all 0.5s cubic-bezier(0, 0.87, 0.12, 1);
+  transition: all 0.3s ease-in-out;
+}
+
+.input:focus {
+  outline: none;
+  background-color: var(--inputBg);
+  color: var(--textColor);
+  border: 1px solid var(--borderColor);
+  box-shadow: 0 0 4px var(--borderColor);
 }
 
 .button {
@@ -40,11 +48,16 @@
   border: 1px solid var(--borderColor);
   gap: 0.75rem;
   color: var(--softTextColor);
-  background-color: var(--bg);
+  background-color: var(--softBg2);
   cursor: pointer;
-  transition: all 0.5s cubic-bezier(0, 0.87, 0.12, 1);
+  transition: all 0.3s ease-in-out;
 }
 
 .button:hover {
-  background-color: rgb(0, 128, 128);
+  background-color: var(--bg2);
+  color: var(--textColor);
+}
+
+.button:active {
+  transform: scale(0.975);
 }

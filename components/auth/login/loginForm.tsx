@@ -12,7 +12,7 @@ import { login } from '@/actions/login';
 import { FormError } from '../../formError';
 import { FormSuccess } from '../../formSuccess';
 
-import styles from './loginForm.module.css';
+import styles from '../authForm.module.css';
 
 export const LoginForm = () => {
   const searchParams = useSearchParams();
@@ -58,8 +58,6 @@ export const LoginForm = () => {
   };
 
   return (
-    // <div className={styles.container}>
-    //   <div className={styles.wrapper}>
     <div className={styles.container}>
       <div className={styles.title}>Login with Email</div>
 
@@ -69,6 +67,7 @@ export const LoginForm = () => {
           placeholder="Email"
           className={styles.input}
           {...form.register('email')}
+          autoComplete=""
           required
         />
         <input
@@ -76,6 +75,7 @@ export const LoginForm = () => {
           placeholder="Password"
           className={styles.input}
           {...form.register('password')}
+          autoComplete=""
           required
         />
         <button className={styles.button} type="submit" disabled={isPending}>
@@ -92,8 +92,5 @@ export const LoginForm = () => {
       {urlError && <FormError message={urlError} />}
       {success && <FormSuccess message={success} />}
     </div>
-
-    //   </div>
-    // </div>
   );
 };

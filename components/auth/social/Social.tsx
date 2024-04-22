@@ -18,7 +18,6 @@ export const Social = () => {
 
   return (
     <>
-      <h1>Sign In</h1>
       <div className={styles.socialButton} onClick={() => onClick('google')}>
         <Image
           src="/google.svg"
