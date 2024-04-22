@@ -1,21 +1,23 @@
 // 'use server';
 
-import { authOptions } from '@/auth';
-import { getServerSession } from 'next-auth';
+// import { auth } from '@/auth';
+// import { NextApiRequest, NextApiResponse } from 'next';
 
-export const getSessionUser = async () => {
-  try {
-    const session = await getServerSession(authOptions);
+// const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+//   try {
+//     const session = await auth(req, res);
 
-    if (!session || !session.user) {
-      return null;
-    }
+//     if (!session || !session.user) {
+//       return null;
+//     }
 
-    return {
-      user: session.user,
-    };
-  } catch (error) {
-    console.error(error);
-    return null;
-  }
-};
+//     return {
+//       user: session.user,
+//     };
+//   } catch (error) {
+//     console.error(error);
+//     return null;
+//   }
+// };
+
+// export default handler;

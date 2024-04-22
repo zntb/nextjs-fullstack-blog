@@ -3,7 +3,7 @@ import bcrypt from 'bcryptjs';
 import * as z from 'zod';
 import prisma from '@/utils/connect';
 import { getUserByEmail } from '@/data/user';
-import { RegisterSchema } from '@/shemas';
+import { RegisterSchema } from '@/schemas';
 
 export const register = async (values: z.infer<typeof RegisterSchema>) => {
   const validateFields = RegisterSchema.safeParse(values);
@@ -29,5 +29,5 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
     },
   });
 
-  return { user };
+  return { success: 'Confirmation email sent!' };
 };

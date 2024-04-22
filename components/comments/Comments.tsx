@@ -7,7 +7,7 @@ import useSWR from 'swr';
 import { useSession } from 'next-auth/react';
 import styles from './comments.module.css';
 
-const domain = process.env.NEXT_PUBLIC_DOMAIN;
+const domain = process.env.NEXT_PUBLIC_APP_URL;
 
 type Comment = {
   id: string;

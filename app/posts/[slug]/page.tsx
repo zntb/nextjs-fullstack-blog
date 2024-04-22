@@ -5,7 +5,7 @@ import { notFound } from 'next/navigation';
 import DeletePost from '@/components/deletePost/DeletePost';
 import styles from './singlePage.module.css';
 
-const domain = process.env.NEXT_PUBLIC_DOMAIN;
+const domain = process.env.NEXT_PUBLIC_APP_URL;
 
 type UserData = {
   name: string;
@@ -20,22 +20,29 @@ type PostData = {
   desc: string;
 };
 
-const getData = async (slug: string): Promise<PostData | null> => {
-  try {
-    const response = await fetch(`${domain}/api/posts/${slug}`, {
-      cache: 'no-store',
-    });
+// const getData = async (slug: string): Promise<PostData | null> => {
+//   try {
+//     const response = await fetch(`${domain}/api/posts/${slug}`, {
+//       cache: 'no-store',
+//       method: 'GET',
+//       headers: {
+//         'Content-Type': 'application/json',
+//       },
+//       body: JSON.stringify({ slug }),
+//     });
 
-    if (!response.ok) {
-      throw new Error('Failed to fetch data');
-    }
+//     console.log(response);
 
-    return response.json();
-  } catch (error) {
-    console.error('Error fetching data:', error);
-    return null;
-  }
-};
+//     if (!response.ok) {
+//       throw new Error('Failed to fetch data');
+//     }
+
+//     return response.json();
+//   } catch (error) {
+//     console.error('Error fetching data:', error);
+//     return null;
+//   }
+// };
 
 type SinglePageProps = {
   params: {
@@ -43,57 +50,60 @@ type SinglePageProps = {
   };
 };
 
-export async function generateMetadata({ params }: SinglePageProps) {
-  const { slug } = params;
-  const data: PostData | null = await getData(slug);
+// export async function generateMetadata({ params }: SinglePageProps) {
+//   const { slug } = params;
+//   const data: PostData | null = await getData(slug);
 
-  if (!data) {
-    notFound();
-  }
+//   if (!data) {
+//     notFound();
+//   }
 
-  return {
-    title: data.title,
-    description: `Blog post from ${data.user.name}`,
-  };
-}
+//   return {
+//     title: data.title,
+//     description: `Blog post from ${data.user.name}`,
+//   };
+// }
 
 const SinglePage = async ({ params }: SinglePageProps) => {
-  const { slug } = params;
+  // const { slug } = params;
 
-  const data: PostData | null = await getData(slug);
+  // const data: PostData | null = await getData(slug);
 
-  if (!data) {
-    notFound();
-  }
+  // if (!data) {
+  //   notFound();
+  // }
 
   return (
     <div className={styles.container}>
       <div className={styles.infoContainer}>
         <div className={styles.textContainer}>
-          <h1 className={styles.title}>{data?.title}</h1>
+          <h1 className={styles.title}>
+            TITLE
+            {/* {data?.title} */}
+          </h1>
           <div className={styles.user}>
-            {data?.user?.image && (
-              <div className={styles.userImageContainer}>
-                <Image
+            {/* {data?.user?.image && ( */}
+            <div className={styles.userImageContainer}>
+              {/* <Image
                   src={data.user.image}
                   alt=""
                   fill
                   sizes="(50px)"
                   className={styles.avatar}
-                />
-              </div>
-            )}
+                /> */}
+            </div>
+            {/* )} */}
             <div className={styles.userTextContainer}>
-              <span className={styles.username}>{data?.user.name}</span>
+              <span className={styles.username}>{/* {data?.user.name} */}</span>
               <span className={styles.date}>
-                {new Date(data?.createdAt).toDateString()}
+                {/* {new Date(data?.createdAt).toDateString()} */}
               </span>
             </div>
           </div>
-          <DeletePost slug={slug} />
+          {/* <DeletePost slug={slug} /> */}
         </div>
 
-        {data?.img && (
+        {/* {data?.img && (
           <div className={styles.imageContainer}>
             <Image
               src={data.img}
@@ -104,16 +114,16 @@ const SinglePage = async ({ params }: SinglePageProps) => {
               className={styles.image}
             />
           </div>
-        )}
+        )} */}
       </div>
       <div className={styles.content}>
         <div className={styles.post}>
           <div
             className={styles.description}
-            dangerouslySetInnerHTML={{ __html: data?.desc }}
+            // dangerouslySetInnerHTML={{ __html: data?.desc }}
           />
           <div className={styles.comment}>
-            <Comments postSlug={slug} />
+            {/* <Comments postSlug={slug} /> */}
           </div>
         </div>
         <Menu />

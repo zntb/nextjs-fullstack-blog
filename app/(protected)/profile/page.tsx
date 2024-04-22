@@ -12,7 +12,7 @@ import UserPostCard, {
 import { Post } from '@/components/cardList/CardList';
 import Pagination from '@/components/pagination/Pagination';
 
-const domain = process.env.NEXT_PUBLIC_DOMAIN;
+const domain = process.env.NEXT_PUBLIC_APP_URL;
 const POST_PER_PAGE = 6;
 
 // type PageProps = {
@@ -22,13 +22,15 @@ const POST_PER_PAGE = 6;
 //TODO: Resolve pagination problem
 
 const ProfilePage = () => {
-  const router = useRouter();
-  const { data: session } = useSession({
-    required: true,
-    onUnauthenticated() {
-      router.push('/login');
-    },
-  });
+  // const router = useRouter();
+  // const { data: session } = useSession({
+  //   required: true,
+  //   onUnauthenticated() {
+  //     router.push('/login');
+  //   },
+  // });
+
+  const { data: session } = useSession();
 
   const profileImage = session?.user?.image;
   const profileName = session?.user?.name;
@@ -39,36 +41,36 @@ const ProfilePage = () => {
   const [page, setPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(2);
 
-  useEffect(() => {
-    const fetchPosts = async (currentPage: number, limit: number) => {
-      setLoading(true);
+  // useEffect(() => {
+  //   const fetchPosts = async (currentPage: number, limit: number) => {
+  //     setLoading(true);
 
-      try {
-        const response = await fetch(
-          `${domain}/api/posts?page=${currentPage}&user=${profileEmail}&fetchAll=true`,
-          {
-            cache: 'no-store',
-          }
-        );
+  //     try {
+  //       const response = await fetch(
+  //         `${domain}/api/posts?page=${currentPage}&user=${profileEmail}&fetchAll=true`,
+  //         {
+  //           cache: 'no-store',
+  //         }
+  //       );
 
-        if (response.ok) {
-          const data = await response.json();
-          setPosts(data.posts);
-          setTotalPages(Math.ceil(data.count)); // Update totalPages
-        } else {
-          throw new Error('Failed to fetch posts');
-        }
-      } catch (error) {
-        console.error('Error fetching posts:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
+  //       if (response.ok) {
+  //         const data = await response.json();
+  //         setPosts(data.posts);
+  //         setTotalPages(Math.ceil(data.count)); // Update totalPages
+  //       } else {
+  //         throw new Error('Failed to fetch posts');
+  //       }
+  //     } catch (error) {
+  //       console.error('Error fetching posts:', error);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
 
-    if (session && session.user && session.user.email) {
-      fetchPosts(page || 1, POST_PER_PAGE).catch(() => setLoading(false));
-    }
-  }, [session, page, profileEmail]);
+  //   if (session && session.user && session.user.email) {
+  //     fetchPosts(page || 1, POST_PER_PAGE).catch(() => setLoading(false));
+  //   }
+  // }, [session, page, profileEmail]);
 
   // const handlePrevPage = () => {
   //   if (page > 1) {

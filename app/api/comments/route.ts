@@ -1,4 +1,4 @@
-import { getSessionUser } from '@/actions/user';
+import { auth } from '@/auth';
 // import { getAuthSession } from '@/utils/auth';
 import prisma from '@/utils/connect';
 import { NextRequest, NextResponse } from 'next/server';
@@ -29,7 +29,7 @@ export const GET = async (req: NextRequest): Promise<NextResponse> => {
 
 // CREATE A COMMENT
 export const POST = async (req: NextRequest): Promise<NextResponse> => {
-  const session = await getSessionUser();
+  const session = await auth();
 
   if (!session || !session.user) {
     return new NextResponse(JSON.stringify({ message: 'Not Authenticated!' }), {
@@ -55,7 +55,7 @@ export const POST = async (req: NextRequest): Promise<NextResponse> => {
 
 // DELETE A COMMENT
 export const DELETE = async (req: NextRequest): Promise<NextResponse> => {
-  const session = await getSessionUser();
+  const session = await auth();
   const body = await req.json();
 
   if (!session || !session.user) {
@@ -64,7 +64,7 @@ export const DELETE = async (req: NextRequest): Promise<NextResponse> => {
     });
   }
 
-  const sessionUser = await getSessionUser();
+  const sessionUser = await auth();
 
   if (!sessionUser || !sessionUser.user) {
     return new NextResponse(JSON.stringify({ message: 'Not Authenticated!' }), {
