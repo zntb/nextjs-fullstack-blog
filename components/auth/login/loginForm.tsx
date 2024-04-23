@@ -12,7 +12,7 @@ import { login } from '@/actions/login';
 import { FormError } from '../../formError';
 import { FormSuccess } from '../../formSuccess';
 
-import styles from '../authForm.module.css';
+import styles from '../auth.module.css';
 
 export const LoginForm = () => {
   const searchParams = useSearchParams();

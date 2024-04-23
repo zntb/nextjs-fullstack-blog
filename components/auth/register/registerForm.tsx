@@ -8,7 +8,7 @@ import { RegisterSchema } from '@/schemas';
 import { FormError } from '../../formError';
 import { FormSuccess } from '../../formSuccess';
 import { register } from '@/actions/register';
-import styles from '../authForm.module.css';
+import styles from '../auth.module.css';
 import Link from 'next/link';
 
 export const RegisterForm = () => {

@@ -11,82 +11,53 @@ import UserPostCard, {
 } from '@/components/userPostCard/UserPostCard';
 import { Post } from '@/components/cardList/CardList';
 import Pagination from '@/components/pagination/Pagination';
+import { useCurrentUser } from '@/hooks/use-current-user';
 
-const domain = process.env.NEXT_PUBLIC_APP_URL;
-const POST_PER_PAGE = 6;
-
-// type PageProps = {
-//   page: number;
-// };
+// const domain = process.env.NEXT_PUBLIC_APP_URL;
 
 //TODO: Resolve pagination problem
 
 const ProfilePage = () => {
-  // const router = useRouter();
-  // const { data: session } = useSession({
-  //   required: true,
-  //   onUnauthenticated() {
-  //     router.push('/login');
-  //   },
-  // });
-
-  const { data: session } = useSession();
-
-  const profileImage = session?.user?.image;
-  const profileName = session?.user?.name;
-  const profileEmail = session?.user?.email;
-
+  const user = useCurrentUser();
+  const router = useRouter();
+  const [profileImage, setProfileImage] = useState('');
+  const [profileName, setProfileName] = useState('');
+  const [profileEmail, setProfileEmail] = useState('');
   const [posts, setPosts] = useState<Post[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [page, setPage] = useState<number>(1);
-  const [totalPages, setTotalPages] = useState<number>(2);
+  const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage] = useState(10);
+  const [page, setPage] = useState(1);
 
-  // useEffect(() => {
-  //   const fetchPosts = async (currentPage: number, limit: number) => {
-  //     setLoading(true);
+  useEffect(() => {
+    if (!user) return;
+    setProfileImage(user?.image || '');
+    setProfileName(user?.name || '');
+    setProfileEmail(user?.email || '');
 
-  //     try {
-  //       const response = await fetch(
-  //         `${domain}/api/posts?page=${currentPage}&user=${profileEmail}&fetchAll=true`,
-  //         {
-  //           cache: 'no-store',
-  //         }
-  //       );
+    setLoading(false);
+  }, [user]);
 
-  //       if (response.ok) {
-  //         const data = await response.json();
-  //         setPosts(data.posts);
-  //         setTotalPages(Math.ceil(data.count)); // Update totalPages
-  //       } else {
-  //         throw new Error('Failed to fetch posts');
-  //       }
-  //     } catch (error) {
-  //       console.error('Error fetching posts:', error);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
+  useEffect(() => {
+    if (!user) return;
+    const fetchPosts = async () => {
+      const res = await fetch(
+        `http://localhost:3000/api/posts?userId=${user?.id}&page=${page}`
+      );
+      const data = await res.json();
+      setPosts(data);
+      setLoading(false);
+    };
+    fetchPosts();
+  }, [user, page]);
 
-  //   if (session && session.user && session.user.email) {
-  //     fetchPosts(page || 1, POST_PER_PAGE).catch(() => setLoading(false));
-  //   }
-  // }, [session, page, profileEmail]);
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
 
-  // const handlePrevPage = () => {
-  //   if (page > 1) {
-  //     setPage(page - 1);
-  //   }
-  // };
-
-  // const handleNextPage = () => {
-  //   if (page < totalPages) {
-  //     setPage(page + 1);
-  //   }
-  // };
-
-  // const hasPrev = page > 1;
-  // const hasNext = page < totalPages;
   const count = posts.length;
+
+  const POST_PER_PAGE = 2;
 
   const hasPrev = POST_PER_PAGE * (page - 1) > 0;
   const hasNext = POST_PER_PAGE * (page - 1) + POST_PER_PAGE < count;
