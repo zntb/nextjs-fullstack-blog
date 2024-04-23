@@ -14,49 +14,45 @@ export interface Category {
   img?: string | null;
 }
 
-// const getData = async (): Promise<Category[]> => {
-//   // await new Promise((resolve) => setTimeout(resolve, 5000));
-//   const res = await fetch(`${domain}/api/categories`, {
-//     cache: 'no-store',
-//     method: 'GET',
-//     headers: {
-//       'Content-Type': 'application/json',
-//     },
-//   });
+const getData = async (): Promise<Category[]> => {
+  // await new Promise((resolve) => setTimeout(resolve, 5000));
+  const res = await fetch(`${domain}/api/categories`, {
+    cache: 'no-store',
+  });
 
-//   if (!res.ok) {
-//     throw new Error('Failed to fetch data');
-//   }
+  if (!res.ok) {
+    throw new Error('Failed to fetch data');
+  }
 
-//   return res.json();
-// };
+  return res.json();
+};
 
 const CategoryList = () => {
-  // const [isLoading, setIsLoading] = useState(true);
-  // const [data, setData] = useState<Category[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [data, setData] = useState<Category[]>([]);
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const categories = await getData();
-  //       setData(categories);
-  //       setIsLoading(false);
-  //     } catch (error) {
-  //       console.error('Error fetching categories:', error);
-  //       setIsLoading(false);
-  //     }
-  //   };
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const categories = await getData();
+        setData(categories);
+        setIsLoading(false);
+      } catch (error) {
+        console.error('Error fetching categories:', error);
+        setIsLoading(false);
+      }
+    };
 
-  //   fetchData();
-  // }, []);
-  return (
-    // return isLoading ? (
-    //   <CategoryListSkeleton />
-    // ) : (
+    fetchData();
+  }, []);
+
+  return isLoading ? (
+    <CategoryListSkeleton />
+  ) : (
     <div className={styles.container}>
       <h1 className={styles.title}>Popular Categories</h1>
       <div className={styles.categories}>
-        {/* {data.map((item, index) => (
+        {data.map((item, index) => (
           <Link
             key={index}
             href={`/blog?cat=${item.title}`}
@@ -73,7 +69,7 @@ const CategoryList = () => {
             )}
             {item.title}
           </Link>
-        ))} */}
+        ))}
       </div>
     </div>
   );
