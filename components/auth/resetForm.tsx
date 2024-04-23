@@ -3,39 +3,33 @@ import { useState } from 'react';
 import * as z from 'zod';
 
 import { useTransition } from 'react';
-import { useSearchParams } from 'next/navigation';
 import { Form, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { NewPasswordSchema } from '@/schemas';
-
-import { newPassword } from '@/actions/new-password';
-
-import styles from './auth.module.css';
+import { ResetSchema } from '@/schemas';
+import { reset } from '@/actions/reset';
 import { FormError } from '../formError';
 import { FormSuccess } from '../formSuccess';
+import styles from './auth.module.css';
 import { CardWrapper } from './cardWrapper/cardWrapper';
 
-export const NewPasswordForm = () => {
-  const searchParams = useSearchParams();
-  const token = searchParams.get('token');
-
+export const ResetForm = () => {
   const [error, setError] = useState<string | undefined>('');
   const [success, setSuccess] = useState<string | undefined>('');
   const [isPending, startTransition] = useTransition();
 
-  const form = useForm<z.infer<typeof NewPasswordSchema>>({
-    resolver: zodResolver(NewPasswordSchema),
+  const form = useForm<z.infer<typeof ResetSchema>>({
+    resolver: zodResolver(ResetSchema),
     defaultValues: {
-      password: '',
+      email: '',
     },
   });
 
-  const onSubmit = (values: z.infer<typeof NewPasswordSchema>) => {
+  const onSubmit = (values: z.infer<typeof ResetSchema>) => {
     setError('');
     setSuccess('');
 
     startTransition(() => {
-      newPassword(values, token)
+      reset(values)
         .then((data) => {
           setError(data?.error);
           setSuccess(data?.success);
@@ -48,32 +42,34 @@ export const NewPasswordForm = () => {
 
   return (
     <CardWrapper
-      headerLabel="Enter a new password"
-      backButtonLabel="Back to login"
+      headerLabel="Reset Password"
+      backButtonLabel="Back to Login"
       backButtonHref="/auth/login"
     >
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className={styles.form}>
-          <div className={styles.field}>
+          <div>
+            <label htmlFor="email">Email</label>
             <input
               className={styles.input}
-              type="password"
-              id="password"
-              {...form.register('password')}
+              id="email"
+              type="email"
+              placeholder="Email"
+              {...form.register('email')}
             />
+          </div>
+          <div>
+            <button
+              className={styles.button}
+              type="submit"
+              disabled={isPending}
+            >
+              Send Reset Email
+            </button>
           </div>
           <div>
             <FormError message={error} />
             <FormSuccess message={success} />
-          </div>
-          <div>
-            <button
-              type="submit"
-              disabled={isPending}
-              className={styles.button}
-            >
-              Reset password
-            </button>
           </div>
         </form>
       </Form>

@@ -6,6 +6,15 @@
   gap: 20px;
 }
 
+/* .header {
+  margin-top: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+} */
+
 .input {
   display: flex;
   margin: 0 0 0.5rem 0;
@@ -60,4 +69,61 @@
 
 .button:active {
   transform: scale(0.975);
+}
+
+/* ....................................................... */
+
+/* .cardWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+} */
+
+.backButton {
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  color: var(--textColor);
+  text-decoration: underline;
+  font-size: 0.9rem;
+}
+
+.errorCard {
+  height: 5rem;
+}
+
+.errorIcon {
+  font-size: 5rem;
+  color: rgb(90, 25, 25);
+}
+
+.verifyContainer {
+  height: 100vh;
+  display: flex;
+  position: relative;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.label {
+  color: var(--softTextColor);
 }

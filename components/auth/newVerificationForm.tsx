@@ -1,11 +1,11 @@
 'use client';
 import { useCallback, useEffect, useState } from 'react';
-import { CardWrapper } from './card-wrapper';
 import { useSearchParams } from 'next/navigation';
 import { BeatLoader } from 'react-spinners';
 import { newVerification } from '@/actions/new-verification';
 import { FormError } from '@/components/formError';
 import { FormSuccess } from '@/components/formSuccess';
+import { CardWrapper } from './cardWrapper/cardWrapper';
 
 import styles from './auth.module.css';
 
@@ -42,12 +42,11 @@ const NewVerificationForm = () => {
   return (
     <CardWrapper
       headerLabel="Confirming your verification"
-      backButtonLabel="Back to login"
+      backButtonLabel="Back to Login"
       backButtonHref="/auth/login"
     >
       <div className={styles.card}>
         {!success && !error && <BeatLoader color="black" />}
-
         <FormSuccess message={success} />
         {!success && <FormError message={error} />}
       </div>

@@ -21,9 +21,9 @@ export default function Home({ searchParams }: SearchParamsProps) {
       <Featured />
       <CategoryList />
       <div className={styles.content}>
-        {/* <Suspense fallback={<CardListSkeleton />}>
+        <Suspense fallback={<CardListSkeleton />}>
           <CardList page={page} />
-        </Suspense> */}
+        </Suspense>
         <Menu />
       </div>
     </div>
