@@ -21,6 +21,7 @@ type PostData = {
 };
 
 const getData = async (slug: string): Promise<PostData | null> => {
+  await new Promise((resolve) => setTimeout(resolve, 5000));
   try {
     const response = await fetch(`${domain}/api/posts/${slug}`, {
       cache: 'no-store',
@@ -44,6 +45,7 @@ type SinglePageProps = {
 };
 
 export async function generateMetadata({ params }: SinglePageProps) {
+  await new Promise((resolve) => setTimeout(resolve, 5000));
   const { slug } = params;
   const data: PostData | null = await getData(slug);
 

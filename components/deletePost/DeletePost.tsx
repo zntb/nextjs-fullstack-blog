@@ -42,3 +42,11 @@ const DeletePost = ({ slug }: { slug: string }) => {
 };
 
 export default DeletePost;
+
+export const DeletePostSkeleton = () => {
+  return (
+    <div className={styles.skeletonDeleteBtnContainer}>
+      <button className={styles.skeletonButton}>Delete Post</button>
+    </div>
+  );
+};

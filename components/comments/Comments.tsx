@@ -142,3 +142,14 @@ const Comments: React.FC<{ postSlug: string }> = ({ postSlug }) => {
 };
 
 export default Comments;
+
+export const CommentsSkeleton = () => {
+  return (
+    <div className={styles.skeletonContainer}>
+      <h1 className={styles.skeletonTitle}>Title</h1>
+      <div className={styles.skeletonUser}></div>
+      <div className={styles.skeletonDescription} />
+      <div className={styles.skeletonComment} />
+    </div>
+  );
+};

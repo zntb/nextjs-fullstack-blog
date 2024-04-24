@@ -40,6 +40,7 @@ const ProfilePage = () => {
   const [totalPages, setTotalPages] = useState<number>(2);
 
   useEffect(() => {
+    new Promise((resolve) => setTimeout(resolve, 5000));
     const fetchPosts = async (currentPage: number, limit: number) => {
       setLoading(true);
 

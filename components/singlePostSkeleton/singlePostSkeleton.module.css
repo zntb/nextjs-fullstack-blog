@@ -1,0 +1,95 @@
+.skeletonContainer {
+  margin-top: 60px;
+}
+
+.skeletonInfoContainer {
+  display: flex;
+  align-items: center;
+  gap: 50px;
+}
+
+.skeletonTextContainer {
+  flex: 1;
+}
+
+.skeletonTitle {
+  max-width: calc(100vw - 40rem);
+  color: transparent;
+  margin-top: 60px;
+  font-size: 64px;
+  margin-bottom: 50px;
+  overflow-wrap: break-word;
+  background-color: rgba(211, 211, 211, 0.034);
+}
+
+.skeletonUser {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.skeletonUserImage {
+  width: 50px;
+  height: 50px;
+  position: relative;
+}
+
+.skeletonUserTextContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  color: transparent;
+  background-color: rgba(211, 211, 211, 0.034);
+}
+
+.skeletonUsername {
+  color: transparent;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.skeletonDate {
+  color: transparent;
+  width: 50%;
+  height: 20px;
+  border-radius: 10px;
+  background-color: rgba(211, 211, 211, 0.034);
+}
+
+.skeletonImageContainer {
+  margin-top: 80px;
+  flex: 1;
+  height: 350px;
+  position: relative;
+  background-color: rgba(211, 211, 211, 0.034);
+}
+
+.skeletonContent {
+  display: flex;
+  gap: 50px;
+}
+
+.skeletonPost {
+  flex: 5;
+  margin-top: 60px;
+}
+
+.skeletonDescription p {
+  color: transparent;
+  font-size: 20px;
+  font-weight: 300;
+  margin-bottom: 20px;
+  background-color: rgba(211, 211, 211, 0.034);
+}
+
+.skeletonComment {
+  width: 50%;
+  height: 20px;
+  border-radius: 10px;
+}
+
+@media screen and (max-width: 1024px) {
+  .skeletonImageContainer {
+    display: none;
+  }
+}
