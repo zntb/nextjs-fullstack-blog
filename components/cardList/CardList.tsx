@@ -25,7 +25,7 @@ const getData = async (
   page: number,
   cat?: string
 ): Promise<{ posts: Post[]; count: number }> => {
-  // await new Promise((resolve) => setTimeout(resolve, 5000));
+  await new Promise((resolve) => setTimeout(resolve, 5000));
   try {
     const res = await fetch(
       `${domain}/api/posts?page=${page}&cat=${cat || ''}`,

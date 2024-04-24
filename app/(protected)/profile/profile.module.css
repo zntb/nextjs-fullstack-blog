@@ -51,10 +51,6 @@
   font-weight: bold;
 }
 
-.hr {
-  margin: 2.3rem 0 0 0;
-}
-
 .posts {
   width: 100%;
   margin-top: 0;
@@ -70,6 +66,10 @@
 
 .post {
   margin: 0 0 2rem 2rem;
+}
+
+.hr {
+  margin: 2.3rem 0 0 0;
 }
 
 @media screen and (max-width: 640px) {

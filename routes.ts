@@ -6,7 +6,6 @@
 
 export const publicRoutes = [
   '/',
-  '/blog',
   '/api/categories',
   '/posts',
   '/posts/[slug]',
@@ -17,6 +16,9 @@ export const publicRoutes = [
   '/auth/new-verification',
   '/write',
   '/profile',
+  'api/auth/login',
+  '/write',
+  '/profile',
 ];
 
 /**
@@ -25,11 +27,11 @@ export const publicRoutes = [
  * @type {string[]}
  */
 export const authRoutes = [
-  // '/auth/login',
-  // '/auth/register',
-  // '/auth/error',
-  // '/auth/reset',
-  // '/auth/new-password',
+  '/auth/login',
+  '/auth/register',
+  '/auth/error',
+  '/auth/reset',
+  '/auth/new-password',
   // '/write',
   // '/profile',
 ];

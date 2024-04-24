@@ -20,7 +20,7 @@ const Navbar = () => {
         <Link href="/" className={styles.link}>
           Homepage
         </Link>
-        <Link href="/blog" className={styles.link}>
+        <Link href="/posts" className={styles.link}>
           Posts
         </Link>
         <AuthLinks />

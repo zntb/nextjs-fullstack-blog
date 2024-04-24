@@ -38,7 +38,11 @@ export const getSinglePost = async (slug: string) => {
 
     const data = await res.json();
 
-    console.log(data);
+    // if (!data) {
+    //   return null;
+    // }
+
+    // console.log(data);
 
     return data;
   } catch (error) {
