@@ -65,13 +65,16 @@ export const SinglePost = () => {
     post.user.image = profileDefaultImage.src;
   }
 
+  if (loading) {
+    return <SinglePostSkeleton />;
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.infoContainer}>
         <div className={styles.textContainer}>
           <h1 className={styles.title}>{post?.title}</h1>
           <div className={styles.user}>
-            {/* {post?.user.image && ( */}
             <div className={styles.userImageContainer}>
               <Image
                 src={post?.user?.image || profileDefaultImage.src}
@@ -81,7 +84,7 @@ export const SinglePost = () => {
                 className={styles.avatar}
               />
             </div>
-            {/* )} */}
+
             <div className={styles.userTextContainer}>
               <span className={styles.username}>{post?.user?.name}</span>
               <span className={styles.date}>

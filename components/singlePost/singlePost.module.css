@@ -72,36 +72,6 @@
   margin-bottom: 20px;
 }
 
-@media screen and (max-width: 1536px) {
-  .title {
-    font-size: 54px;
-  }
-}
-@media screen and (max-width: 1280px) {
-  .title {
-    font-size: 48px;
-  }
-}
-@media screen and (max-width: 1024px) {
-  .imageContainer {
-    display: none;
-  }
-}
-@media screen and (max-width: 640px) {
-  .title {
-    max-width: 100%;
-    width: 15rem;
-    font-size: 2rem;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-  }
-
-  .description p {
-    font-size: 18px;
-  }
-}
-
 .skeletonContainer {
   margin-top: 60px;
 }
@@ -133,9 +103,11 @@
 }
 
 .skeletonUserImage {
+  border-radius: 50%;
   width: 50px;
   height: 50px;
   position: relative;
+  background-color: rgba(211, 211, 211, 0.034);
 }
 
 .skeletonUserTextContainer {
@@ -192,8 +164,35 @@
   border-radius: 10px;
 }
 
+@media screen and (max-width: 1536px) {
+  .title {
+    font-size: 54px;
+  }
+}
+@media screen and (max-width: 1280px) {
+  .title {
+    font-size: 48px;
+  }
+}
 @media screen and (max-width: 1024px) {
+  .imageContainer {
+    display: none;
+  }
   .skeletonImageContainer {
     display: none;
+  }
+}
+@media screen and (max-width: 640px) {
+  .title {
+    max-width: 100%;
+    width: 15rem;
+    font-size: 2rem;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .description p {
+    font-size: 18px;
   }
 }

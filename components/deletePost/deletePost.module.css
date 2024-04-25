@@ -27,6 +27,8 @@
 
 .skeletonButton {
   background-color: rgba(211, 211, 211, 0.034);
+  height: 2rem;
+  width: 6rem;
   border: none;
   color: transparent;
 }
