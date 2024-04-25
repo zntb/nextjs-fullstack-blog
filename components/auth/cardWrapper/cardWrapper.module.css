@@ -1,0 +1,29 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-height: 650px;
+  height: 100vh;
+  width: 100%;
+}
+
+.card {
+  width: 400px;
+  height: 500px;
+  border-radius: 10px;
+  background-color: var(--softBg);
+  color: var(--textColor);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 20px;
+}
+
+.title {
+  padding: 0 20px 20px 20px;
+  text-align: center;
+  font-size: 1.5rem;
+}

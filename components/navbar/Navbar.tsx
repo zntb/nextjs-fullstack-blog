@@ -4,8 +4,12 @@ import Image from 'next/image';
 import Link from 'next/link';
 import AuthLinks from '../authLinks/AuthLinks';
 import ThemeToggle from '../themeToggle/ThemeToggle';
+import { headers } from 'next/headers';
 
 const Navbar = () => {
+  const headerList = headers();
+  const pathname = headerList.get('x-current-path');
+
   return (
     <div className={styles.container}>
       <div className={styles.social}>
@@ -17,10 +21,16 @@ const Navbar = () => {
       <div className={styles.logo}>zntbBlog</div>
       <div className={styles.links}>
         <ThemeToggle />
-        <Link href="/" className={styles.link}>
+        <Link
+          href="/"
+          className={`styles.link ${pathname === '/' && 'active'}`}
+        >
           Homepage
         </Link>
-        <Link href="/blog" className={styles.link}>
+        <Link
+          href="/posts"
+          className={`styles.link ${pathname === '/posts' && 'active'}`}
+        >
           Posts
         </Link>
         <AuthLinks />

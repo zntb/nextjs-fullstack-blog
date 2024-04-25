@@ -1,15 +1,28 @@
 import prisma from '@/utils/connect';
 
-export const getUserById = async (userId: string) => {
+export const getUserById = async (id: string) => {
   try {
     const user = await prisma.user.findUnique({
       where: {
-        id: userId,
+        id,
       },
     });
     return user;
   } catch (error) {
-    console.log(error);
+    return null;
+  }
+};
+
+export const getUserByName = async (name: string) => {
+  try {
+    const user = await prisma.user.findFirst({
+      where: {
+        name,
+      },
+    });
+    return user;
+  } catch (error) {
+    return null;
   }
 };
 
@@ -22,6 +35,6 @@ export const getUserByEmail = async (email: string) => {
     });
     return user;
   } catch (error) {
-    console.log(error);
+    return null;
   }
 };

@@ -4,10 +4,11 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import useSWR from 'swr';
-import { useSession } from 'next-auth/react';
+import { useCurrentUser } from '@/hooks/use-current-user';
+import defaultUserImage from '@/public/profile.png';
 import styles from './comments.module.css';
 
-const domain = process.env.NEXT_PUBLIC_DOMAIN;
+const domain = process.env.NEXT_PUBLIC_APP_URL;
 
 type Comment = {
   id: string;
@@ -44,7 +45,7 @@ const fetcher = async (url: string) => {
 };
 
 const Comments: React.FC<{ postSlug: string }> = ({ postSlug }) => {
-  const { data: session, status } = useSession();
+  const user = useCurrentUser();
   const { data, mutate, isLoading } = useSWR<Comment[]>(
     `${domain}/api/comments?postSlug=${postSlug}`,
     fetcher
@@ -86,7 +87,7 @@ const Comments: React.FC<{ postSlug: string }> = ({ postSlug }) => {
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Comments</h1>
-      {session && status === 'authenticated' ? (
+      {user ? (
         <div className={styles.write}>
           <textarea
             placeholder="write a comment..."
@@ -107,15 +108,14 @@ const Comments: React.FC<{ postSlug: string }> = ({ postSlug }) => {
           : data?.map((item: Comment, index: number) => (
               <div className={styles.comment} key={index}>
                 <div className={styles.user}>
-                  {item?.user?.image && (
-                    <Image
-                      src={item.user.image}
-                      alt=""
-                      width={50}
-                      height={50}
-                      className={styles.image}
-                    />
-                  )}
+                  <Image
+                    src={item.user.image || defaultUserImage}
+                    alt=""
+                    width={50}
+                    height={50}
+                    className={styles.image}
+                  />
+
                   <div className={styles.userInfo}>
                     <span className={styles.username}>{item.user.name}</span>
                     <span className={styles.date}>
@@ -142,3 +142,14 @@ const Comments: React.FC<{ postSlug: string }> = ({ postSlug }) => {
 };
 
 export default Comments;
+
+export const CommentsSkeleton = () => {
+  return (
+    <div className={styles.skeletonContainer}>
+      <h1 className={styles.skeletonTitle}>Title</h1>
+      <div className={styles.skeletonUser}></div>
+      <div className={styles.skeletonDescription} />
+      <div className={styles.skeletonComment} />
+    </div>
+  );
+};

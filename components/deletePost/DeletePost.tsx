@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import { startTransition } from 'react';
 import styles from './deletePost.module.css';
 
-const domain = process.env.NEXT_PUBLIC_DOMAIN;
+const domain = process.env.NEXT_PUBLIC_APP_URL;
 
 const DeletePost = ({ slug }: { slug: string }) => {
   const router = useRouter();
@@ -42,3 +42,11 @@ const DeletePost = ({ slug }: { slug: string }) => {
 };
 
 export default DeletePost;
+
+export const DeletePostSkeleton = () => {
+  return (
+    <div className={styles.skeletonDeleteBtnContainer}>
+      <button className={styles.skeletonButton}>Delete Post</button>
+    </div>
+  );
+};

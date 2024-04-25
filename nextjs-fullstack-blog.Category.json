@@ -1,0 +1,36 @@
+[{
+  "_id": "clv8zltpt000013727m9dbt81",
+  "slug": "coding",
+  "title": "coding",
+  "img": "https://firebasestorage.googleapis.com/v0/b/nextjs-fullstack-blog-9eb48.appspot.com/o/coding.png?alt=media&token=484a96b5-f90c-424e-a52e-893019a102eb"
+},
+{
+  "_id": "clv8znw0g000113722zq7f49b",
+  "slug": "culture",
+  "title": "culture",
+  "img": "https://firebasestorage.googleapis.com/v0/b/nextjs-fullstack-blog-9eb48.appspot.com/o/culture.png?alt=media&token=2cc23f5c-1595-4e73-b308-69fdd71f8de0"
+},
+{
+  "_id": "clv8zpcqb00021372mio4iqt4",
+  "slug": "fashion",
+  "title": "fashion",
+  "img": "https://firebasestorage.googleapis.com/v0/b/nextjs-fullstack-blog-9eb48.appspot.com/o/fashion.png?alt=media&token=4e21c104-8386-4e49-91dd-2ea7d08d4f7d"
+},
+{
+  "_id": "clv8zqi6200031372f28g7xxm",
+  "slug": "food",
+  "title": "food",
+  "img": "https://firebasestorage.googleapis.com/v0/b/nextjs-fullstack-blog-9eb48.appspot.com/o/food.png?alt=media&token=24f7c426-490e-4560-a0b7-4a5340679f88"
+},
+{
+  "_id": "clv8zrjpw00041372sbu7axw9",
+  "slug": "style",
+  "title": "style",
+  "img": "https://firebasestorage.googleapis.com/v0/b/nextjs-fullstack-blog-9eb48.appspot.com/o/style.png?alt=media&token=a7e8b827-f58a-4407-be1e-b1097374edaf"
+},
+{
+  "_id": "clv8zscel00051372192a9nfd",
+  "slug": "travel",
+  "title": "travel",
+  "img": "https://firebasestorage.googleapis.com/v0/b/nextjs-fullstack-blog-9eb48.appspot.com/o/travel.png?alt=media&token=7cfb17d0-dd1f-4b48-a17c-a816ce7b3acb"
+}]
