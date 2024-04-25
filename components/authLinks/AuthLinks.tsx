@@ -2,15 +2,28 @@
 
 import Link from 'next/link';
 import styles from './authLinks.module.css';
-import { useState } from 'react';
-import { signOut, useSession } from 'next-auth/react';
+import { useEffect, useState } from 'react';
+import { signIn, signOut } from 'next-auth/react';
+import { useCurrentUser } from '@/hooks/use-current-user';
+// import { usePathname } from 'next/navigation';
 
 const AuthLinks = () => {
   const [open, setOpen] = useState<boolean>(false);
+  const [path, setPath] = useState<string>('');
 
-  const { data: session, status } = useSession();
+  const user = useCurrentUser();
 
-  if (status !== 'authenticated' || !session || !session.user) {
+  // const pathname = usePathname();
+
+  useEffect(() => {
+    if (user) {
+      path === '/logout' && signOut();
+    } else {
+      path === '/login' && signIn();
+    }
+  }, [path, user]);
+
+  if (!user || !user?.email) {
     return (
       <>
         <Link href="/login" className={styles.link}>
@@ -34,7 +47,7 @@ const AuthLinks = () => {
 
   return (
     <>
-      {session && session.user && (
+      {user && (
         <>
           <Link href="/write" className={styles.link}>
             Write

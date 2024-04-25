@@ -3,7 +3,7 @@ import Card, { CardSkeleton } from '../card/Card';
 import { Category } from '../categoryList/CategoryList';
 import styles from './cardList.module.css';
 
-const domain = process.env.NEXT_PUBLIC_DOMAIN;
+const domain = process.env.NEXT_PUBLIC_APP_URL;
 
 export type Post = {
   id: string;

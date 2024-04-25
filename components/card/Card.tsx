@@ -14,7 +14,7 @@ type CardProps = {
   };
 };
 
-const Card = ({ item }: CardProps) => {
+const Card = async ({ item }: CardProps) => {
   return (
     <div className={styles.container}>
       {item.img && (

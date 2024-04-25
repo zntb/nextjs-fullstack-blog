@@ -5,7 +5,7 @@ import Link from 'next/link';
 import styles from './categoryList.module.css';
 import Image from 'next/image';
 
-const domain = process.env.NEXT_PUBLIC_DOMAIN;
+const domain = process.env.NEXT_PUBLIC_APP_URL;
 
 export interface Category {
   _id: string;

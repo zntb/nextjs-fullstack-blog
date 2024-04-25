@@ -17,3 +17,16 @@
 .btnDelete:hover {
   background-color: rgb(214, 88, 88);
 }
+
+.skeletonDeleteBtnContainer {
+  border: none;
+  color: transparent;
+  display: block;
+  margin-top: 50px;
+}
+
+.skeletonButton {
+  background-color: rgba(211, 211, 211, 0.034);
+  border: none;
+  color: transparent;
+}

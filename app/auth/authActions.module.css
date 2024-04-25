@@ -1,0 +1,48 @@
+.container {
+  top: 5.7rem;
+  display: flex;
+  position: relative;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 5rem;
+}
+
+.wrapper {
+  background-color: var(--softBg);
+  padding: 4rem 6rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.3rem;
+  border-radius: 10px;
+  border: none;
+  text-shadow: 0 0 2px var(--borderColor);
+  box-shadow: 0 0 5px 0px var(--borderColor);
+}
+
+.wrapper h1 {
+  text-shadow: 0 0 2px var(--borderColor);
+}
+
+.hr {
+  width: 75%;
+  height: 1px;
+  background-color: var(--borderColor);
+}
+
+@media screen and (max-width: 768px) {
+  .wrapper {
+    padding: 50px 100px;
+  }
+}
+@media screen and (max-width: 640px) {
+  .container {
+    padding-bottom: 0;
+  }
+  .wrapper {
+    margin-bottom: 5rem;
+    padding: 30px;
+  }
+}

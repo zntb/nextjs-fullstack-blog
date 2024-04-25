@@ -1,0 +1,129 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+/* .header {
+  margin-top: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+} */
+
+.input {
+  display: flex;
+  margin: 0 0 0.5rem 0;
+  padding: 0.5rem 1.4rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 700;
+  font-family: 'Montserrat', sans-serif;
+  vertical-align: middle;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  border: 1px solid var(--borderColor);
+  gap: 0.75rem;
+  color: var(--softTextColor);
+  background-color: var(--inputSoftBg);
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.input:focus {
+  outline: none;
+  background-color: var(--inputBg);
+  color: var(--textColor);
+  border: 1px solid var(--borderColor);
+  box-shadow: 0 0 4px var(--borderColor);
+}
+
+.button {
+  margin-top: 0.8rem;
+  width: 100%;
+  padding: 0.5rem 1.4rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 700;
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  vertical-align: middle;
+  border-radius: 0.5rem;
+  border: 1px solid var(--borderColor);
+  gap: 0.75rem;
+  color: var(--softTextColor);
+  background-color: var(--softBg2);
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.button:hover {
+  background-color: var(--bg2);
+  color: var(--textColor);
+}
+
+.button:active {
+  transform: scale(0.975);
+}
+
+/* ....................................................... */
+
+/* .cardWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+} */
+
+.backButton {
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  color: var(--textColor);
+  text-decoration: underline;
+  font-size: 0.9rem;
+}
+
+.errorCard {
+  height: 5rem;
+}
+
+.errorIcon {
+  font-size: 5rem;
+  color: rgb(90, 25, 25);
+}
+
+.verifyContainer {
+  height: 100vh;
+  display: flex;
+  position: relative;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.label {
+  color: var(--softTextColor);
+}
