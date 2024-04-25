@@ -1,10 +1,10 @@
 import prisma from '@/utils/connect';
 
-export const getUserById = async (userId: string) => {
+export const getUserById = async (id: string) => {
   try {
     const user = await prisma.user.findUnique({
       where: {
-        id: userId,
+        id,
       },
     });
     return user;

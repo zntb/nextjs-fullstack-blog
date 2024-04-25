@@ -14,6 +14,7 @@ const { auth } = NextAuth(authConfig);
 export default auth((req) => {
   const { nextUrl } = req;
   const isLoggedIn = !!req.auth;
+  // const isLoggedIn = true;
 
   const headers = new Headers(req.headers);
   headers.set('x-current-path', req.nextUrl.pathname);
@@ -39,6 +40,8 @@ export default auth((req) => {
 
   if (!isLoggedIn && !isPublicRoute) {
     let callbackUrl = nextUrl.pathname;
+    console.log('callbackUrl', callbackUrl);
+
     if (nextUrl.search) {
       callbackUrl += nextUrl.search;
     }
@@ -56,5 +59,10 @@ export default auth((req) => {
 });
 
 export const config = {
-  matcher: ['/((?!.+\\.[\\w]+$|_next).*)', '/(api|trpc)(.*)'],
+  matcher: [
+    '/((?!.+\\.[\\w]+$|_next).*)',
+    '/(api|trpc)(.*)',
+    '/profile',
+    '/write',
+  ],
 };

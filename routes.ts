@@ -4,7 +4,8 @@
  * @type {string[]}
  */
 
-export const publicRoutes = [
+export const publicRoutes: string[] = [
+  '/',
   '/api/categories',
   '/posts',
   '/posts/(.*)',
@@ -14,8 +15,8 @@ export const publicRoutes = [
   '/api/posts/[slug]',
   '/api/posts/[slug]/(.*)',
   '/auth/new-verification',
-  '/write',
-  '/profile',
+  // '/write',
+  // '/profile',
 ];
 
 /**
@@ -23,12 +24,13 @@ export const publicRoutes = [
  * These routes will redirect logged in users to /profile
  * @type {string[]}
  */
-export const authRoutes = [
+export const authRoutes: string[] = [
   '/auth/login',
   '/auth/register',
   '/auth/error',
   '/auth/reset',
   '/auth/new-password',
+  '/auth/profile',
   // '/write',
   // '/profile',
 ];
@@ -38,10 +40,10 @@ export const authRoutes = [
  * Routes that start with this prefix are used for  API authentication purposes
  * @type {string}
  */
-export const apiAuthPrefix = '/api/auth';
+export const apiAuthPrefix: string = '/api/auth';
 
 /**
  * The default redirect path after logging in
  * @type {string}
  */
-export const DEFAULT_LOGIN_REDIRECT = '/profile';
+export const DEFAULT_LOGIN_REDIRECT: string = '/profile';
