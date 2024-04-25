@@ -2,14 +2,26 @@
 
 import Link from 'next/link';
 import styles from './authLinks.module.css';
-import { useState } from 'react';
-import { signOut } from 'next-auth/react';
+import { useEffect, useState } from 'react';
+import { signIn, signOut } from 'next-auth/react';
 import { useCurrentUser } from '@/hooks/use-current-user';
+// import { usePathname } from 'next/navigation';
 
 const AuthLinks = () => {
   const [open, setOpen] = useState<boolean>(false);
+  const [path, setPath] = useState<string>('');
 
   const user = useCurrentUser();
+
+  // const pathname = usePathname();
+
+  useEffect(() => {
+    if (user) {
+      path === '/logout' && signOut();
+    } else {
+      path === '/login' && signIn();
+    }
+  }, [path, user]);
 
   if (!user || !user?.email) {
     return (

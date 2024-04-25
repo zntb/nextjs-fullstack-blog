@@ -1,4 +1,4 @@
-import { SinglePostSkeleton } from '@/components/singlePostSkeleton/SinglePostSkeleton';
+import { SinglePostSkeleton } from '@/components/singlePost/SinglePost';
 
 export default function Loading() {
   return (

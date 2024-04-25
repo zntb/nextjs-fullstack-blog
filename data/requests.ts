@@ -23,7 +23,7 @@ export const getAllPosts = async () => {
 };
 
 // Fetch a single post
-export const getSinglePost = async (slug: string) => {
+export const fetchPost = async (slug: string) => {
   if (!domain) {
     return null;
   }

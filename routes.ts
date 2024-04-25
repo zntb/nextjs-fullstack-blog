@@ -31,9 +31,14 @@ export const authRoutes: string[] = [
   '/auth/reset',
   '/auth/new-password',
   '/auth/profile',
-  // '/write',
-  // '/profile',
 ];
+
+/**
+ * An array of routes that are used for logged in users
+ * These routes will redirect non logged in users to /auth/login
+ * @type {string[]}
+ */
+export const protectedRoutes: string[] = ['/write', '/profile'];
 
 /**
  * The prefix for API authentication routes

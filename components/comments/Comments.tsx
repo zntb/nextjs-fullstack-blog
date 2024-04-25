@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import useSWR from 'swr';
 import { useCurrentUser } from '@/hooks/use-current-user';
+import defaultUserImage from '@/public/profile.png';
 import styles from './comments.module.css';
 
 const domain = process.env.NEXT_PUBLIC_APP_URL;
@@ -107,15 +108,14 @@ const Comments: React.FC<{ postSlug: string }> = ({ postSlug }) => {
           : data?.map((item: Comment, index: number) => (
               <div className={styles.comment} key={index}>
                 <div className={styles.user}>
-                  {item?.user?.image && (
-                    <Image
-                      src={item.user.image}
-                      alt=""
-                      width={50}
-                      height={50}
-                      className={styles.image}
-                    />
-                  )}
+                  <Image
+                    src={item.user.image || defaultUserImage}
+                    alt=""
+                    width={50}
+                    height={50}
+                    className={styles.image}
+                  />
+
                   <div className={styles.userInfo}>
                     <span className={styles.username}>{item.user.name}</span>
                     <span className={styles.date}>
