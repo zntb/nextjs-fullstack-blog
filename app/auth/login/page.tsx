@@ -6,14 +6,12 @@ import { Social } from '@/components/auth/social/Social';
 
 const LoginPage = () => {
   return (
-    <div className={styles.container}>
-      <div className={styles.wrapper}>
-        <h1>Login</h1>
-        <Social />
-        <hr className={styles.hr} />
-        <LoginForm />
-      </div>
-    </div>
+    <>
+      <h1 className={styles.title}>Login</h1>
+      <Social />
+      <hr className={styles.hr} />
+      <LoginForm />
+    </>
   );
 };
 

@@ -13,7 +13,7 @@ export const {
   signOut,
 } = NextAuth({
   pages: {
-    signIn: 'auth/login',
+    signIn: '/auth/login',
     error: '/auth/error',
   },
 
@@ -24,7 +24,7 @@ export const {
           id: user.id,
         },
         data: {
-          email: user.email,
+          emailVerified: new Date(),
         },
       });
     },
@@ -43,7 +43,7 @@ export const {
 
       return true;
     },
-    async session({ session, token }) {
+    async session({ token, session }) {
       if (token.sub && session.user) {
         session.user.id = token.sub;
       }

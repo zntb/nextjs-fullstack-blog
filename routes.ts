@@ -5,18 +5,15 @@
  */
 
 export const publicRoutes = [
-  '/',
   '/api/categories',
   '/posts',
+  '/posts/(.*)',
   '/posts/[slug]',
   '/api/posts',
-  '/api/posts?(.*)',
+  '/api/posts/(.*)',
   '/api/posts/[slug]',
   '/api/posts/[slug]/(.*)',
   '/auth/new-verification',
-  '/write',
-  '/profile',
-  'api/auth/login',
   '/write',
   '/profile',
 ];

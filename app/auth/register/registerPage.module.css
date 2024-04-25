@@ -1,28 +1,4 @@
-.container {
-  top: 5.7rem;
-  display: flex;
-  position: relative;
-  text-align: center;
-  align-items: center;
-  justify-content: center;
-  padding-bottom: 5rem;
-}
-
-.wrapper {
-  background-color: var(--softBg);
-  padding: 3rem 6rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 1.3rem;
-  border-radius: 10px;
-  border: none;
-  text-shadow: 0 0 2px var(--borderColor);
-  box-shadow: 0 0 5px 0px var(--borderColor);
-}
-
-.wrapper h1 {
+.title {
   text-shadow: 0 0 2px var(--borderColor);
 }
 

@@ -34,6 +34,9 @@
   flex: 1;
   font-size: 20px;
 }
+.link.active {
+  color: coral;
+}
 
 .link:nth-of-type(1) {
   margin-left: 2rem;

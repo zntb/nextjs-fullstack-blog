@@ -21,11 +21,10 @@ type PostData = {
 };
 
 const getData = async (slug: string): Promise<PostData | null> => {
-  await new Promise((resolve) => setTimeout(resolve, 5000));
+  // await new Promise((resolve) => setTimeout(resolve, 5000));
+
   try {
-    const response = await fetch(`${domain}/api/posts/${slug}`, {
-      cache: 'no-store',
-    });
+    const response = await fetch(`${domain}/api/posts/${slug}`);
 
     if (!response.ok) {
       throw new Error('Failed to fetch data');
@@ -34,7 +33,7 @@ const getData = async (slug: string): Promise<PostData | null> => {
     return response.json();
   } catch (error) {
     console.error('Error fetching data:', error);
-    return null;
+    throw new Error('Failed to fetch data');
   }
 };
 
@@ -45,17 +44,16 @@ type SinglePageProps = {
 };
 
 export async function generateMetadata({ params }: SinglePageProps) {
-  await new Promise((resolve) => setTimeout(resolve, 5000));
   const { slug } = params;
   const data: PostData | null = await getData(slug);
 
-  if (!data) {
-    notFound();
-  }
+  // if (!data) {
+  //   notFound();
+  // }
 
   return {
-    title: data.title,
-    description: `Blog post from ${data.user.name}`,
+    title: data?.title,
+    description: `Blog post from ${data?.user.name}`,
   };
 }
 
@@ -125,3 +123,11 @@ const SinglePage = async ({ params }: SinglePageProps) => {
 };
 
 export default SinglePage;
+
+// export async function generateStaticParams() {
+//   const response = await fetch(`${domain}/api/posts`);
+//   const posts = await response.json();
+//   return posts.map((post: { slug: string }) => ({
+//     slug: post.slug,
+//   }));
+// }

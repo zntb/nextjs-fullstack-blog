@@ -15,7 +15,7 @@ export interface Category {
 }
 
 const getData = async (): Promise<Category[]> => {
-  await new Promise((resolve) => setTimeout(resolve, 5000));
+  // await new Promise((resolve) => setTimeout(resolve, 5000));
   const res = await fetch(`${domain}/api/categories`, {
     cache: 'no-store',
   });
