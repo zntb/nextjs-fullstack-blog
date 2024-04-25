@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 // import 'react-quill/dist/quill.bubble.css';
 import 'react-quill/dist/quill.snow.css';
 import { useRouter } from 'next/navigation';
-import { useSession } from 'next-auth/react';
+
 import {
   getStorage,
   ref,
@@ -15,11 +15,11 @@ import {
 } from 'firebase/storage';
 import { app } from '@/utils/firebase';
 import dynamic from 'next/dynamic';
+import { useCurrentUser } from '@/hooks/use-current-user';
 // import ReactQuill from 'react-quill';
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 
 const WritePage = () => {
-  const { data: session, status } = useSession();
   const router = useRouter();
 
   const [open, setOpen] = useState(false);
@@ -29,9 +29,13 @@ const WritePage = () => {
   const [title, setTitle] = useState('');
   const [catSlug, setCatSlug] = useState('');
 
-  if (status !== 'authenticated' || !session || !session.user) {
-    router.push('/login');
-  }
+  const user = useCurrentUser();
+
+  useEffect(() => {
+    if (!user) {
+      router.push('/login');
+    }
+  }, [user, router]);
 
   useEffect(() => {
     if (!file) return;

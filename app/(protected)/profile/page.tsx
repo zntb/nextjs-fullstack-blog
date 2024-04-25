@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useSession } from 'next-auth/react';
+import { useCurrentUser } from '@/hooks/use-current-user';
 import Image from 'next/image';
 import profileDefault from '@/public/profile.png';
 import styles from './profile.module.css';
@@ -23,16 +23,18 @@ const POST_PER_PAGE = 6;
 
 const ProfilePage = () => {
   const router = useRouter();
-  const { data: session } = useSession({
-    required: true,
-    onUnauthenticated() {
-      router.push('/login');
-    },
-  });
 
-  const profileImage = session?.user?.image;
-  const profileName = session?.user?.name;
-  const profileEmail = session?.user?.email;
+  const user = useCurrentUser();
+
+  useEffect(() => {
+    if (!user) {
+      router.push('/login');
+    }
+  }, [user, router]);
+
+  const profileImage = user?.image;
+  const profileName = user?.name;
+  const profileEmail = user?.email;
 
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -66,10 +68,10 @@ const ProfilePage = () => {
       }
     };
 
-    if (session && session.user && session.user.email) {
+    if (user && user.email) {
       fetchPosts(page || 1, POST_PER_PAGE).catch(() => setLoading(false));
     }
-  }, [session, page, profileEmail]);
+  }, [page, profileEmail, user]);
 
   // const handlePrevPage = () => {
   //   if (page > 1) {

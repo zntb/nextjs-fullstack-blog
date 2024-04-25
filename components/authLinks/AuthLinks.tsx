@@ -3,14 +3,15 @@
 import Link from 'next/link';
 import styles from './authLinks.module.css';
 import { useState } from 'react';
-import { signOut, useSession } from 'next-auth/react';
+import { signOut } from 'next-auth/react';
+import { useCurrentUser } from '@/hooks/use-current-user';
 
 const AuthLinks = () => {
   const [open, setOpen] = useState<boolean>(false);
 
-  const { data: session, status } = useSession();
+  const user = useCurrentUser();
 
-  if (status !== 'authenticated' || !session || !session.user) {
+  if (!user || !user?.email) {
     return (
       <>
         <Link href="/login" className={styles.link}>
@@ -34,7 +35,7 @@ const AuthLinks = () => {
 
   return (
     <>
-      {session && session.user && (
+      {user && (
         <>
           <Link href="/write" className={styles.link}>
             Write

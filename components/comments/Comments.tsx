@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import useSWR from 'swr';
-import { useSession } from 'next-auth/react';
+import { useCurrentUser } from '@/hooks/use-current-user';
 import styles from './comments.module.css';
 
 const domain = process.env.NEXT_PUBLIC_APP_URL;
@@ -44,7 +44,7 @@ const fetcher = async (url: string) => {
 };
 
 const Comments: React.FC<{ postSlug: string }> = ({ postSlug }) => {
-  const { data: session, status } = useSession();
+  const user = useCurrentUser();
   const { data, mutate, isLoading } = useSWR<Comment[]>(
     `${domain}/api/comments?postSlug=${postSlug}`,
     fetcher
@@ -86,7 +86,7 @@ const Comments: React.FC<{ postSlug: string }> = ({ postSlug }) => {
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Comments</h1>
-      {session && status === 'authenticated' ? (
+      {user ? (
         <div className={styles.write}>
           <textarea
             placeholder="write a comment..."
