@@ -55,7 +55,7 @@ const CategoryList = () => {
         {data.map((item, index) => (
           <Link
             key={index}
-            href={`/blog?cat=${item.title}`}
+            href={`/posts?cat=${item.title}`}
             className={`${styles.category} ${styles[item.slug]}`}
           >
             {item.img && (
