@@ -8,15 +8,8 @@ export const publicRoutes: string[] = [
   '/',
   '/api/categories',
   '/posts',
-  '/posts/(.*)',
-  '/posts/[slug]',
   '/api/posts',
-  '/api/posts/(.*)',
-  '/api/posts/[slug]',
-  '/api/posts/[slug]/(.*)',
   '/auth/new-verification',
-  // '/write',
-  // '/profile',
 ];
 
 /**

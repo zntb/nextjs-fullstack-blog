@@ -18,8 +18,6 @@ export default auth((req) => {
 
   console.log('isLoggedIn', isLoggedIn);
 
-  // const isLoggedIn = true;
-
   const headers = new Headers(req.headers);
   headers.set('x-current-path', req.nextUrl.pathname);
 
@@ -31,6 +29,9 @@ export default auth((req) => {
   const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
   const isAuthRoute = authRoutes.includes(nextUrl.pathname);
   const isProtectedRoute = protectedRoutes.includes(nextUrl.pathname);
+  const isDynamicPostRoute = /^\/(posts|api\/posts)\/([^\/]+)\/?$/.test(
+    pathname
+  );
 
   if (isApiAuthRoute) {
     return NextResponse.next();
@@ -38,13 +39,21 @@ export default auth((req) => {
 
   if (isAuthRoute) {
     if (isLoggedIn) {
-      return NextResponse.redirect(new URL('/profile', nextUrl));
+      return NextResponse.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl));
     }
 
     return NextResponse.next();
   }
 
-  if (!isLoggedIn && (!isPublicRoute || isProtectedRoute)) {
+  if (isDynamicPostRoute) {
+    return NextResponse.next();
+  }
+
+  if (
+    !isLoggedIn &&
+    !isDynamicPostRoute &&
+    (!isPublicRoute || isProtectedRoute)
+  ) {
     let callbackUrl = nextUrl.pathname;
     console.log('callbackUrl', callbackUrl);
 
