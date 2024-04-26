@@ -16,14 +16,14 @@ export default auth((req) => {
   const { nextUrl } = req;
   const isLoggedIn = !!req.auth;
 
-  console.log('isLoggedIn', isLoggedIn);
+  // console.log('isLoggedIn', isLoggedIn);
 
   const headers = new Headers(req.headers);
   headers.set('x-current-path', req.nextUrl.pathname);
 
   const pathname = nextUrl.pathname;
 
-  console.log('pathname', pathname);
+  // console.log('pathname', pathname);
 
   const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
   const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
@@ -45,17 +45,13 @@ export default auth((req) => {
     return NextResponse.next();
   }
 
-  if (isDynamicPostRoute) {
-    return NextResponse.next();
-  }
-
   if (
     !isLoggedIn &&
     !isDynamicPostRoute &&
     (!isPublicRoute || isProtectedRoute)
   ) {
     let callbackUrl = nextUrl.pathname;
-    console.log('callbackUrl', callbackUrl);
+    // console.log('callbackUrl', callbackUrl);
 
     if (nextUrl.search) {
       callbackUrl += nextUrl.search;

@@ -7,9 +7,7 @@ type AuthProviderProps = {
 };
 
 const AuthProvider = ({ children }: AuthProviderProps) => {
-  return (
-    <SessionProvider refetchOnWindowFocus={true}>{children}</SessionProvider>
-  );
+  return <SessionProvider>{children}</SessionProvider>;
 };
 
 export default AuthProvider;

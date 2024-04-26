@@ -14,6 +14,8 @@ import styles from './singlePost.module.css';
 
 const domain = process.env.NEXT_PUBLIC_APP_URL;
 
+export const dynamic = 'force-dynamic';
+
 type UserData = {
   name: string;
   image: string | null;
@@ -39,16 +41,23 @@ export const SinglePost = () => {
     try {
       setLoading(true);
       const response = await fetch(`${domain}/api/posts/${slug}`);
+      if (!response) {
+        throw new Error('Failed to fetch data (response is null)');
+      }
       if (!response.ok) {
-        throw new Error('Failed to fetch data');
+        throw new Error(`Failed to fetch data (${response.statusText})`);
       }
       const data = await response.json();
-      console.log(data);
+
+      if (!data) {
+        throw new Error('Failed to fetch data (data is null)');
+      }
 
       setPost(data);
-      setLoading(false);
     } catch (error) {
+      console.error(error);
       setError('Failed to fetch post');
+    } finally {
       setLoading(false);
     }
   }, [slug]);
@@ -65,61 +74,68 @@ export const SinglePost = () => {
     post.user.image = profileDefaultImage.src;
   }
 
+  // TODO: Solve the redirection for the non-existent path to notfound page
+  // if ((!loading && !error && post?.slug === null) || undefined) {
+  //   notFound();
+  // }
+
   return (
     <>
-      {loading && <SinglePostSkeleton />}
+      {loading ? (
+        <SinglePostSkeleton />
+      ) : (
+        <div className={styles.container}>
+          <div className={styles.infoContainer}>
+            <div className={styles.textContainer}>
+              <h1 className={styles.title}>{post?.title}</h1>
+              <div className={styles.user}>
+                <div className={styles.userImageContainer}>
+                  <Image
+                    src={post?.user?.image || profileDefaultImage.src}
+                    alt=""
+                    fill
+                    sizes="(50px)"
+                    className={styles.avatar}
+                  />
+                </div>
 
-      <div className={styles.container}>
-        <div className={styles.infoContainer}>
-          <div className={styles.textContainer}>
-            <h1 className={styles.title}>{post?.title}</h1>
-            <div className={styles.user}>
-              <div className={styles.userImageContainer}>
+                <div className={styles.userTextContainer}>
+                  <span className={styles.username}>{post?.user?.name}</span>
+                  <span className={styles.date}>
+                    {new Date(post?.createdAt || '').toDateString()}
+                  </span>
+                </div>
+              </div>
+              <DeletePost slug={slug} />
+            </div>
+
+            {post?.img && (
+              <div className={styles.imageContainer}>
                 <Image
-                  src={post?.user?.image || profileDefaultImage.src}
+                  src={post?.img}
                   alt=""
                   fill
-                  sizes="(50px)"
-                  className={styles.avatar}
+                  priority={true}
+                  sizes="(max-width: 100px)"
+                  className={styles.image}
                 />
               </div>
-
-              <div className={styles.userTextContainer}>
-                <span className={styles.username}>{post?.user?.name}</span>
-                <span className={styles.date}>
-                  {new Date(post?.createdAt || '').toDateString()}
-                </span>
+            )}
+          </div>
+          <div className={styles.content}>
+            <div className={styles.post}>
+              <div
+                className={styles.description}
+                dangerouslySetInnerHTML={{ __html: post?.desc || '' }}
+              />
+              <div className={styles.comment}>
+                <Comments postSlug={slug} />
               </div>
             </div>
-            <DeletePost slug={slug} />
+            <Menu />
           </div>
-
-          {post?.img && (
-            <div className={styles.imageContainer}>
-              <Image
-                src={post?.img}
-                alt=""
-                fill
-                priority={true}
-                sizes="(max-width: 100px)"
-                className={styles.image}
-              />
-            </div>
-          )}
         </div>
-        <div className={styles.content}>
-          <div className={styles.post}>
-            <div
-              className={styles.description}
-              dangerouslySetInnerHTML={{ __html: post?.desc || '' }}
-            />
-            <div className={styles.comment}>
-              <Comments postSlug={slug} />
-            </div>
-          </div>
-          <Menu />
-        </div>
-      </div>
+      )}
     </>
   );
 };
