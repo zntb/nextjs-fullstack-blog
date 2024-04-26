@@ -1,11 +1,11 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useTransition } from 'react';
 import { useCurrentUser } from '@/hooks/use-current-user';
 import Image from 'next/image';
 import profileDefault from '@/public/profile.png';
 import styles from './profile.module.css';
-import { useRouter } from 'next/navigation';
 import UserPostCard, {
   UserPostCardSkeleton,
 } from '@/components/userPostCard/UserPostCard';
@@ -22,15 +22,8 @@ const POST_PER_PAGE = 6;
 //TODO: Resolve pagination problem
 
 const ProfilePage = () => {
-  const router = useRouter();
-
   const user = useCurrentUser();
-
-  useEffect(() => {
-    if (!user) {
-      router.push('/login');
-    }
-  }, [user, router]);
+  const [isPending, startTransition] = useTransition();
 
   const profileImage = user?.image;
   const profileName = user?.name;

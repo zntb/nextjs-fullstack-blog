@@ -100,7 +100,7 @@ const Comments: React.FC<{ postSlug: string }> = ({ postSlug }) => {
           </button>
         </div>
       ) : (
-        <Link href="/login">Login to write a comment</Link>
+        <Link href="/auth/login">Login to write a comment</Link>
       )}
       <div className={styles.comments}>
         {isLoading

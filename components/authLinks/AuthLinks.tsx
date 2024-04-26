@@ -20,14 +20,14 @@ const AuthLinks = () => {
     if (user) {
       path === '/logout' && signOut();
     } else {
-      path === '/login' && signIn();
+      path === '/auth/login' && signIn();
     }
   }, [path, user]);
 
   if (!user || !user?.email) {
     return (
       <>
-        <Link href="/login" className={styles.link}>
+        <Link href="/auth/login" className={styles.link}>
           Login
         </Link>
         <div className={styles.burger} onClick={() => setOpen(!open)}>
@@ -39,7 +39,7 @@ const AuthLinks = () => {
           <div className={styles.responsiveMenu}>
             <Link href="/">Homepage</Link>
             <Link href="/">Posts</Link>
-            <Link href="/login">Login</Link>
+            <Link href="/auth/login">Login</Link>
           </div>
         )}
       </>

@@ -1,4 +1,4 @@
-'use client';
+// 'use client';
 
 import styles from './loginPage.module.css';
 import { LoginForm } from '@/components/auth/login/loginForm';

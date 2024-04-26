@@ -9,6 +9,7 @@ import { DEFAULT_LOGIN_REDIRECT } from '@/routes';
 import { getUserByEmail } from '@/data/user';
 import { generateVerificationToken } from '@/lib/tokens';
 import { sendVerificationEmail } from '@/lib/mail';
+import { redirect } from 'next/navigation';
 
 export const login = async (
   values: z.infer<typeof LoginSchema>,

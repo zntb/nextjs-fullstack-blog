@@ -28,14 +28,9 @@ const WritePage = () => {
   const [value, setValue] = useState('');
   const [title, setTitle] = useState('');
   const [catSlug, setCatSlug] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const user = useCurrentUser();
-
-  useEffect(() => {
-    if (!user) {
-      router.push('/login');
-    }
-  }, [user, router]);
 
   useEffect(() => {
     if (!file) return;
@@ -73,7 +68,7 @@ const WritePage = () => {
     file && upload();
   }, [file]);
 
-  if (status === 'loading') {
+  if (loading) {
     return <div className={styles.loading}>Loading...</div>;
   }
 
