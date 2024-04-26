@@ -5,7 +5,8 @@ import styles from './authLinks.module.css';
 import { useEffect, useState } from 'react';
 import { signIn, signOut } from 'next-auth/react';
 import { useCurrentUser } from '@/hooks/use-current-user';
-// import { usePathname } from 'next/navigation';
+import { usePathname } from 'next/navigation';
+import profileDefaultImage from '@/public/profile.png';
 
 const AuthLinks = () => {
   const [open, setOpen] = useState<boolean>(false);
@@ -13,7 +14,7 @@ const AuthLinks = () => {
 
   const user = useCurrentUser();
 
-  // const pathname = usePathname();
+  const pathname = usePathname();
 
   useEffect(() => {
     if (user) {
@@ -49,10 +50,20 @@ const AuthLinks = () => {
     <>
       {user && (
         <>
-          <Link href="/write" className={styles.link}>
+          <Link
+            href="/write"
+            className={`${styles.link} ${
+              pathname === '/write' && styles.linkActive
+            }`}
+          >
             Write
           </Link>
-          <Link href="/profile" className={styles.link}>
+          <Link
+            href="/profile"
+            className={`${styles.link} ${
+              pathname === '/profile' && styles.linkActive
+            }`}
+          >
             Profile
           </Link>
           <span className={styles.link} onClick={signOut as () => void}>

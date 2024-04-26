@@ -1,14 +1,15 @@
+'use client';
+
 import React from 'react';
 import styles from './navbar.module.css';
 import Image from 'next/image';
 import Link from 'next/link';
 import AuthLinks from '../authLinks/AuthLinks';
 import ThemeToggle from '../themeToggle/ThemeToggle';
-import { headers } from 'next/headers';
+import { usePathname } from 'next/navigation';
 
 const Navbar = () => {
-  const headerList = headers();
-  const pathname = headerList.get('x-current-path');
+  const pathname = usePathname();
 
   return (
     <div className={styles.container}>
@@ -23,13 +24,15 @@ const Navbar = () => {
         <ThemeToggle />
         <Link
           href="/"
-          className={`styles.link ${pathname === '/' && 'active'}`}
+          className={`${styles.link} ${pathname === '/' && styles.linkActive}`}
         >
           Homepage
         </Link>
         <Link
           href="/posts"
-          className={`styles.link ${pathname === '/posts' && 'active'}`}
+          className={`${styles.link} ${
+            pathname === '/posts' && styles.linkActive
+          }`}
         >
           Posts
         </Link>
