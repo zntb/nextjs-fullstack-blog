@@ -79,17 +79,20 @@
   margin-top: 10px;
 }
 
-.btnDelete {
+.hideDeleteBtnContainer {
+  visibility: hidden;
+}
+
+.deleteBtn {
   padding: 5px 8px;
   border: none;
-  color: white;
+  color: rgb(236, 234, 234);
   font-weight: bold;
-  background-color: rgb(223, 107, 107);
+  background-color: rgba(223, 107, 107, 0.685);
   cursor: pointer;
-  border-radius: 3px;
   transition: 0.3s ease-in-out;
 }
 
-.btnDelete:hover {
+.deleteBtn:hover {
   background-color: rgb(214, 88, 88);
 }

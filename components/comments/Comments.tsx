@@ -7,6 +7,7 @@ import useSWR from 'swr';
 import { useCurrentUser } from '@/hooks/use-current-user';
 import defaultUserImage from '@/public/profile.png';
 import styles from './comments.module.css';
+import { PostData } from '../singlePost/SinglePost';
 
 const domain = process.env.NEXT_PUBLIC_APP_URL;
 
@@ -62,7 +63,10 @@ const Comments: React.FC<{ postSlug: string }> = ({ postSlug }) => {
     setDesc('');
   };
 
-  const handleDelete = async (id: string) => {
+  const deleteComment = async (id: string) => {
+    const confirmed = confirm('Are you sure you want to delete this comment?');
+    if (!confirmed) return;
+
     try {
       const response = await fetch(
         `/api/comments?postSlug=${postSlug}&id=${id}`,
@@ -83,6 +87,15 @@ const Comments: React.FC<{ postSlug: string }> = ({ postSlug }) => {
       console.log(error);
     }
   };
+
+  // const post = data?.[0];
+  // console.log(post);
+  // const postAuthor = data?.[1].user;
+  // console.log(postAuthor);
+
+  // if (post.userEmail !== user?.email) {
+  //   postAuthor = post.userEmail;
+  // }
 
   return (
     <div className={styles.container}>
@@ -126,13 +139,24 @@ const Comments: React.FC<{ postSlug: string }> = ({ postSlug }) => {
                 <div className={styles.desc}>
                   <p>{item.desc}</p>
                 </div>
-                <div className={styles.deleteBtnContainer}>
-                  <button
-                    onClick={() => handleDelete(item.id)}
-                    className={styles.btnDelete}
-                  >
-                    Delete
-                  </button>
+
+                <div
+                  className={`${
+                    item.user.name === user?.name
+                      ? styles.deleteBtnContainer
+                      : styles.hideDeleteBtnContainer
+                  }`}
+                >
+                  {
+                    <button
+                      type="button"
+                      onClick={() => deleteComment(item.id)}
+                      className={styles.deleteBtn}
+                      disabled={user?.name !== item.user.name}
+                    >
+                      Delete
+                    </button>
+                  }
                 </div>
               </div>
             ))}

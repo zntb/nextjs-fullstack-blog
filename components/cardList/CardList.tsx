@@ -8,6 +8,7 @@ const domain = process.env.NEXT_PUBLIC_APP_URL;
 export type Post = {
   id: string;
   createdAt: string;
+  userEmail: string;
   slug: string;
   title: string;
   desc: string;

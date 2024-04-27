@@ -7,6 +7,7 @@ type CardProps = {
   item: {
     title: string;
     desc: string;
+    userEmail: string;
     img?: string | null;
     catSlug: string;
     slug: string;
@@ -35,6 +36,10 @@ const Card = async ({ item }: CardProps) => {
             {item.createdAt.substring(0, 10)} -{' '}
           </span>
           <span className={styles.category}>{item.catSlug}</span>
+        </div>
+        <div className={styles.authorContainer}>
+          Author :{' '}
+          <span className={styles.author}>{item.userEmail.split('@')[0]}</span>
         </div>
         <Link href={`/posts/${item.slug}`}>
           <h1>{item.title}</h1>

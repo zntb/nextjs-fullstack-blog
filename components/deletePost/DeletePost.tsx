@@ -23,7 +23,7 @@ const DeletePost = ({ slug }: { slug: string }) => {
         throw new Error('Failed to delete post');
       }
 
-      router.push('/');
+      router.push('/profile');
       startTransition(() => {
         router.refresh();
       });

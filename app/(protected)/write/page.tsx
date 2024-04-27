@@ -15,7 +15,6 @@ import {
 } from 'firebase/storage';
 import { app } from '@/utils/firebase';
 import dynamic from 'next/dynamic';
-import { useCurrentUser } from '@/hooks/use-current-user';
 // import ReactQuill from 'react-quill';
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 
@@ -29,8 +28,6 @@ const WritePage = () => {
   const [title, setTitle] = useState('');
   const [catSlug, setCatSlug] = useState('');
   const [loading, setLoading] = useState(false);
-
-  const user = useCurrentUser();
 
   useEffect(() => {
     if (!file) return;

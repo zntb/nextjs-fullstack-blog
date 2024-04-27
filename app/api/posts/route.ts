@@ -40,6 +40,13 @@ export const GET = async (req: NextRequest) => {
       // If fetchAll is true, fetch all posts without pagination
       posts = await prisma.post.findMany({
         where: query.where,
+        // include: {
+        //   user: {
+        //     select: {
+        //       name: true,
+        //     },
+        //   },
+        // },
       });
       count = await prisma.post.count({ where: query.where }); // Retrieve total count without pagination
     } else {

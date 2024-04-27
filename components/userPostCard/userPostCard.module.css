@@ -61,6 +61,25 @@
   padding: 2px 0px;
 }
 
+.deleteContainer {
+  display: block;
+  margin-top: 50px;
+}
+
+.deleteBtn {
+  padding: 6px 12px;
+  border: none;
+  color: rgb(236, 234, 234);
+  font-weight: bold;
+  background-color: rgba(223, 107, 107, 0.685);
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.deleteBtn:hover {
+  background-color: rgb(214, 88, 88);
+}
+
 .skeletonContainer {
   margin-bottom: 50px;
   height: 12rem;
@@ -143,6 +162,21 @@
   background-color: rgba(211, 211, 211, 0.034);
 
   animation: skeleton-loading 1s linear infinite alternate;
+}
+
+.skeletonDeleteContainer {
+  border: none;
+  color: transparent;
+  display: block;
+  margin-top: 50px;
+}
+
+.skeletonDeleteButton {
+  background-color: rgba(211, 211, 211, 0.034);
+  height: 2rem;
+  width: 4rem;
+  border: none;
+  color: transparent;
 }
 
 @keyframes skeleton-loading {

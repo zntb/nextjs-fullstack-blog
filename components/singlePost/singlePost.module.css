@@ -72,6 +72,16 @@
   margin-bottom: 20px;
 }
 
+.deleteBtnContainer {
+  display: block;
+  /* text-align: end; */
+  /* margin-top: 10px; */
+}
+
+.hideDeleteBtnContainer {
+  visibility: hidden;
+}
+
 .skeletonContainer {
   margin-top: 60px;
 }

@@ -1,32 +1,32 @@
 'use client';
 
 import { notFound, useParams } from 'next/navigation';
-import { DeletePostSkeleton } from '../deletePost/DeletePost';
 import Image from 'next/image';
 import Comments from '@/components/comments/Comments';
 import { CommentsSkeleton } from '../comments/Comments';
+import { useCurrentUser } from '@/hooks/use-current-user';
 import profileDefaultImage from '@/public/profile.png';
 import Menu from '@/components/menu/Menu';
-import DeletePost from '@/components/deletePost/DeletePost';
 import { useCallback, useEffect, useState } from 'react';
-
+import DeletePost from '../deletePost/DeletePost';
 import styles from './singlePost.module.css';
 
 const domain = process.env.NEXT_PUBLIC_APP_URL;
 
 export const dynamic = 'force-dynamic';
 
-type UserData = {
+export type UserData = {
   name: string;
   image: string | null;
 };
 
-type PostData = {
+export type PostData = {
   id: string;
   title: string;
   slug: string;
   user: UserData;
   createdAt: string;
+  catSlug: string;
   img?: string | null;
   desc: string;
 };
@@ -36,6 +36,8 @@ export const SinglePost = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const { slug }: { slug: string } = useParams();
+
+  const currentUser = useCurrentUser();
 
   const fetchPost = useCallback(async () => {
     try {
@@ -106,7 +108,16 @@ export const SinglePost = () => {
                   </span>
                 </div>
               </div>
-              <DeletePost slug={slug} />
+
+              <div
+                className={`${
+                  post?.user.name === currentUser?.name
+                    ? styles.deleteBtnContainer
+                    : styles.hideDeleteBtnContainer
+                }`}
+              >
+                <DeletePost {...post} slug={slug} />
+              </div>
             </div>
 
             {post?.img && (
@@ -153,7 +164,6 @@ export const SinglePostSkeleton = () => {
               <span className={styles.skeletonDate}>10.03.2023</span>
             </div>
           </div>
-          <DeletePostSkeleton />
         </div>
 
         <div className={styles.skeletonImageContainer} />

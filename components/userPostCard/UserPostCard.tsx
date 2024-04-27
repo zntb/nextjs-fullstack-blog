@@ -2,6 +2,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import styles from './userPostCard.module.css';
+import DeletePost from '../deletePost/DeletePost';
+// import DeletePost from '../deletePost/DeletePost';
 
 type CardProps = {
   item: {
@@ -15,6 +17,10 @@ type CardProps = {
 };
 
 const UserPostCard = ({ item }: CardProps) => {
+  const deletePost = () => {
+    console.log('delete post');
+  };
+
   return (
     <div className={styles.container}>
       {item.img && (
@@ -48,6 +54,12 @@ const UserPostCard = ({ item }: CardProps) => {
           Read More
         </Link>
       </div>
+      <DeletePost slug={item.slug} />
+      <div className={styles.deleteContainer}>
+        {/* <button className={styles.deleteBtn} onClick={deletePost}>
+          Delete
+        </button> */}
+      </div>
     </div>
   );
 };
@@ -68,6 +80,9 @@ export const UserPostCardSkeleton = () => {
         <div className={styles.skeletonTitle} />
         <div className={styles.skeletonDesc} />
         <div className={styles.skeletonLink} />
+      </div>
+      <div className={styles.skeletonDeleteContainer}>
+        <button className={styles.skeletonDeleteButton}>Delete</button>
       </div>
     </div>
   ));

@@ -33,6 +33,22 @@
   font-weight: 500;
 }
 
+.detail {
+  margin-bottom: 0;
+}
+
+.authorContainer {
+  margin-top: -20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.author {
+  align-items: end;
+  color: rgb(163, 149, 121);
+}
+
 .desc {
   font-size: 18px;
   font-weight: 300;
