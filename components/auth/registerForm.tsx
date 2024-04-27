@@ -5,10 +5,10 @@ import { useTransition } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { RegisterSchema } from '@/schemas';
-import { FormError } from '../../formError';
-import { FormSuccess } from '../../formSuccess';
+import { FormError } from '../formError';
+import { FormSuccess } from '../formSuccess';
 import { register } from '@/actions/register';
-import styles from '../auth.module.css';
+import styles from './auth.module.css';
 import Link from 'next/link';
 
 export const RegisterForm = () => {
@@ -51,7 +51,11 @@ export const RegisterForm = () => {
             placeholder="Name"
             className={styles.input}
             {...form.register('name')}
+            required
           />
+          <p className={styles.formErrorMessage}>
+            {form.formState.errors.name?.message}
+          </p>
         </div>
         <div className={styles.inputContainer}>
           <input
@@ -59,7 +63,11 @@ export const RegisterForm = () => {
             placeholder="Email"
             className={styles.input}
             {...form.register('email')}
+            required
           />
+          <p className={styles.formErrorMessage}>
+            {form.formState.errors.email?.message}
+          </p>
         </div>
         <div className={styles.inputContainer}>
           <input
@@ -67,7 +75,11 @@ export const RegisterForm = () => {
             placeholder="Password"
             className={styles.input}
             {...form.register('password')}
+            required
           />
+          <p className={styles.formErrorMessage}>
+            {form.formState.errors.password?.message}
+          </p>
         </div>
         <button type="submit" className={styles.button} disabled={isPending}>
           Create an account

@@ -1,7 +1,7 @@
 // 'use client';
 
 import styles from './loginPage.module.css';
-import { LoginForm } from '@/components/auth/login/loginForm';
+import { LoginForm } from '@/components/auth/loginForm';
 import { Social } from '@/components/auth/social/Social';
 
 const LoginPage = () => {

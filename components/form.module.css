@@ -1,0 +1,9 @@
+.formSuccess {
+  color: rgb(0, 161, 0);
+  font-weight: 500;
+}
+
+.formError {
+  color: red;
+  font-weight: 500;
+}

@@ -19,33 +19,15 @@ export const Social = () => {
   return (
     <>
       <div className={styles.socialButton} onClick={() => onClick('google')}>
-        <Image
-          src="/google.svg"
-          alt="Google Icon"
-          width={24}
-          height={24}
-          className={styles.icon}
-        />
+        <Image src="/google.svg" alt="Google Icon" width={24} height={24} />
         Sign in with Google
       </div>
       <div className={styles.socialButton}>
-        <Image
-          src="/github.svg"
-          alt="Github Icon"
-          width={24}
-          height={24}
-          className={styles.icon}
-        />
+        <Image src="/github.svg" alt="Github Icon" width={24} height={24} />
         Sign in with Github
       </div>
       <div className={styles.socialButton}>
-        <Image
-          src="/facebook.svg"
-          alt="Facebook Icon"
-          width={24}
-          height={24}
-          className={styles.icon}
-        />
+        <Image src="/facebook.svg" alt="Facebook Icon" width={24} height={24} />
         Sign in with Facebook
       </div>
     </>

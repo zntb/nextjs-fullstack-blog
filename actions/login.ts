@@ -49,7 +49,7 @@ export const login = async (
     );
 
     if (!passwordsMatch) {
-      return { error: 'Invalid password' };
+      return { error: 'Invalid credentials' };
     }
   }
 

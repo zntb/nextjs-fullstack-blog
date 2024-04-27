@@ -46,7 +46,7 @@ const NewVerificationForm = () => {
       backButtonHref="/auth/login"
     >
       <div className={styles.card}>
-        {!success && !error && <BeatLoader color="black" />}
+        {!success && !error && <BeatLoader color="#8f8f8f" />}
         <FormSuccess message={success} />
         {!success && <FormError message={error} />}
       </div>

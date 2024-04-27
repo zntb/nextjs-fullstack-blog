@@ -1,6 +1,6 @@
 'use client';
 
-import { RegisterForm } from '@/components/auth/register/registerForm';
+import { RegisterForm } from '@/components/auth/registerForm';
 import styles from './registerPage.module.css';
 import { Social } from '@/components/auth/social/Social';
 

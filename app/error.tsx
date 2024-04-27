@@ -2,9 +2,11 @@
 
 import Link from 'next/link';
 
+import styles from './homepage.module.css';
+
 const ErrorPage = () => {
   return (
-    <div className="error-container">
+    <div className={styles.errorContainer}>
       <p className="error-text">Something went wrong!</p>
       <p className="error-link">
         <Link href="/"> &#8592; Go back home</Link>

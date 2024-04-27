@@ -3,22 +3,7 @@
 }
 
 .hr {
-  width: 75%;
+  width: 55%;
   height: 1px;
   background-color: var(--borderColor);
-}
-
-@media screen and (max-width: 768px) {
-  .wrapper {
-    padding: 50px 100px;
-  }
-}
-@media screen and (max-width: 640px) {
-  .container {
-    padding-bottom: 0;
-  }
-  .wrapper {
-    margin-bottom: 5rem;
-    padding: 30px;
-  }
 }

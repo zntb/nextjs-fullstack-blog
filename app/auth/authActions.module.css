@@ -1,14 +1,15 @@
 .container {
-  top: 5.7rem;
+  height: 100vh;
+  margin: auto;
   display: flex;
   position: relative;
   text-align: center;
   align-items: center;
   justify-content: center;
-  padding-bottom: 5rem;
 }
 
 .wrapper {
+  margin: auto;
   background-color: var(--softBg);
   padding: 4rem 6rem;
   display: flex;
@@ -35,14 +36,15 @@
 @media screen and (max-width: 768px) {
   .wrapper {
     padding: 50px 100px;
+    width: 100%;
   }
 }
 @media screen and (max-width: 640px) {
   .container {
-    padding-bottom: 0;
+    width: 100%;
+    padding: 2.5rem 0 0 0;
   }
   .wrapper {
-    margin-bottom: 5rem;
-    padding: 30px;
+    width: 100%;
   }
 }

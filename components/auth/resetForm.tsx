@@ -42,37 +42,39 @@ export const ResetForm = () => {
 
   return (
     <CardWrapper
-      headerLabel="Reset Password"
+      headerLabel="Forgot your password?"
       backButtonLabel="Back to Login"
       backButtonHref="/auth/login"
     >
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className={styles.form}>
-          <div>
-            <label htmlFor="email">Email</label>
-            <input
-              className={styles.input}
-              id="email"
-              type="email"
-              placeholder="Email"
-              {...form.register('email')}
-            />
-          </div>
-          <div>
-            <button
-              className={styles.button}
-              type="submit"
-              disabled={isPending}
-            >
-              Send Reset Email
-            </button>
-          </div>
-          <div>
-            <FormError message={error} />
-            <FormSuccess message={success} />
-          </div>
-        </form>
-      </Form>
+      <form onSubmit={form.handleSubmit(onSubmit)} className={styles.form}>
+        <label htmlFor="email">Email</label>
+        <div className={styles.inputContainer}>
+          <input
+            className={`${styles.input} ${styles.resetInput}`}
+            id="email"
+            type="email"
+            placeholder="Email"
+            {...form.register('email')}
+          />
+          <p className={styles.formErrorMessage}>
+            {form.formState.errors.email?.message}
+          </p>
+        </div>
+
+        <div>
+          <button
+            className={`${styles.button} ${styles.resetButton}`}
+            type="submit"
+            disabled={isPending}
+          >
+            Send Reset Email
+          </button>
+        </div>
+        <div>
+          <FormError message={error} />
+          <FormSuccess message={success} />
+        </div>
+      </form>
     </CardWrapper>
   );
 };

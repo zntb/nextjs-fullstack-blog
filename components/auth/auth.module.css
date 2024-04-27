@@ -6,26 +6,15 @@
   gap: 20px;
 }
 
-/* .header {
-  margin-top: 60px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-} */
-
 .input {
-  display: flex;
+  width: 16rem;
   margin: 0 0 0.5rem 0;
-  padding: 0.5rem 1.4rem;
+  padding: 0.6rem 1.4rem;
   font-size: 0.875rem;
   line-height: 1.25rem;
   font-weight: 700;
   font-family: 'Montserrat', sans-serif;
   vertical-align: middle;
-  align-items: center;
-  justify-content: center;
   border-radius: 0.5rem;
   border: 1px solid var(--borderColor);
   gap: 0.75rem;
@@ -43,10 +32,22 @@
   box-shadow: 0 0 4px var(--borderColor);
 }
 
+.link {
+  color: var(--softTextColor);
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.link:hover {
+  color: var(--textColor);
+  text-decoration: underline;
+}
+
 .button {
   margin-top: 0.8rem;
   width: 100%;
-  padding: 0.5rem 1.4rem;
+  padding: 0.6rem 1.4rem;
   font-size: 0.875rem;
   line-height: 1.25rem;
   font-weight: 700;
@@ -72,14 +73,6 @@
 }
 
 /* ....................................................... */
-
-/* .cardWrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-} */
 
 .backButton {
   cursor: pointer;
@@ -116,6 +109,12 @@
   gap: 10px;
 }
 
+.formErrorMessage {
+  font-size: 0.6rem;
+  overflow-wrap: break-word;
+  color: red;
+}
+
 .field {
   display: flex;
   flex-direction: column;
@@ -126,4 +125,24 @@
 
 .label {
   color: var(--softTextColor);
+}
+
+.resetInput {
+  margin-top: 1rem;
+}
+
+.resetButton {
+  margin-bottom: 0.5rem;
+}
+
+@media screen and (max-width: 640px) {
+  .container {
+    gap: 1.5rem;
+  }
+  .resetContainer {
+    margin: 0;
+    padding: 0;
+    width: 10rem;
+    height: 20rem;
+  }
 }

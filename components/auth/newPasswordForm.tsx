@@ -52,31 +52,25 @@ export const NewPasswordForm = () => {
       backButtonLabel="Back to login"
       backButtonHref="/auth/login"
     >
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className={styles.form}>
-          <div className={styles.field}>
-            <input
-              className={styles.input}
-              type="password"
-              id="password"
-              {...form.register('password')}
-            />
-          </div>
-          <div>
-            <FormError message={error} />
-            <FormSuccess message={success} />
-          </div>
-          <div>
-            <button
-              type="submit"
-              disabled={isPending}
-              className={styles.button}
-            >
-              Reset password
-            </button>
-          </div>
-        </form>
-      </Form>
+      <form onSubmit={form.handleSubmit(onSubmit)} className={styles.form}>
+        <div className={styles.field}>
+          <input
+            className={styles.input}
+            type="password"
+            id="password"
+            {...form.register('password')}
+          />
+        </div>
+        <div>
+          <FormError message={error} />
+          <FormSuccess message={success} />
+        </div>
+        <div>
+          <button type="submit" disabled={isPending} className={styles.button}>
+            Submit
+          </button>
+        </div>
+      </form>
     </CardWrapper>
   );
 };
