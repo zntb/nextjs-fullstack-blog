@@ -18,6 +18,11 @@ import dynamic from 'next/dynamic';
 // import ReactQuill from 'react-quill';
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 
+const isQuillValid = (value: string) => {
+  const cleanValue = value.replace(/<\/?[^>]+(>|$)/g, '');
+  return cleanValue.trim().length >= 3;
+};
+
 const WritePage = () => {
   const router = useRouter();
 
@@ -78,6 +83,26 @@ const WritePage = () => {
       .replace(/^-+|-+$/g, '');
 
   const handleSubmit = async () => {
+    if (!title && !value) {
+      toast.error('Please enter a title and description');
+      return;
+    }
+
+    if (title.trim().length === 0) {
+      toast.error('Please enter a title');
+      return;
+    }
+
+    if (title.trim().length < 3) {
+      toast.error('Title must be at least 3 characters long');
+      return;
+    }
+    if (!isQuillValid(value)) {
+      toast.error(
+        'Description must be at least 3 characters long and not empty'
+      );
+      return;
+    }
     const res = await fetch('/api/posts', {
       method: 'POST',
       body: JSON.stringify({

@@ -65,6 +65,11 @@ const Comments: React.FC<{ postSlug: string; author: Author }> = ({
   );
 
   const handleSubmit = async () => {
+    if (desc === '') {
+      toast.error('Please enter a comment');
+      return;
+    }
+
     await fetch('/api/comments', {
       method: 'POST',
       body: JSON.stringify({ desc, postSlug }),

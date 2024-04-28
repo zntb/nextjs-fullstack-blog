@@ -28,7 +28,7 @@ export default function RootLayout({
               <div className="container">
                 <div className="wrapper">
                   <Navbar />
-                  <ToastContainer position="top-right" />
+                  <ToastContainer position="top-right" autoClose={3000} />
                   {children}
                 </div>
               </div>

@@ -38,6 +38,22 @@ export const POST = async (req: NextRequest): Promise<NextResponse> => {
 
   try {
     const body = await req.json();
+
+    if (!body.desc || !body.desc.trim()) {
+      console.log('Description is empty or not present');
+      return new NextResponse(
+        JSON.stringify({ message: 'Please enter a non-empty comment!' }),
+        { status: 400 }
+      );
+    }
+
+    if (!body || !body.desc.trim()) {
+      return new NextResponse(
+        JSON.stringify({ message: 'Please enter a non-empty comment!' }),
+        { status: 400 }
+      );
+    }
+
     const comment = await prisma.comment.create({
       data: { ...body, userEmail: session.user.email },
     });
