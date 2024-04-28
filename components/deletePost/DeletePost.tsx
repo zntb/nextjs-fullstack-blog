@@ -12,6 +12,9 @@ const DeletePost = ({ slug }: { slug: string }) => {
   const [isPending, startTransition] = useTransition();
 
   const onDelete = async () => {
+    const confirmed = confirm('Are you sure you want to delete this comment?');
+    if (!confirmed) return;
+
     try {
       if (!slug) {
         throw new Error('Slug is missing');
@@ -21,16 +24,16 @@ const DeletePost = ({ slug }: { slug: string }) => {
         method: 'DELETE',
       });
 
-      if (!response.ok) {
+      if (response.ok) {
+        toast.success('Post deleted');
+        router.push('/posts');
+        startTransition(() => {
+          router.refresh();
+        });
+      } else {
         toast.error('Failed to delete post');
         throw new Error('Failed to delete post');
       }
-
-      toast.success('Post deleted');
-      router.push('/posts');
-      startTransition(() => {
-        router.refresh();
-      });
     } catch (error) {
       console.error('Error deleting post:', (error as Error).message);
     }
