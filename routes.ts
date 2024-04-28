@@ -9,6 +9,7 @@ export const publicRoutes: string[] = [
   '/api/categories',
   '/posts',
   '/api/posts',
+  '/api/comments',
   '/auth/new-verification',
 ];
 
