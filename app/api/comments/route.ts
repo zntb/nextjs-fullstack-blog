@@ -84,7 +84,7 @@ export const DELETE = async (req: NextRequest): Promise<NextResponse> => {
   try {
     const comment = await prisma.comment.findUnique({
       where: { id },
-      include: { post: true }, // Include the post information for checking post author later
+      include: { post: true },
     });
 
     if (!comment) {
@@ -94,7 +94,6 @@ export const DELETE = async (req: NextRequest): Promise<NextResponse> => {
       );
     }
 
-    // Check if the logged-in user is the author of the comment or the post
     if (
       user.email !== comment.userEmail &&
       user.email !== comment.post.userEmail

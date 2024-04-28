@@ -72,3 +72,24 @@ export const getUserPosts = async (page: number, email: string) => {
     return [];
   }
 };
+
+export const deleteComment = async (id: string) => {
+  if (!domain) {
+    return null;
+  }
+  try {
+    const res = await fetch(`${domain}/api/comments/${id}`, {
+      method: 'DELETE',
+    });
+    if (!res.ok) {
+      throw new Error('Failed to delete comment');
+    }
+    const data = await res.json();
+
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};

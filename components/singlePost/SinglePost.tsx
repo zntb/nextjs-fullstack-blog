@@ -18,6 +18,7 @@ export const dynamic = 'force-dynamic';
 export type UserData = {
   name: string;
   image: string | null;
+  email: string;
 };
 
 export type PostData = {
@@ -75,6 +76,8 @@ export const SinglePost = () => {
   if (post?.user.image === null) {
     post.user.image = profileDefaultImage.src;
   }
+
+  const author = post?.user || { name: '', image: null, email: '' };
 
   // TODO: Solve the redirection for the non-existent path to notfound page
   // if ((!loading && !error && post?.slug === null) || undefined) {
@@ -140,7 +143,7 @@ export const SinglePost = () => {
                 dangerouslySetInnerHTML={{ __html: post?.desc || '' }}
               />
               <div className={styles.comment}>
-                <Comments postSlug={slug} />
+                <Comments postSlug={slug} author={author} />
               </div>
             </div>
             <Menu />

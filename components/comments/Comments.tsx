@@ -24,6 +24,12 @@ type Comment = {
   desc: string;
 };
 
+type Author = {
+  // image: string | null;
+  name: string;
+  email: string;
+};
+
 const formattedDate = (date: string) => {
   return new Date(date).toLocaleDateString('en-US', {
     day: 'numeric',
@@ -47,7 +53,10 @@ const fetcher = async (url: string) => {
   return data;
 };
 
-const Comments: React.FC<{ postSlug: string }> = ({ postSlug }) => {
+const Comments: React.FC<{ postSlug: string; author: Author }> = ({
+  postSlug,
+  author,
+}) => {
   const [desc, setDesc] = useState<string>('');
   const user = useCurrentUser();
   const { data, mutate, isLoading } = useSWR<Comment[]>(
@@ -90,15 +99,6 @@ const Comments: React.FC<{ postSlug: string }> = ({ postSlug }) => {
       console.log(error);
     }
   };
-
-  // const post = data?.[0];
-  // console.log(post);
-  // const postAuthor = data?.[1].user;
-  // console.log(postAuthor);
-
-  // if (post.userEmail !== user?.email) {
-  //   postAuthor = post.userEmail;
-  // }
 
   return (
     <div className={styles.container}>
@@ -145,7 +145,8 @@ const Comments: React.FC<{ postSlug: string }> = ({ postSlug }) => {
 
                 <div
                   className={`${
-                    item.user.name === user?.name
+                    item.user.name === user?.name ||
+                    author.email === user?.email
                       ? styles.deleteBtnContainer
                       : styles.hideDeleteBtnContainer
                   }`}
@@ -162,7 +163,12 @@ const Comments: React.FC<{ postSlug: string }> = ({ postSlug }) => {
                       <button
                         type="button"
                         className={styles.deleteBtn}
-                        disabled={user?.name !== item.user.name}
+                        disabled={
+                          item.user.name === user?.name ||
+                          author.email === user?.email
+                            ? false
+                            : true
+                        }
                       >
                         Delete
                       </button>
