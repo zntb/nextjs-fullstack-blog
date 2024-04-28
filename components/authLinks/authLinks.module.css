@@ -6,6 +6,15 @@
   color: coral;
 }
 
+.profileImage {
+  margin: 0.5rem 0 0 0.5rem;
+
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
 .burger {
   width: 20px;
   height: 16px;
@@ -46,4 +55,8 @@
   .link {
     display: none;
   }
+
+  /* .profileImage {
+    margin-left: 0.5rem;
+  } */
 }

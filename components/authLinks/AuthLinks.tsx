@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import styles from './authLinks.module.css';
 import { useEffect, useState } from 'react';
 import { signIn, signOut } from 'next-auth/react';
@@ -15,6 +16,8 @@ const AuthLinks = () => {
   const user = useCurrentUser();
 
   const pathname = usePathname();
+
+  const profileImage = user?.image;
 
   useEffect(() => {
     if (user) {
@@ -68,6 +71,15 @@ const AuthLinks = () => {
           </Link>
           <span className={styles.link} onClick={signOut as () => void}>
             Logout
+          </span>
+          <span>
+            <Image
+              src={profileImage || profileDefaultImage}
+              alt="profile"
+              width={24}
+              height={24}
+              className={styles.profileImage}
+            />
           </span>
         </>
       )}
