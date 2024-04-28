@@ -1,13 +1,15 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { startTransition } from 'react';
+import { useTransition } from 'react';
+import { toast } from 'react-toastify';
 import styles from './deletePost.module.css';
 
 const domain = process.env.NEXT_PUBLIC_APP_URL;
 
 const DeletePost = ({ slug }: { slug: string }) => {
   const router = useRouter();
+  const [isPending, startTransition] = useTransition();
 
   const onDelete = async () => {
     try {
@@ -20,10 +22,12 @@ const DeletePost = ({ slug }: { slug: string }) => {
       });
 
       if (!response.ok) {
+        toast.error('Failed to delete post');
         throw new Error('Failed to delete post');
       }
 
-      router.push('/profile');
+      toast.success('Post deleted');
+      router.push('/posts');
       startTransition(() => {
         router.refresh();
       });

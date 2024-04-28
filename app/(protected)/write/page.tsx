@@ -1,12 +1,12 @@
 'use client';
 
 import Image from 'next/image';
-import styles from './writePage.module.css';
+import { toast } from 'react-toastify';
 import { useEffect, useState } from 'react';
 // import 'react-quill/dist/quill.bubble.css';
 import 'react-quill/dist/quill.snow.css';
 import { useRouter } from 'next/navigation';
-
+import styles from './writePage.module.css';
 import {
   getStorage,
   ref,
@@ -91,7 +91,13 @@ const WritePage = () => {
 
     if (res.status === 200) {
       const data = await res.json();
+
+      setLoading(false);
+
+      toast.success('Post created successfully!');
       router.push(`/posts/${data.slug}`);
+    } else {
+      toast.error('Something went wrong!');
     }
   };
 

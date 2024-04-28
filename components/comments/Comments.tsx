@@ -6,6 +6,7 @@ import Image from 'next/image';
 import useSWR from 'swr';
 import { useCurrentUser } from '@/hooks/use-current-user';
 import defaultUserImage from '@/public/profile.png';
+import { toast } from 'react-toastify';
 import styles from './comments.module.css';
 import { PostData } from '../singlePost/SinglePost';
 
@@ -46,19 +47,20 @@ const fetcher = async (url: string) => {
 };
 
 const Comments: React.FC<{ postSlug: string }> = ({ postSlug }) => {
+  const [desc, setDesc] = useState<string>('');
   const user = useCurrentUser();
   const { data, mutate, isLoading } = useSWR<Comment[]>(
     `${domain}/api/comments?postSlug=${postSlug}`,
     fetcher
   );
 
-  const [desc, setDesc] = useState<string>('');
-
   const handleSubmit = async () => {
     await fetch('/api/comments', {
       method: 'POST',
       body: JSON.stringify({ desc, postSlug }),
     });
+
+    toast.success('Comment added!');
     mutate();
     setDesc('');
   };
@@ -80,8 +82,11 @@ const Comments: React.FC<{ postSlug: string }> = ({ postSlug }) => {
       );
 
       if (!response.ok) {
+        toast.error('Failed to delete comment');
         throw new Error('Failed to delete comment');
       }
+
+      toast.success('Comment deleted');
       mutate();
     } catch (error) {
       console.log(error);
