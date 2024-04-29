@@ -20,7 +20,7 @@ export const GET = async (req: NextRequest) => {
 
   if (userEmail && !fetchAll) {
     // If userEmail is provided and fetchAll is not true, use custom pagination
-    POST_PER_PAGE = 6;
+    POST_PER_PAGE = 2;
   }
 
   const query = {
