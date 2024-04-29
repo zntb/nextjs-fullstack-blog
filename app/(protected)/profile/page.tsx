@@ -8,6 +8,7 @@ import {
 } from '@/components/userCardList/UserCardList';
 import { currentUser } from '@/lib/auth';
 import { Suspense } from 'react';
+import { UserSettings } from '@/components/userSettings/UserSettings';
 
 type SearchParamsProps = {
   searchParams: {
@@ -46,6 +47,7 @@ const ProfilePage = async ({ searchParams }: SearchParamsProps) => {
               <span>Email:</span>
               {profileEmail}
             </p>
+            <UserSettings />
           </div>
           <hr className={styles.hr} />
           <div className={styles.posts}>

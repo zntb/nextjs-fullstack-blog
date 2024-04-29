@@ -1,0 +1,102 @@
+.modal {
+  margin: 0;
+  padding: 2rem 3rem;
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  left: calc(50% - 15rem);
+  width: 30rem;
+  max-height: 80vh;
+  background: var(--bg);
+  color: var(--softTextColor);
+  border: none;
+  border-radius: 7px;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  animation: slide-down-fade-in 300ms ease-out forwards;
+}
+
+/* .overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 99;
+} */
+
+.close {
+  position: absolute;
+  background: transparent;
+  color: var(--softTextColor);
+  font-size: 1.5rem;
+  border: none;
+  top: 0.5rem;
+  right: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.close:hover {
+  color: var(--textColor);
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title {
+  text-align: center;
+  color: var(--textColor);
+  margin-bottom: 1.5rem;
+}
+
+.label {
+  padding: 0.3rem;
+}
+
+.input {
+  padding: 0.5rem;
+  width: 20rem;
+  margin-bottom: 1rem;
+  background-color: var(--softBg);
+  border: none;
+  border-radius: 6px;
+  color: var(--softTextColor);
+  background-color: var(--inputSoftBg);
+  transition: all 0.3s ease-in-out;
+}
+
+.input:focus {
+  outline: none;
+  background-color: var(--inputBg);
+  color: var(--textColor);
+  box-shadow: 0 0 4px var(--borderColor);
+}
+
+.button {
+  margin: 1.5rem 0 1rem 0;
+  width: 10rem;
+  padding: 0.6rem 1.4rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  border-radius: 0.5rem;
+  border: 1px solid var(--borderColor);
+  color: var(--softTextColor);
+  background-color: var(--softBg2);
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.button:hover {
+  background-color: var(--bg2);
+  color: var(--textColor);
+}
