@@ -3,7 +3,8 @@
 }
 
 .linkActive {
-  color: coral;
+  color: rgb(96, 136, 109);
+  font-weight: bold;
 }
 
 .profileImage {

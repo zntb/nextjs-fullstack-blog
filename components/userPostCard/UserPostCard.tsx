@@ -50,11 +50,9 @@ const UserPostCard = ({ item }: CardProps) => {
           Read More
         </Link>
       </div>
-      <DeletePost slug={item.slug} />
+
       <div className={styles.deleteContainer}>
-        {/* <button className={styles.deleteBtn} onClick={deletePost}>
-          Delete
-        </button> */}
+        <DeletePost slug={item.slug} />
       </div>
     </div>
   );

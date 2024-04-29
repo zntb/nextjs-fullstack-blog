@@ -56,6 +56,13 @@
   object-fit: cover;
 } */
 
+.actionsContainer {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
 .content {
   display: flex;
   gap: 50px;

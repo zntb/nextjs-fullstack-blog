@@ -35,7 +35,8 @@
   font-size: 20px;
 }
 .linkActive {
-  color: coral;
+  color: rgb(96, 136, 109);
+  font-weight: bold;
 }
 
 .link:nth-of-type(1) {

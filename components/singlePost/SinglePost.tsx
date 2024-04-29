@@ -111,16 +111,6 @@ export const SinglePost = () => {
                   </span>
                 </div>
               </div>
-
-              <div
-                className={`${
-                  post?.user.name === currentUser?.name
-                    ? styles.deleteBtnContainer
-                    : styles.hideDeleteBtnContainer
-                }`}
-              >
-                <DeletePost {...post} slug={slug} />
-              </div>
             </div>
 
             {post?.img && (
@@ -135,6 +125,18 @@ export const SinglePost = () => {
                 />
               </div>
             )}
+          </div>
+          <div className={styles.actionsContainer}>
+            <div
+              className={`${
+                post?.user.name === currentUser?.name
+                  ? styles.deleteBtnContainer
+                  : styles.hideDeleteBtnContainer
+              }`}
+            >
+              <DeletePost {...post} slug={slug} />
+            </div>
+            {/* TODO: <div>Update</div> */}
           </div>
           <div className={styles.content}>
             <div className={styles.post}>

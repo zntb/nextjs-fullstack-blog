@@ -62,8 +62,8 @@
 }
 
 .deleteContainer {
-  display: block;
-  margin-top: 50px;
+  display: inline;
+  margin-top: 90px;
 }
 
 .deleteBtn {
