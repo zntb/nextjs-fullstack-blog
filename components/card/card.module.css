@@ -13,9 +13,9 @@
   position: relative;
 }
 
-.image {
+/* .image {
   object-fit: cover;
-}
+} */
 
 .textContainer {
   flex: 1;
@@ -52,7 +52,7 @@
 .desc {
   font-size: 18px;
   font-weight: 300;
-  color: var(--softTextColor);
+  color: var(--textColor);
 }
 
 .link {

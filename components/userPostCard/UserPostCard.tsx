@@ -17,10 +17,6 @@ type CardProps = {
 };
 
 const UserPostCard = ({ item }: CardProps) => {
-  const deletePost = () => {
-    console.log('delete post');
-  };
-
   return (
     <div className={styles.container}>
       {item.img && (
