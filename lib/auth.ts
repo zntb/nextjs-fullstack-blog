@@ -3,13 +3,15 @@ import { auth } from '@/auth';
 export const currentUser = async () => {
   const session = await auth();
 
-  const { name, email, role, image } = session?.user || {};
+  return session?.user;
 
-  if (!name || !email || !role || !image) {
-    return null;
-  }
+  // const { id, name, email, role, image, isOAuth } = session?.user || {};
 
-  return { name, email, role, image };
+  // if (!id || !name || !email || !role || !image) {
+  //   return null;
+  // }
+
+  // return { id, name, email, role, image, isOAuth };
 };
 export const currentRole = async () => {
   const session = await auth();

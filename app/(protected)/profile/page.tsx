@@ -20,9 +20,11 @@ const ProfilePage = async ({ searchParams }: SearchParamsProps) => {
   const page = parseInt(searchParams.page) || 1;
   const user = await currentUser();
 
+  // console.log(user);
+
   const profileImage = user?.image || profileDefault;
-  const profileName = user?.name || '';
-  const profileEmail = user?.email || '';
+  const profileName = user?.name;
+  const profileEmail = user?.email;
 
   return (
     <div className={styles.container}>

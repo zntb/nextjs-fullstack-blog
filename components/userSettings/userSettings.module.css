@@ -17,6 +17,7 @@
   flex-direction: column;
   justify-content: space-between;
   animation: slide-down-fade-in 300ms ease-out forwards;
+  /* display: none; */
 }
 
 /* .overlay {
@@ -99,4 +100,10 @@
 .button:hover {
   background-color: var(--bg2);
   color: var(--textColor);
+}
+
+.formErrorMessage {
+  font-size: 0.6rem;
+  overflow-wrap: break-word;
+  color: red;
 }
