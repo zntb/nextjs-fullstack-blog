@@ -43,18 +43,26 @@ export const SinglePost = () => {
   const fetchPost = useCallback(async () => {
     try {
       setLoading(true);
-      const response = await fetch(`${domain}/api/posts/${slug}`);
+      const response = await fetch(`${domain}/api/posts/${slug}`, {
+        cache: 'no-store',
+      });
       if (!response) {
-        throw new Error('Failed to fetch data (response is null)');
+        // throw new Error('Failed to fetch data (response is null)');
+        return;
       }
       if (!response.ok) {
         throw new Error(`Failed to fetch data (${response.statusText})`);
       }
+      if (response.status === 404) {
+        notFound();
+      }
       const data = await response.json();
 
-      if (!data) {
-        throw new Error('Failed to fetch data (data is null)');
-      }
+      console.log(data.id);
+
+      // if (!data || data === null) {
+      //   throw new Error('Failed to fetch data (data is null)');
+      // }
 
       setPost(data);
     } catch (error) {
@@ -80,7 +88,7 @@ export const SinglePost = () => {
   const author = post?.user || { name: '', image: null, email: '' };
 
   // TODO: Solve the redirection for the non-existent path to notfound page
-  // if ((!loading && !error && post?.slug === null) || undefined) {
+  // if ((!loading && post?.slug === null) || undefined) {
   //   notFound();
   // }
 

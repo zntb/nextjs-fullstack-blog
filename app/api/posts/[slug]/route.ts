@@ -12,6 +12,13 @@ type Params = {
 export const GET = async (req: NextRequest, { params }: Params) => {
   const { slug } = params;
 
+  if (!slug || slug === undefined) {
+    return new NextResponse(
+      JSON.stringify({ message: 'Post does not exist!' }),
+      { status: 404 }
+    );
+  }
+
   try {
     const post = await prisma.post.update({
       where: { slug },
@@ -20,7 +27,15 @@ export const GET = async (req: NextRequest, { params }: Params) => {
     });
 
     return new NextResponse(JSON.stringify(post), { status: 200 });
-  } catch (err) {
+  } catch (err: Error | any) {
+    // Check if the error message contains 'Record to update not found'
+    if (err.message.includes('Record to update not found')) {
+      return new NextResponse(
+        JSON.stringify({ message: 'Post does not exist!' }),
+        { status: 404 }
+      );
+    }
+
     console.log(err);
     return new NextResponse(
       JSON.stringify({ message: 'Something went wrong!' }),
