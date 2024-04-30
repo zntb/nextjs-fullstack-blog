@@ -49,7 +49,7 @@ const ProfilePage = async ({ searchParams }: SearchParamsProps) => {
               <span>Email:</span>
               {profileEmail}
             </p>
-            <UserSettings />
+            {/* <UserSettings /> */}
           </div>
           <hr className={styles.hr} />
           <div className={styles.posts}>

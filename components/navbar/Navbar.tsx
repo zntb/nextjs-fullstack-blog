@@ -1,16 +1,11 @@
-'use client';
-
 import React from 'react';
 import styles from './navbar.module.css';
 import Image from 'next/image';
-import Link from 'next/link';
 import AuthLinks from '../authLinks/AuthLinks';
 import ThemeToggle from '../themeToggle/ThemeToggle';
-import { usePathname } from 'next/navigation';
+import NavLink from './NavLink';
 
 const Navbar = () => {
-  const pathname = usePathname();
-
   return (
     <div className={styles.container}>
       <div className={styles.social}>
@@ -22,20 +17,8 @@ const Navbar = () => {
       <div className={styles.logo}>zntbBlog</div>
       <div className={styles.links}>
         <ThemeToggle />
-        <Link
-          href="/"
-          className={`${styles.link} ${pathname === '/' && styles.linkActive}`}
-        >
-          Homepage
-        </Link>
-        <Link
-          href="/posts"
-          className={`${styles.link} ${
-            pathname === '/posts' && styles.linkActive
-          }`}
-        >
-          Posts
-        </Link>
+        <NavLink href="/">Home</NavLink>
+        <NavLink href="/posts">Posts</NavLink>
         <AuthLinks />
       </div>
     </div>

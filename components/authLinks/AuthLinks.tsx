@@ -3,29 +3,19 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import styles from './authLinks.module.css';
-import { useEffect, useState } from 'react';
-import { signIn, signOut } from 'next-auth/react';
+import { useState } from 'react';
+import { signOut } from 'next-auth/react';
 import { useCurrentUser } from '@/hooks/use-current-user';
-import { usePathname } from 'next/navigation';
+
 import profileDefaultImage from '@/public/profile.png';
+import NavLink from '../navbar/NavLink';
 
 const AuthLinks = () => {
   const [open, setOpen] = useState<boolean>(false);
-  const [path, setPath] = useState<string>('');
 
   const user = useCurrentUser();
 
-  const pathname = usePathname();
-
   const profileImage = user?.image;
-
-  useEffect(() => {
-    if (user) {
-      path === '/logout' && signOut();
-    } else {
-      path === '/auth/login' && signIn();
-    }
-  }, [path, user]);
 
   if (!user || !user?.email) {
     return (
@@ -41,7 +31,7 @@ const AuthLinks = () => {
         {open && (
           <div className={styles.responsiveMenu}>
             <Link href="/">Homepage</Link>
-            <Link href="/">Posts</Link>
+            <Link href="/posts">Posts</Link>
             <Link href="/auth/login">Login</Link>
           </div>
         )}
@@ -53,22 +43,8 @@ const AuthLinks = () => {
     <>
       {user && (
         <>
-          <Link
-            href="/write"
-            className={`${styles.link} ${
-              pathname === '/write' && styles.linkActive
-            }`}
-          >
-            Write
-          </Link>
-          <Link
-            href="/profile"
-            className={`${styles.link} ${
-              pathname === '/profile' && styles.linkActive
-            }`}
-          >
-            Profile
-          </Link>
+          <NavLink href="/write">Write</NavLink>
+          <NavLink href="/profile">Profile</NavLink>
           <span className={styles.link} onClick={signOut as () => void}>
             Logout
           </span>
@@ -92,9 +68,9 @@ const AuthLinks = () => {
         <div className={styles.responsiveMenu}>
           <>
             <Link href="/">Homepage</Link>
-            <Link href="/">Posts</Link>
-            <Link href="/">Write</Link>
-            <Link href="/">Profile</Link>
+            <Link href="/posts">Posts</Link>
+            <Link href="/write">Write</Link>
+            <Link href="/profile">Profile</Link>
             <span onClick={signOut as () => void}>Logout</span>
           </>
         </div>
