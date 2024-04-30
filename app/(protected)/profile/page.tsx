@@ -1,5 +1,3 @@
-import Image from 'next/image';
-import profileDefault from '@/public/profile.png';
 import styles from './profile.module.css';
 
 import {
@@ -22,8 +20,6 @@ const ProfilePage = async ({ searchParams }: SearchParamsProps) => {
 
   // console.log(user);
 
-  const profileImage = user?.image || profileDefault;
-  const profileName = user?.name;
   const profileEmail = user?.email;
 
   return (
@@ -31,26 +27,7 @@ const ProfilePage = async ({ searchParams }: SearchParamsProps) => {
       <div className={styles.wrapper}>
         <h1 className={styles.title}>Your Profile</h1>
         <div className={styles.content}>
-          <div className={styles.profileInfo}>
-            <div className={styles.imageContainer}>
-              <Image
-                width={200}
-                height={200}
-                src={profileImage || profileDefault}
-                alt="Profile image"
-                className={styles.image}
-              />
-            </div>
-            <p>
-              <span>Name:</span>
-              {profileName}
-            </p>
-            <p>
-              <span>Email:</span>
-              {profileEmail}
-            </p>
-            {/* <UserSettings /> */}
-          </div>
+          <UserSettings />
           <hr className={styles.hr} />
           <div className={styles.posts}>
             <h2>Your Posts:</h2>

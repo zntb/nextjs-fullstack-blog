@@ -58,7 +58,7 @@ export const SinglePost = () => {
       }
       const data = await response.json();
 
-      console.log(data.id);
+      // console.log(data.id);
 
       // if (!data || data === null) {
       //   throw new Error('Failed to fetch data (data is null)');
