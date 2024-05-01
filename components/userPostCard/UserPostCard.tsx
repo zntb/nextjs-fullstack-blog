@@ -1,9 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
-
-import styles from './userPostCard.module.css';
 import DeletePost from '../deletePost/DeletePost';
-// import DeletePost from '../deletePost/DeletePost';
+import styles from './userPostCard.module.css';
 
 type CardProps = {
   item: {

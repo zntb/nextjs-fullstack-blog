@@ -1,4 +1,5 @@
 'use server';
+
 import prisma from '@/utils/connect';
 import { getVerificationTokenByToken } from '@/data/verification-token';
 import { getUserByEmail } from '@/data/user';

@@ -14,7 +14,7 @@ export const GET = async (req: NextRequest) => {
   const page = searchParams.get('page');
   const cat = searchParams.get('cat');
   const userEmail = searchParams.get('user');
-  const fetchAll = searchParams.get('fetchAll'); // New parameter to fetch all posts
+  const fetchAll = searchParams.get('fetchAll');
 
   let POST_PER_PAGE = 2;
 

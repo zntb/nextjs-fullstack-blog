@@ -8,7 +8,6 @@ import { useCurrentUser } from '@/hooks/use-current-user';
 import defaultUserImage from '@/public/profile.png';
 import { toast } from 'react-toastify';
 import styles from './comments.module.css';
-import { PostData } from '../singlePost/SinglePost';
 import { ConfirmToast } from 'react-confirm-toast';
 
 const domain = process.env.NEXT_PUBLIC_APP_URL;
