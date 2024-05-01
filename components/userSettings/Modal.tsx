@@ -13,7 +13,7 @@ type ModalProps = {
 export const Modal = ({ children, onClose }: ModalProps) => {
   const searchParams = useSearchParams();
   const dialogRef = useRef<null | HTMLDialogElement>(null);
-  const showDialog = searchParams.get('showDialog');
+  const showDialog = searchParams.get('edit');
 
   useEffect(() => {
     if (showDialog === 'y') {

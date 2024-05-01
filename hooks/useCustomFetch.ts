@@ -1,5 +1,4 @@
 import useSWR from 'swr';
-import prisma from '@/utils/connect';
 
 const fetcher = async (url: string) => {
   const res = await fetch(url);

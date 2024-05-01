@@ -195,13 +195,3 @@ export const SinglePostSkeleton = () => {
     </div>
   );
 };
-
-// export const generateStaticParams = async () => {
-//   const response = await fetch(`${domain}/api/posts`);
-//   console.log(response);
-
-//   const posts = await response.json();
-//   return posts.map((post: PostData) => ({
-//     slug: post.slug,
-//   }));
-// };

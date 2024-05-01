@@ -1,5 +1,3 @@
-'use client';
-
 import { BackButton } from '../backButton';
 import styles from './cardWrapper.module.css';
 

@@ -2,30 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import styles from './categoryList.module.css';
+import { getCategories, Category } from '@/data/requests';
 import Image from 'next/image';
-
-const domain = process.env.NEXT_PUBLIC_APP_URL;
-
-export interface Category {
-  _id: string;
-  title: string;
-  slug: string;
-  img?: string | null;
-}
-
-const getData = async (): Promise<Category[]> => {
-  // await new Promise((resolve) => setTimeout(resolve, 5000));
-  const res = await fetch(`${domain}/api/categories`, {
-    cache: 'no-store',
-  });
-
-  if (!res.ok) {
-    throw new Error('Failed to fetch data');
-  }
-
-  return res.json();
-};
+import styles from './categoryList.module.css';
 
 const CategoryList = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -34,7 +13,7 @@ const CategoryList = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const categories = await getData();
+        const categories = await getCategories();
         setData(categories);
         setIsLoading(false);
       } catch (error) {

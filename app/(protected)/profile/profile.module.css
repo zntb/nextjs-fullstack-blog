@@ -32,11 +32,7 @@
 }
 
 .posts h2 {
-  margin: 0 0 2rem 3rem;
-}
-
-.post {
-  margin: 0 0 2rem 2rem;
+  margin: 0 0 4rem 3rem;
 }
 
 .hr {
@@ -66,11 +62,6 @@
   .posts h2 {
     text-align: center;
     font-size: 2.3rem;
-    margin: 0;
-  }
-
-  .post {
-    font-size: 1rem;
-    margin: 0;
+    margin: 0 0 3rem 0;
   }
 }
