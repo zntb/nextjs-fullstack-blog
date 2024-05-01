@@ -1,52 +1,15 @@
 import Pagination, { PaginationSkeleton } from '../pagination/Pagination';
 import Card, { CardSkeleton } from '../card/Card';
-import { Category } from '../categoryList/CategoryList';
 import styles from './cardList.module.css';
-
-const domain = process.env.NEXT_PUBLIC_APP_URL;
-
-export type Post = {
-  id: string;
-  createdAt: string;
-  userEmail: string;
-  slug: string;
-  title: string;
-  desc: string;
-  img?: string | null;
-  catSlug: string;
-  cat: Category;
-};
+import { getAllPosts } from '@/data/requests';
 
 type CardListProps = {
   page: number;
   cat?: string | undefined;
 };
 
-const getData = async (
-  page: number,
-  cat?: string
-): Promise<{ posts: Post[]; count: number }> => {
-  // await new Promise((resolve) => setTimeout(resolve, 5000));
-  try {
-    const res = await fetch(
-      `${domain}/api/posts?page=${page}&cat=${cat || ''}`,
-      {
-        cache: 'no-store',
-      }
-    );
-
-    if (!res.ok) {
-      throw new Error('Failed');
-    }
-    return res.json();
-  } catch (error) {
-    console.log(error);
-    return { posts: [], count: 0 };
-  }
-};
-
 export const CardList = async ({ page, cat }: CardListProps) => {
-  const { posts, count } = await getData(page, cat);
+  const { posts, count } = await getAllPosts(page, cat);
 
   const POST_PER_PAGE = 2;
 

@@ -24,7 +24,6 @@ type Comment = {
 };
 
 type Author = {
-  // image: string | null;
   name: string;
   email: string;
 };
