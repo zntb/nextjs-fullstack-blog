@@ -1,0 +1,190 @@
+'use client';
+
+import Image from 'next/image';
+import { toast } from 'react-toastify';
+import { useEffect, useState } from 'react';
+// import ReactQuill from 'react-quill';
+// import 'react-quill/dist/quill.bubble.css';
+import 'react-quill/dist/quill.snow.css';
+import { useRouter } from 'next/navigation';
+import { app } from '@/utils/firebase';
+import dynamic from 'next/dynamic';
+
+import {
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+} from 'firebase/storage';
+import styles from './createPost.module.css';
+
+const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
+
+const isQuillValid = (value: string) => {
+  const cleanValue = value.replace(/<\/?[^>]+(>|$)/g, '');
+  return cleanValue.trim().length >= 3;
+};
+
+export const CreatePost = () => {
+  const [open, setOpen] = useState(false);
+  const [file, setFile] = useState<File | null>(null);
+  const [media, setMedia] = useState('');
+  const [value, setValue] = useState('');
+  const [title, setTitle] = useState('');
+  const [catSlug, setCatSlug] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!file) return;
+    const storage = getStorage(app);
+    const upload = () => {
+      const name = new Date().getTime() + file.name;
+      const storageRef = ref(storage, name);
+
+      const uploadTask = uploadBytesResumable(storageRef, file);
+
+      uploadTask.on(
+        'state_changed',
+        (snapshot) => {
+          const progress =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log('Upload is ' + progress + '% done');
+          switch (snapshot.state) {
+            case 'paused':
+              console.log('Upload is paused');
+              break;
+            case 'running':
+              console.log('Upload is running');
+              break;
+          }
+        },
+        (error) => {},
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            setMedia(downloadURL);
+          });
+        }
+      );
+    };
+
+    file && upload();
+  }, [file]);
+
+  if (loading) {
+    return <div className={styles.loading}>Loading...</div>;
+  }
+
+  const slugify = (str: string) =>
+    str
+      .toLowerCase()
+      .trim()
+      .replace(/[^\w\s-]/g, '')
+      .replace(/[\s_-]+/g, '-')
+      .replace(/^-+|-+$/g, '');
+
+  const handleSubmit = async () => {
+    if (!title && !value) {
+      toast.error('Please enter a title and description');
+      return;
+    }
+
+    if (title.trim().length === 0) {
+      toast.error('Please enter a title');
+      return;
+    }
+
+    if (title.trim().length < 3) {
+      toast.error('Title must be at least 3 characters long');
+      return;
+    }
+    if (!isQuillValid(value)) {
+      toast.error(
+        'Description must be at least 3 characters long and not empty'
+      );
+      return;
+    }
+    const res = await fetch('/api/posts', {
+      method: 'POST',
+      body: JSON.stringify({
+        title,
+        desc: value,
+        img: media,
+        slug: slugify(title),
+        catSlug: catSlug || 'style', //If not selected, choose the general category
+      }),
+    });
+
+    if (res.status === 200) {
+      const data = await res.json();
+
+      setLoading(false);
+      toast.success('Post created successfully!');
+      router.push(`/posts/${data.slug}`);
+    } else {
+      toast.error('Something went wrong!');
+    }
+  };
+
+  return (
+    <div className={styles.container}>
+      <input
+        type="text"
+        placeholder="Title"
+        className={styles.input}
+        onChange={(e) => setTitle(e.target.value)}
+        maxLength={100}
+        minLength={3}
+        required
+      />
+      <select
+        className={styles.select}
+        onChange={(e) => setCatSlug(e.target.value)}
+      >
+        <option value="style">style</option>
+        <option value="fashion">fashion</option>
+        <option value="food">food</option>
+        <option value="culture">culture</option>
+        <option value="travel">travel</option>
+        <option value="coding">coding</option>
+      </select>
+      <div className={styles.editor}>
+        <button className={styles.button} onClick={() => setOpen(!open)}>
+          <Image src="/plus.png" alt="" width={16} height={16} />
+        </button>
+        {open && (
+          <div className={styles.add}>
+            <input
+              type="file"
+              id="image"
+              onChange={(e) => setFile(e.target.files?.[0] || null)}
+              style={{ display: 'none' }}
+            />
+            <button className={styles.addButton}>
+              <label htmlFor="image">
+                <Image src="/image.png" alt="" width={16} height={16} />
+              </label>
+            </button>
+            <button className={styles.addButton}>
+              <Image src="/external.png" alt="" width={16} height={16} />
+            </button>
+            <button className={styles.addButton}>
+              <Image src="/video.png" alt="" width={16} height={16} />
+            </button>
+          </div>
+        )}
+        <ReactQuill
+          className={styles.textArea}
+          theme="snow"
+          value={value}
+          onChange={setValue}
+          placeholder="Tell your story..."
+        />
+      </div>
+      <button className={styles.publish} onClick={handleSubmit}>
+        Publish
+      </button>
+    </div>
+  );
+};
