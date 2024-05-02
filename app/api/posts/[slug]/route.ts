@@ -1,5 +1,6 @@
 import { auth } from '@/auth';
 import prisma from '@/utils/connect';
+import { revalidatePath } from 'next/cache';
 import { NextRequest, NextResponse } from 'next/server';
 
 type Params = {
@@ -86,6 +87,8 @@ export const DELETE = async (req: NextRequest, { params }: Params) => {
     }
 
     await prisma.post.delete({ where: { slug } });
+    revalidatePath('/posts', 'layout');
+    revalidatePath('/profile', 'layout');
 
     return new NextResponse(JSON.stringify(post), { status: 200 });
   } catch (err) {
