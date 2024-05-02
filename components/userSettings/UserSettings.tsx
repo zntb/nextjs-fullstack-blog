@@ -186,68 +186,71 @@ export const UserSettings = () => {
                   </button>
                 </div>
               </form>
-              <hr className={styles.hr} />
+
               {/* Password form */}
               {!user?.isOAuth && (
-                <form
-                  className={styles.form}
-                  onSubmit={passwordForm.handleSubmit(handlePasswordSubmit)}
-                >
-                  <div className={styles.container}>
-                    <label
-                      htmlFor="password"
-                      id="password"
-                      className={styles.label}
-                    >
-                      Password
-                    </label>
-                    <div className={styles.inputContainer}>
-                      <input
-                        type="password"
+                <>
+                  <hr className={styles.hr} />
+                  <form
+                    className={styles.form}
+                    onSubmit={passwordForm.handleSubmit(handlePasswordSubmit)}
+                  >
+                    <div className={styles.container}>
+                      <label
+                        htmlFor="password"
                         id="password"
-                        className={styles.input}
-                        placeholder="Password"
-                        {...passwordForm.register('password')}
-                        autoComplete="current-password"
-                      />
-                      <p className={styles.formErrorMessage}>
-                        {passwordForm.formState.errors.password?.message}
-                      </p>
-                    </div>
+                        className={styles.label}
+                      >
+                        Password
+                      </label>
+                      <div className={styles.inputContainer}>
+                        <input
+                          type="password"
+                          id="password"
+                          className={styles.input}
+                          placeholder="Password"
+                          {...passwordForm.register('password')}
+                          autoComplete="current-password"
+                        />
+                        <p className={styles.formErrorMessage}>
+                          {passwordForm.formState.errors.password?.message}
+                        </p>
+                      </div>
 
-                    <label
-                      htmlFor="newPassword"
-                      id="newPassword"
-                      className={styles.label}
-                    >
-                      New password
-                    </label>
-                    <div className={styles.inputContainer}>
-                      <input
-                        type="password"
+                      <label
+                        htmlFor="newPassword"
                         id="newPassword"
-                        className={styles.input}
-                        placeholder="New Password"
-                        {...passwordForm.register('newPassword')}
-                        autoComplete="new-password"
-                      />
-                      <p className={styles.formErrorMessage}>
-                        {passwordForm.formState.errors.newPassword?.message}
-                      </p>
+                        className={styles.label}
+                      >
+                        New password
+                      </label>
+                      <div className={styles.inputContainer}>
+                        <input
+                          type="password"
+                          id="newPassword"
+                          className={styles.input}
+                          placeholder="New Password"
+                          {...passwordForm.register('newPassword')}
+                          autoComplete="new-password"
+                        />
+                        <p className={styles.formErrorMessage}>
+                          {passwordForm.formState.errors.newPassword?.message}
+                        </p>
+                      </div>
+                      {passwordError && <FormError message={passwordError} />}
+                      {passwordSuccess && (
+                        <FormSuccess message={passwordSuccess} />
+                      )}
+                      <button
+                        type="submit"
+                        className={styles.button}
+                        disabled={isPending}
+                      >
+                        Update
+                      </button>
                     </div>
-                    {passwordError && <FormError message={passwordError} />}
-                    {passwordSuccess && (
-                      <FormSuccess message={passwordSuccess} />
-                    )}
-                    <button
-                      type="submit"
-                      className={styles.button}
-                      disabled={isPending}
-                    >
-                      Update
-                    </button>
-                  </div>
-                </form>
+                  </form>
+                </>
               )}
             </Modal>
           </>
