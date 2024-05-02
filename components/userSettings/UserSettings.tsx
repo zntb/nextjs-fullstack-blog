@@ -3,18 +3,21 @@
 import * as z from 'zod';
 import { useTransition, useState } from 'react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useSession } from 'next-auth/react';
+import { useSession, signOut } from 'next-auth/react';
+import { toast } from 'react-toastify';
+import { ConfirmToast } from 'react-confirm-toast';
 import { useCurrentUser } from '@/hooks/use-current-user';
 import { FormSuccess } from '@/components/formSuccess';
 import { FormError } from '@/components/formError';
 import { UserSchema, UserPasswordSchema } from '@/schemas';
-import { userSettings } from '@/actions/userSettings';
+import { userSettings, deleteUser } from '@/actions/user';
 import { Modal } from '@/components/userSettings/Modal';
 import profileDefault from '@/public/profile.png';
 import styles from './userSettings.module.css';
-import Link from 'next/link';
 
 export const UserSettings = () => {
   const [error, setError] = useState('');
@@ -24,14 +27,13 @@ export const UserSettings = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const user = useCurrentUser();
+  const router = useRouter();
+  const { update } = useSession();
+  const [isPending, startTransition] = useTransition();
 
   const profileImage = user?.image || profileDefault;
   const profileName = user?.name;
   const profileEmail = user?.email;
-
-  const { update } = useSession();
-
-  const [isPending, startTransition] = useTransition();
 
   const userForm = useForm<z.infer<typeof UserSchema>>({
     resolver: zodResolver(UserSchema),
@@ -61,6 +63,8 @@ export const UserSettings = () => {
           if (data.success) {
             setSuccess(data.success);
             update();
+            setIsModalOpen(false);
+            router.refresh();
           }
         })
         .catch((error) => {
@@ -81,6 +85,9 @@ export const UserSettings = () => {
 
           if (data.success) {
             setPasswordSuccess(data.success);
+            update();
+            setIsModalOpen(false);
+            router.refresh();
           }
         })
         .catch((error) => {
@@ -92,6 +99,18 @@ export const UserSettings = () => {
 
   const onClose = () => {
     setIsModalOpen(false);
+  };
+
+  const deleteUserProfile = async () => {
+    try {
+      await deleteUser(user?.id as string);
+      toast.success('Account deleted successfully');
+      await signOut();
+      window.location.reload();
+    } catch (error) {
+      console.error('Error deleting user:', error);
+      toast.error('Failed to delete account');
+    }
   };
 
   return (
@@ -122,6 +141,19 @@ export const UserSettings = () => {
         >
           Edit Profile
         </Link>
+
+        {/* <div className={styles.deleteBtnContainer}> */}
+        <ConfirmToast
+          asModal={true}
+          customCancel="Cancel"
+          customConfirm="Ok"
+          customFunction={deleteUserProfile}
+          message="Are you sure you want to delete your account?"
+          theme="dark"
+        >
+          <button className={styles.deleteButton}>Delete Profile</button>
+        </ConfirmToast>
+        {/* </div> */}
       </div>
       <>
         {isModalOpen && (

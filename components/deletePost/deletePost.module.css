@@ -12,13 +12,14 @@
   border: none;
   color: rgb(236, 234, 234);
   font-weight: bold;
-  background-color: rgba(223, 107, 107, 0.685);
+  background-color: rgb(116, 23, 23);
   cursor: pointer;
   transition: 0.3s;
 }
 
 .btnDelete:hover {
-  background-color: rgb(214, 88, 88);
+  background-color: rgb(179, 23, 23);
+  color: white;
 }
 
 .skeletonDeleteBtnContainer {

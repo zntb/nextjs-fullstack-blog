@@ -4,10 +4,12 @@ import * as z from 'zod';
 import prisma from '@/utils/connect';
 import { UserSchema, UserPasswordSchema } from '@/schemas';
 import { getUserByEmail, getUserById } from '@/data/user';
+import { getAccountByUserId } from '@/data/account';
 import { currentUser } from '@/lib/auth';
 import { generateVerificationToken } from '@/lib/tokens';
 import { sendVerificationEmail } from '@/lib/mail';
 import bcrypt from 'bcryptjs';
+import { revalidatePath } from 'next/cache';
 
 export const userSettings = async (
   userValues: z.infer<typeof UserSchema>,
@@ -77,5 +79,39 @@ export const userSettings = async (
     },
   });
 
+  revalidatePath('/profile');
+
   return { success: 'User settings updated!' };
 };
+
+export async function deleteUser(id: string) {
+  const user = await getUserById(id);
+  const sessionUser = await currentUser();
+
+  if (!user) {
+    throw new Error('User not found');
+  }
+
+  if (user.email !== sessionUser?.email) {
+    throw new Error('Unauthorized');
+  }
+
+  const account = await getAccountByUserId(id);
+
+  try {
+  } catch (error) {}
+
+  if (account) {
+    await prisma.account.delete({ where: { id: account.id } });
+  }
+
+  await prisma.session.deleteMany({ where: { userId: id } });
+
+  await prisma.post.deleteMany({ where: { user: { email: user.email } } });
+
+  await prisma.comment.deleteMany({ where: { user: { id } } });
+
+  await prisma.user.delete({ where: { id } });
+
+  return { success: 'User deleted' };
+}
