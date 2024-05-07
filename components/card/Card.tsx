@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import styles from './card.module.css';
+import { getPostAuthor } from '@/actions/posts';
 
 type CardProps = {
   item: {
@@ -16,6 +17,7 @@ type CardProps = {
 };
 
 const Card = async ({ item }: CardProps) => {
+  const postAuthor = await getPostAuthor(item.userEmail);
   return (
     <div className={styles.container}>
       {item.img && (
@@ -38,8 +40,7 @@ const Card = async ({ item }: CardProps) => {
           <span className={styles.category}>{item.catSlug}</span>
         </div>
         <div className={styles.authorContainer}>
-          Author :{' '}
-          <span className={styles.author}>{item.userEmail.split('@')[0]}</span>
+          Author : <span className={styles.author}>{postAuthor}</span>
         </div>
         <Link href={`/posts/${item.slug}`}>
           <h1>{item.title}</h1>
