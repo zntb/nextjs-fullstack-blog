@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { getCategories, Category } from '@/data/requests';
+import { getCategories, Category } from '@/lib/requests';
 import Image from 'next/image';
 import styles from './categoryList.module.css';
 

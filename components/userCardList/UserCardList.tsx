@@ -1,4 +1,4 @@
-import { getUserPosts } from '@/data/requests';
+import { getUserPosts } from '@/lib/requests';
 import Pagination, { PaginationSkeleton } from '../pagination/Pagination';
 import UserPostCard, {
   UserPostCardSkeleton,

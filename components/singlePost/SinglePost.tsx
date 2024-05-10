@@ -46,23 +46,11 @@ export const SinglePost = () => {
       const response = await fetch(`${domain}/api/posts/${slug}`, {
         cache: 'no-store',
       });
-      if (!response) {
-        // throw new Error('Failed to fetch data (response is null)');
+      if (!response || response.status === 404) {
         notFound();
       }
-      if (!response.ok) {
-        throw new Error(`Failed to fetch data (${response.statusText})`);
-      }
-      // if (response.status === 404) {
-      //   notFound();
-      // }
+
       const data = await response.json();
-
-      // console.log(data.id);
-
-      // if (!data || data === null) {
-      //   throw new Error('Failed to fetch data (data is null)');
-      // }
 
       setPost(data);
     } catch (error) {
@@ -163,14 +151,6 @@ export const SinglePost = () => {
     </>
   );
 };
-
-export async function generateStaticParams() {
-  const response = await fetch(`${domain}/api/posts`);
-  const data = await response.json();
-  return data.map((post: PostData) => ({
-    slug: post.slug,
-  }));
-}
 
 export const SinglePostSkeleton = () => {
   return (

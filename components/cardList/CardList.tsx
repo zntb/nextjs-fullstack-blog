@@ -1,7 +1,7 @@
 import Pagination, { PaginationSkeleton } from '../pagination/Pagination';
 import Card, { CardSkeleton } from '../card/Card';
 import styles from './cardList.module.css';
-import { getAllPosts } from '@/data/requests';
+import { getAllPosts } from '@/lib/requests';
 
 type CardListProps = {
   page: number;

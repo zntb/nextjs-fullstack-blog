@@ -3,8 +3,8 @@
 import * as z from 'zod';
 import prisma from '@/utils/connect';
 import { UserSchema, UserPasswordSchema } from '@/schemas';
-import { getUserByEmail, getUserById } from '@/data/user';
-import { getAccountByUserId } from '@/data/account';
+import { getUserByEmail, getUserById } from '@/lib/user';
+import { getAccountByUserId } from '@/lib/account';
 import { currentUser } from '@/lib/auth';
 import { generateVerificationToken } from '@/lib/tokens';
 import { sendVerificationEmail } from '@/lib/mail';
