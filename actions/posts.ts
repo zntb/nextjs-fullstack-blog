@@ -2,10 +2,9 @@
 
 import { currentUser, currentUserEmail } from '@/lib/auth';
 import { slugify } from '@/lib/utils';
-import { CreatePostValues, PostSchema } from '@/schemas/post';
+import { PostSchema } from '@/schemas/post';
 import prisma from '@/utils/connect';
 import { revalidatePath } from 'next/cache';
-import { redirect } from 'next/navigation';
 
 export const getPostAuthor = async (email: string) => {
   try {
@@ -22,12 +21,10 @@ export const getPostAuthor = async (email: string) => {
   }
 };
 
-export const createPost = async (values: CreatePostValues) => {
-  const validateFields = PostSchema.safeParse(values);
-  if (!validateFields.success) {
-    return { error: 'Invalid fields' };
-  }
-  const { title, desc, img, catSlug } = validateFields.data;
+export const createPost = async (formData: FormData) => {
+  const values = Object.fromEntries(formData.entries());
+
+  const { title, desc, img, catSlug } = PostSchema.parse(values);
 
   const userEmail = await currentUserEmail();
 

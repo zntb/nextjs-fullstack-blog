@@ -40,6 +40,8 @@ export const CreatePost = () => {
     },
   });
 
+  const { handleSubmit } = form;
+
   const isQuillValid = (value: string) => {
     const cleanValue = value.replace(/<\/?[^>]+(>|$)/g, '');
     return cleanValue.trim().length >= 3;
@@ -102,22 +104,33 @@ export const CreatePost = () => {
     }
     setError('');
 
-    startTransition(() => {
-      const slug = slugify(values.title);
+    const slug = slugify(values.title);
+    const imgValue = values.img || media;
+    const formData = new FormData();
 
-      createPost({ ...values, img: media })
-        .then(() => {
-          toast.success('Post created successfully');
-          router.push(`/posts/${slug}`);
-        })
-        .catch((error) => {
-          setError(error.message);
-        });
+    Object.entries(values).forEach(([key, value]) => {
+      if (key === 'img') {
+        formData.append('img', imgValue);
+      } else {
+        if (value) {
+          formData.append(key, value);
+        }
+      }
     });
+    try {
+      await createPost(formData);
+      toast.success('Post created successfully');
+      router.push(`/posts/${slug}`);
+      startTransition(() => {
+        router.refresh();
+      });
+    } catch (error) {
+      console.error('Error creating post:', error);
+    }
   };
 
   return (
-    <form className={styles.container} onSubmit={form.handleSubmit(onSubmit)}>
+    <form className={styles.container} onSubmit={handleSubmit(onSubmit)}>
       <input
         type="text"
         placeholder="Title"
@@ -159,12 +172,6 @@ export const CreatePost = () => {
             </button>
           </div>
         )}
-        {/* <RichTextEditor
-            placeholder="Tell your story..."
-            ref={form.register('desc').ref}
-            // value={form.getValues('desc')}
-            // onChange={(value) => form.setValue('desc', value)}
-          /> */}
 
         <ReactQuill
           className={styles.textArea}
