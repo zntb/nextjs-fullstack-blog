@@ -2,7 +2,7 @@
 
 import * as z from 'zod';
 import prisma from '@/utils/connect';
-import { UserSchema, UserPasswordSchema } from '@/schemas';
+import { UserSchema, UserPasswordSchema } from '@/schemas/user';
 import { getUserByEmail, getUserById } from '@/lib/user';
 import { getAccountByUserId } from '@/lib/account';
 import { currentUser } from '@/lib/auth';

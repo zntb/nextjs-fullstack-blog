@@ -7,7 +7,7 @@ import { useTransition } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useSearchParams } from 'next/navigation';
-import { LoginSchema } from '@/schemas';
+import { LoginSchema } from '@/schemas/user';
 import { login } from '@/actions/login';
 import { FormError } from '../formError';
 import { FormSuccess } from '../formSuccess';

@@ -5,7 +5,7 @@ import { AuthError } from 'next-auth';
 import bcrypt from 'bcryptjs';
 
 import { signIn } from '@/auth';
-import { LoginSchema } from '@/schemas';
+import { LoginSchema } from '@/schemas/user';
 import { DEFAULT_LOGIN_REDIRECT } from '@/routes';
 import { getUserByEmail } from '@/lib/user';
 import { generateVerificationToken } from '@/lib/tokens';

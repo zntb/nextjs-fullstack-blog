@@ -1,0 +1,13 @@
+.editor {
+  border-radius: 3px;
+  border: 1px solid var(--borderColor);
+  color: var(--textColor);
+  background-color: var(--inputSoftBg);
+  padding: 0 0.2rem;
+  min-height: 10rem;
+  cursor: text;
+}
+
+.editor:focus {
+  outline: none;
+}

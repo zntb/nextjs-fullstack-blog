@@ -9,7 +9,7 @@
 }
 
 .title {
-  max-width: calc(100vw - 40rem);
+  max-width: 45rem;
   margin-top: 60px;
   font-size: 64px;
   margin-bottom: 50px;
@@ -75,9 +75,11 @@
 
 .description p {
   color: var(--textColor);
+  max-width: 55rem;
   font-size: 20px;
   font-weight: 300;
   margin-bottom: 20px;
+  overflow-wrap: break-word;
 }
 
 .deleteBtnContainer {
@@ -189,7 +191,7 @@
 }
 @media screen and (max-width: 1280px) {
   .title {
-    font-size: 48px;
+    min-width: 20rem;
   }
 }
 @media screen and (max-width: 1024px) {
@@ -200,17 +202,26 @@
     display: none;
   }
 }
+
+@media screen and (max-width: 768px) {
+  .title {
+    max-width: 25rem;
+    font-size: 2.5rem;
+  }
+
+  .description p {
+    max-width: 25rem;
+  }
+}
 @media screen and (max-width: 640px) {
   .title {
-    max-width: 100%;
-    width: 15rem;
+    max-width: 15rem;
     font-size: 2rem;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
+    overflow-wrap: break-word;
   }
 
   .description p {
     font-size: 18px;
+    max-width: 15rem;
   }
 }

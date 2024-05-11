@@ -16,3 +16,9 @@ export const currentUserName = async () => {
 
   return session?.user?.name;
 };
+
+export const currentUserEmail = async () => {
+  const session = await auth();
+
+  return session?.user?.email;
+};

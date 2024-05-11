@@ -13,7 +13,7 @@ import { ConfirmToast } from 'react-confirm-toast';
 import { useCurrentUser } from '@/hooks/use-current-user';
 import { FormSuccess } from '@/components/formSuccess';
 import { FormError } from '@/components/formError';
-import { UserSchema, UserPasswordSchema } from '@/schemas';
+import { UserSchema, UserPasswordSchema } from '@/schemas/user';
 import { userSettings, deleteUser } from '@/actions/user';
 import { Modal } from '@/components/userSettings/Modal';
 import profileDefault from '@/public/profile.png';

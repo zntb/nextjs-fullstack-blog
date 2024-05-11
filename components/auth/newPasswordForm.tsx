@@ -7,7 +7,7 @@ import { useTransition } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { NewPasswordSchema } from '@/schemas';
+import { NewPasswordSchema } from '@/schemas/user';
 
 import { newPassword } from '@/actions/new-password';
 

@@ -2,14 +2,9 @@
 
 import Image from 'next/image';
 import { toast } from 'react-toastify';
-import { useEffect, useState } from 'react';
-// import ReactQuill from 'react-quill';
-// import 'react-quill/dist/quill.bubble.css';
-import 'react-quill/dist/quill.snow.css';
+import { useEffect, useState, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
 import { app } from '@/utils/firebase';
-import dynamic from 'next/dynamic';
-
 import {
   getStorage,
   ref,
@@ -17,24 +12,38 @@ import {
   getDownloadURL,
 } from 'firebase/storage';
 import styles from './createPost.module.css';
-
+import RichTextEditor from '../richTextEditor/RichTextEditor';
+import { useForm } from 'react-hook-form';
+import { CreatePostValues, PostSchema, categoryTypes } from '@/schemas/post';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { createPost } from '@/actions/posts';
+import 'react-quill/dist/quill.snow.css';
+import dynamic from 'next/dynamic';
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
-
-const isQuillValid = (value: string) => {
-  const cleanValue = value.replace(/<\/?[^>]+(>|$)/g, '');
-  return cleanValue.trim().length >= 3;
-};
 
 export const CreatePost = () => {
   const [open, setOpen] = useState(false);
   const [file, setFile] = useState<File | null>(null);
   const [media, setMedia] = useState('');
-  const [value, setValue] = useState('');
-  const [title, setTitle] = useState('');
-  const [catSlug, setCatSlug] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | undefined>('');
+  const [isPending, startTransition] = useTransition();
 
   const router = useRouter();
+
+  const form = useForm<CreatePostValues>({
+    resolver: zodResolver(PostSchema),
+    defaultValues: {
+      title: '',
+      desc: '',
+      img: '',
+      catSlug: 'style',
+    },
+  });
+
+  const isQuillValid = (value: string) => {
+    const cleanValue = value.replace(/<\/?[^>]+(>|$)/g, '');
+    return cleanValue.trim().length >= 3;
+  };
 
   useEffect(() => {
     if (!file) return;
@@ -72,10 +81,6 @@ export const CreatePost = () => {
     file && upload();
   }, [file]);
 
-  if (loading) {
-    return <div className={styles.loading}>Loading...</div>;
-  }
-
   const slugify = (str: string) =>
     str
       .toLowerCase()
@@ -84,70 +89,62 @@ export const CreatePost = () => {
       .replace(/[\s_-]+/g, '-')
       .replace(/^-+|-+$/g, '');
 
-  const handleSubmit = async () => {
-    if (!title && !value) {
+  const onSubmit = async (values: CreatePostValues) => {
+    if (!values.title && !values.desc) {
       toast.error('Please enter a title and description');
       return;
     }
 
-    if (title.trim().length === 0) {
+    if (values.title.trim().length === 0) {
       toast.error('Please enter a title');
       return;
     }
 
-    if (title.trim().length < 3) {
+    if (values.title.trim().length < 3) {
       toast.error('Title must be at least 3 characters long');
       return;
     }
-    if (!isQuillValid(value)) {
+    if (!isQuillValid(values.desc)) {
       toast.error(
         'Description must be at least 3 characters long and not empty'
       );
       return;
     }
-    const res = await fetch('/api/posts', {
-      method: 'POST',
-      body: JSON.stringify({
-        title,
-        desc: value,
-        img: media,
-        slug: slugify(title),
-        catSlug: catSlug || 'style', //If not selected, choose the general category
-      }),
+
+    setError('');
+
+    console.log(values);
+
+    startTransition(() => {
+      createPost({ ...values, img: media })
+        .then(() => {
+          toast.success('Post created successfully');
+          router.push('/');
+        })
+        .catch((error) => {
+          setError(error.message);
+        });
     });
-
-    if (res.status === 200) {
-      const data = await res.json();
-
-      setLoading(false);
-      toast.success('Post created successfully!');
-      router.push(`/posts/${data.slug}`);
-    } else {
-      toast.error('Something went wrong!');
-    }
   };
 
   return (
-    <div className={styles.container}>
+    // <div>
+    <form className={styles.container} onSubmit={form.handleSubmit(onSubmit)}>
       <input
         type="text"
         placeholder="Title"
         className={styles.input}
-        onChange={(e) => setTitle(e.target.value)}
+        {...form.register('title')}
         maxLength={100}
         minLength={3}
         required
       />
-      <select
-        className={styles.select}
-        onChange={(e) => setCatSlug(e.target.value)}
-      >
-        <option value="style">style</option>
-        <option value="fashion">fashion</option>
-        <option value="food">food</option>
-        <option value="culture">culture</option>
-        <option value="travel">travel</option>
-        <option value="coding">coding</option>
+      <select className={styles.select} {...form.register('catSlug')}>
+        {categoryTypes.map((catType) => (
+          <option key={catType} value={catType}>
+            {catType === 'style' ? 'style' : catType}
+          </option>
+        ))}
       </select>
       <div className={styles.editor}>
         <button className={styles.button} onClick={() => setOpen(!open)}>
@@ -158,7 +155,8 @@ export const CreatePost = () => {
             <input
               type="file"
               id="image"
-              onChange={(e) => setFile(e.target.files?.[0] || null)}
+              {...form.register('img')}
+              onChange={(e) => setFile(e.target.files![0] || null)}
               style={{ display: 'none' }}
             />
             <button className={styles.addButton}>
@@ -174,17 +172,30 @@ export const CreatePost = () => {
             </button>
           </div>
         )}
+        {/* <RichTextEditor
+            placeholder="Tell your story..."
+            ref={form.register('desc').ref}
+            // value={form.getValues('desc')}
+            // onChange={(value) => form.setValue('desc', value)}
+          /> */}
+
         <ReactQuill
           className={styles.textArea}
-          theme="snow"
-          value={value}
-          onChange={setValue}
           placeholder="Tell your story..."
+          theme="snow"
+          value={form.getValues('desc')}
+          onChange={(value) => form.setValue('desc', value)}
         />
       </div>
-      <button className={styles.publish} onClick={handleSubmit}>
+      <button
+        className={styles.publish}
+        onClick={() => onSubmit(form.getValues())}
+      >
         Publish
       </button>
-    </div>
+
+      {error && <p className={styles.error}>{error}</p>}
+    </form>
+    // </div>
   );
 };

@@ -37,6 +37,15 @@
   margin-bottom: 0;
 }
 
+.title {
+  max-width: 20rem;
+  font-size: 24px;
+  font-weight: 500;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
 .authorContainer {
   margin-top: -20px;
   display: flex;
@@ -50,6 +59,10 @@
 }
 
 .desc {
+  max-width: 25rem;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
   font-size: 18px;
   font-weight: 300;
   color: var(--textColor);
@@ -160,5 +173,34 @@
 
   .skeletonContainer {
     min-width: 100%;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .skeletonContainer {
+    min-width: 100%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .title {
+    max-width: 20rem;
+    font-size: 2.5rem;
+  }
+
+  .desc {
+    max-width: 25rem;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .title {
+    max-width: 15rem;
+    font-size: 2rem;
+    overflow-wrap: break-word;
+  }
+
+  .desc {
+    max-width: 18rem;
   }
 }

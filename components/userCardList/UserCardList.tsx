@@ -13,7 +13,7 @@ type UserCardListProps = {
 export const UserCardList = async ({ page, userEmail }: UserCardListProps) => {
   const { posts, count } = await getUserPosts(page, userEmail || '');
 
-  const POST_PER_PAGE = 2;
+  const POST_PER_PAGE = 3;
 
   const hasPrev = POST_PER_PAGE * (page - 1) > 0;
   const hasNext = POST_PER_PAGE * (page - 1) + POST_PER_PAGE < count;
