@@ -7,6 +7,7 @@
 }
 
 .select {
+  margin-top: 5px;
   margin-bottom: 50px;
   padding: 10px 20px;
   margin-left: 50px;
@@ -48,8 +49,8 @@
   left: 50px;
 }
 
-.input {
-  padding: 50px;
+.title {
+  margin: 4rem 1rem 1.5rem 3rem;
   font-size: 64px;
   border: none;
   outline: none;
@@ -57,7 +58,7 @@
   color: var(--textColor);
 }
 
-.input::placeholder {
+.title::placeholder {
   color: #b3b3b1;
 }
 

@@ -1,9 +1,11 @@
 'use server';
 
 import { currentUser, currentUserEmail } from '@/lib/auth';
+import { slugify } from '@/lib/utils';
 import { CreatePostValues, PostSchema } from '@/schemas/post';
 import prisma from '@/utils/connect';
 import { revalidatePath } from 'next/cache';
+import { redirect } from 'next/navigation';
 
 export const getPostAuthor = async (email: string) => {
   try {
@@ -33,11 +35,7 @@ export const createPost = async (values: CreatePostValues) => {
     return { error: 'Not authenticated' };
   }
 
-  const slug = title
-    .toLowerCase()
-    .replace(/ /g, '-')
-    .replace(/[^\w-]+/g, '');
-
+  const slug = slugify(title);
   let image = '';
   if (img) {
     image = img;
@@ -56,5 +54,6 @@ export const createPost = async (values: CreatePostValues) => {
   });
 
   revalidatePath(`/posts/${post.slug}`);
-  return { success: 'Post created' };
+
+  return { success: 'Post created!' };
 };

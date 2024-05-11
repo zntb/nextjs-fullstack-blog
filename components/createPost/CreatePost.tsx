@@ -12,13 +12,13 @@ import {
   getDownloadURL,
 } from 'firebase/storage';
 import styles from './createPost.module.css';
-import RichTextEditor from '../richTextEditor/RichTextEditor';
 import { useForm } from 'react-hook-form';
 import { CreatePostValues, PostSchema, categoryTypes } from '@/schemas/post';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { createPost } from '@/actions/posts';
 import 'react-quill/dist/quill.snow.css';
 import dynamic from 'next/dynamic';
+import { slugify } from '@/lib/utils';
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 
 export const CreatePost = () => {
@@ -81,25 +81,15 @@ export const CreatePost = () => {
     file && upload();
   }, [file]);
 
-  const slugify = (str: string) =>
-    str
-      .toLowerCase()
-      .trim()
-      .replace(/[^\w\s-]/g, '')
-      .replace(/[\s_-]+/g, '-')
-      .replace(/^-+|-+$/g, '');
-
   const onSubmit = async (values: CreatePostValues) => {
     if (!values.title && !values.desc) {
       toast.error('Please enter a title and description');
       return;
     }
-
     if (values.title.trim().length === 0) {
       toast.error('Please enter a title');
       return;
     }
-
     if (values.title.trim().length < 3) {
       toast.error('Title must be at least 3 characters long');
       return;
@@ -110,16 +100,15 @@ export const CreatePost = () => {
       );
       return;
     }
-
     setError('');
 
-    console.log(values);
-
     startTransition(() => {
+      const slug = slugify(values.title);
+
       createPost({ ...values, img: media })
         .then(() => {
           toast.success('Post created successfully');
-          router.push('/');
+          router.push(`/posts/${slug}`);
         })
         .catch((error) => {
           setError(error.message);
@@ -128,16 +117,14 @@ export const CreatePost = () => {
   };
 
   return (
-    // <div>
     <form className={styles.container} onSubmit={form.handleSubmit(onSubmit)}>
       <input
         type="text"
         placeholder="Title"
-        className={styles.input}
+        className={styles.title}
         {...form.register('title')}
-        maxLength={100}
         minLength={3}
-        required
+        maxLength={100}
       />
       <select className={styles.select} {...form.register('catSlug')}>
         {categoryTypes.map((catType) => (
@@ -190,12 +177,12 @@ export const CreatePost = () => {
       <button
         className={styles.publish}
         onClick={() => onSubmit(form.getValues())}
+        disabled={isPending}
       >
         Publish
       </button>
 
       {error && <p className={styles.error}>{error}</p>}
     </form>
-    // </div>
   );
 };
